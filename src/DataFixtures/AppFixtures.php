@@ -32,6 +32,7 @@ class AppFixtures extends Fixture
             $hash = $this->encoder->encodePassword($user, 'password');
             $introduction = $faker->sentence;
             $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
+            $roles = ['ROLE_USER'];
 
             $picture = 'https://randomuser.me/api/portraits/';
             $pictureId = '/' . mt_rand(0, 99) . '.jpg';
@@ -44,7 +45,8 @@ class AppFixtures extends Fixture
                 ->setHash($hash)
                 ->setIntroduction($introduction)
                 ->setDescription($description)
-                ->setPicture($picture);
+                ->setPicture($picture)
+                ->setRoles($roles);
 
             $manager->persist($user);
         }

@@ -4,16 +4,18 @@ namespace App\Controller;
 
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
     /**
      * Permet de gérer le profile utilisateur
      * @Route("/user/profile", name="user_profile")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function profile(Request $request, ObjectManager $manager)
@@ -39,6 +41,7 @@ class UserController extends AbstractController
     /**
      * Permet d'accéder à la page de l'utilisateur avec le slug
      * @Route("/account", name="account_show")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function show()

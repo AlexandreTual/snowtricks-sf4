@@ -83,6 +83,11 @@ class User implements UserInterface
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
 
     /**
      * Permet d'initialiser le slug
@@ -218,7 +223,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     /**
@@ -265,5 +270,12 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
     }
 }

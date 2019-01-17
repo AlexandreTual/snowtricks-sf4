@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
@@ -54,7 +55,9 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $hash = $encoder->encodePassword($user, $user->getHash());
+            $roles = ['ROLE_USER'];
             $user->setHash($hash);
+            $user->setRoles($roles);
             $manager->persist($user);
             $manager->flush();
 
@@ -73,6 +76,7 @@ class SecurityController extends AbstractController
     /**
      * Permet de gérer le mot de passe utilisateur
      * @Route("/user/password-update", name="security_password_update")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $userPasswordEncoder)
