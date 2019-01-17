@@ -2,24 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Form\LoginType;
-use App\Form\PasswordUpdateType;
 use App\Form\ProfileType;
-use App\Form\RegistrationType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
 {
-
-
     /**
      * Permet de gérer le profile utilisateur
      * @Route("/user/profile", name="user_profile")
