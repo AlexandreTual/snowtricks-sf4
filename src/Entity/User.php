@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("email", message="Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.")
  */
@@ -35,7 +35,6 @@ class User implements UserInterface
      */
     private $lastName;
 
-    private $fullName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -87,6 +86,14 @@ class User implements UserInterface
      * @ORM\Column(type="array")
      */
     private $roles = [];
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->roles = ['ROLE_USER'];
+    }
 
 
     /**

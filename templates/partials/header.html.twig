@@ -18,17 +18,17 @@
                     </a>
 
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-                    <a href="{{ path('account_show') }}" class="dropdown-item">Profil</a>
+                    <a href="{{ path('app_user_show') }}" class="dropdown-item">Profil</a>
                     <div class="dropdown-divider"></div>
-                    <a href="{{ path('security_logout') }}" class="dropdown-item">Deconnexion</a>
+                    <a href="{{ path('app_security_logout') }}" class="dropdown-item">Deconnexion</a>
                 </div>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a href="{{ path('security_register') }}" class="nav-link">Inscription</a>
+                    <a href="{{ path('app_security_registration') }}" class="nav-link">Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('security_login') }}" class="nav-link">Connexion</a>
+                    <a href="{{ path('app_security_login') }}" class="nav-link">Connexion</a>
                 </li>
             {% endif %}
         </ul>

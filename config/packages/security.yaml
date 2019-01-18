@@ -19,15 +19,12 @@ security:
 
             provider: in_database
             form_login:
-                login_path: security_login
-                check_path: security_login
+                login_path: app_security_login
+                check_path: app_security_login
 
             logout:
-                path: security_logout
-                target: security_login
-            guard:
-                authenticators:
-                    - App\Security\AppAuthenticator
+                path: app_security_logout
+                target: app_security_login
 
 
 
