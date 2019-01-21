@@ -10,6 +10,7 @@
                 <div class="bg-light py-3 px-3">
                     <h1>Connectez vous !</h1>
                     {{ form_start(form) }}
+                    {% if error %}<div class="text-center alert alert-danger margin-bottom-25">{{ error.message|trans }}</div>{% endif %}
                     {{ form_widget(form) }}
                     <button type="submit" class="btn btn-primary">Connexion</button>
                     {{ form_end(form) }}
