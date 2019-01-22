@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use Cocur\Slugify\Slugify;
+use App\Core\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -95,17 +95,13 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
     }
 
-
     /**
      * Permet d'initialiser le slug
      * @ORM\PrePersist
      */
     public function initialiseSlug()
     {
-        $slugify = new Slugify();
-        if (empty($this->slug)) {
-            $this->slug = $slugify->slugify($this->firstName . ' ' . $this->lastName);
-        }
+        $this->slug = Utils::slugMaker($this->firstName, $this->lastName);
     }
 
     public function getId(): ?int

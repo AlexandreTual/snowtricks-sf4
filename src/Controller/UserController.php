@@ -32,13 +32,14 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_user_show');
         }
+
         return ['form' => $form->createView()];
     }
 
     /**
      * @Route("/account")
-     * @Template()
      * @IsGranted("ROLE_USER")
+     * @Template()
      */
     public function show()
     {

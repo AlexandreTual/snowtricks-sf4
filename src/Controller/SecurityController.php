@@ -27,7 +27,6 @@ class SecurityController extends AbstractController
         $form = $this->createForm(LoginType::class, [$lastUsername]);
         $error = $authenticationUtils->getLastAuthenticationError();
 
-
         return ['form' => $form->createView(), 'error' => $error];
     }
 
@@ -37,6 +36,37 @@ class SecurityController extends AbstractController
     public function logout()
     {
 
+    }
+
+    /**
+     * @Route("/user/password-update")
+     * @IsGranted("ROLE_USER")
+     * @Template()
+     */
+    public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $form = $this->createForm(PasswordUpdateType::class);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
+                $this->addFlash(
+                    'danger',
+                    "Vous n'avez pas correctement confirmé votre mot de passe actuel.");
+
+                return $this->redirectToRoute('app_security_updatepassword');
+            }
+            $hash = $userPasswordEncoder->encodePassword($user, $form->get('password')->getData());
+            $user->setHash($hash);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                "Votre nouveau mot de passe à bien été enregistré !");
+
+            return $this->redirectToRoute('app_user_show');
+        }
+        return ['form' => $form->createView()];
     }
 
     /**
@@ -61,38 +91,6 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_security_login');
         }
 
-        return ['form' => $form->createView()];
-    }
-
-    /**
-     * @Route("/user/password-update")
-     * @Template()
-     * @IsGranted("ROLE_USER")
-     */
-    public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $userPasswordEncoder)
-    {
-        $form = $this->createForm(PasswordUpdateType::class);
-        $form->handleRequest($request);
-        $user = $this->getUser();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
-                $this->addFlash(
-                    'danger',
-                    "Vous n'avez pas correctement confirmé votre mot de passe actuel.");
-
-                return $this->redirectToRoute('app_security_update_password');
-            } else {
-                $hash = $userPasswordEncoder->encodePassword($user,$form->get('password')->getData());
-                $user->setHash($hash);
-                $manager->flush();
-                $this->addFlash(
-                    'success',
-                    "Votre nouveau mot de passe à bien été enregistré !");
-
-                return $this->redirectToRoute('app_user_show');
-            }
-        }
         return ['form' => $form->createView()];
     }
 }

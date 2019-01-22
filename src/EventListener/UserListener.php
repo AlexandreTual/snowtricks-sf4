@@ -23,5 +23,4 @@ class UserListener
             $entity->setHash($this->encoder->encodePassword($entity ,$entity->getHash()));
         }
     }
-
 }
