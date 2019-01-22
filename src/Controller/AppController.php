@@ -3,17 +3,16 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class AppController extends AbstractController
 {
     /**
      * @Route("/")
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $this->render('/home/home.html.twig');
+        return $this->render('app/index.html.twig', [
+        ]);
     }
-
 }
