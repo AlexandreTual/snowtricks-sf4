@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des figures{% endblock %}
+
+{% block body %}
+  <h1>Liste des figures de snowboard</h1>
+  <div class="row">
+    {% for trick in tricks %}
+      <div class="col-md-4 mt-4">
+        <div class="card">
+          <img class="card-img-top" src="{{ trick.coverImage }}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ trick.name }}</h5>
+            <div class="card-text">
+              {{ trick.introduction }}
+            </div>
+            <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}" class="btn btn-primary">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

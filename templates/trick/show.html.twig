@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trick : {{ trick.name }}{% endblock %}
+
+{% block body %}
+    <div class="trick-title" style="background-image: url({{ trick.coverImage }})">
+        <div class="container">
+            <h1 class="trick-title">{{ trick.name }}</h1>
+            <h4 class="trick-title">{{ trick.introduction }}</h4>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            {% for media in trick.media %}
+                <div class="col-md-4">
+                    <div class="card">
+                        {% if media.type == 'image' %}
+                            <img src="{{ media.link }}" alt="{{ media.caption }}" width="400" height="200">
+                        {% else %}
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="{{ media.link }}" allowfullscreen></iframe>
+                            </div>
+                           {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <p class="text-center">{{ trick.description }}</p>
+
+    </div>
+{% endblock %}
