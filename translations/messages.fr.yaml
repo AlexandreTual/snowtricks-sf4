@@ -1,1 +1,44 @@
 Bad credentials.: Identifiants incorrect
+info: Info
+
+form:
+  trick:
+    title: Formulaire d'ajout de Trick
+    name:
+      label: Nom de la figure
+      placeholder: Le nom de la figure que vous souhaitez partager...
+    introduction:
+      label: Introduction
+      placeholder: Une phrase d'accroche pour donner envie d'en lire plus..
+    description:
+      label: Description
+      placeholder: Parlez de votre figure de façon plus approfondi...
+    coverImage:
+      label: L'Url de l'image de présentation
+      placeholder: Proposez une image qui en jette..
+    media:
+      label: Média
+      caption: Ici, vous pouvez ajouter un média !
+
+  media:
+    link:
+      label: Url de votre image ou de votre vidéo
+      placeholder: Url de votre image ou de votre vidéo
+    caption:
+      label: Légende du média
+      placeholder: Donner une légende à votre media
+    type:
+      label: Type de média
+      choices:
+        image: image
+        video: vidéo
+    modal:
+      title: Comment récupérer l'Url d'une vidéo ?
+      subtitle: YOUTUBE ou DAILYMOTION
+      message: Faîtes un copier/coller de l'URL situé dans la barre d'adresse de la vidéo, ou faîtes un clic droit sur la vidéo puis copier le lien. Pour les playlists c'est le même principe.
+
+flash:
+  trick:
+    add:
+      success: Le trick que vous avez posté à bien été enregistré !
+
