@@ -36,6 +36,7 @@ class TrickType extends AbstractType
             ])
             ->add('coverImage', UrlType::class, [
                 'label' => 'form.trick.coverImage.label',
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'form.trick.coverImage.placeholder',
                 ]
@@ -46,7 +47,7 @@ class TrickType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'by_reference' => false
+                'by_reference' => false,
             ])
         ;
     }

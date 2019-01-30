@@ -52,13 +52,14 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Assert\Url(message = "url.notValid")
      */
     private $coverImage;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade="all", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $Media;
 
@@ -133,10 +134,10 @@ class Trick
         return $this->coverImage;
     }
 
-    public function setCoverImage(?string $coverImage): self
+    public function setCoverImage(string $coverImage): self
     {
         $this->coverImage = $coverImage;
-
+        
         return $this;
     }
 

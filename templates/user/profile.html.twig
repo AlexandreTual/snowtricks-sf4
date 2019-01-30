@@ -1,34 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-    Profil
-    {% if elision(user.fullname) %}
-        d'{{ user.fullname }}
-    {% else %}
-        de {{ user.fullname }}
-    {% endif %}
-{% endblock %}
+{% block title %}Edition du profile{% endblock %}
 
 {% block body %}
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-3 text-center">
-                <img src="{{ user.picture }}" class="avatar mb-3" alt="Avatar de {{ user.fullName }}">
-            </div>
-            <div class="col-9">
-                <h1>{{ user.fullname|capitalize }}</h1>
-                {% if user is same as (app.user) %}
-                    <div class="mt-3">
-                        <a href="{{ path('app_user_edit') }}" class="btn btn-primary mr-2 mb-2">Modifier mes informations</a>
-                        <a href="{{ path('app_security_updatepassword') }}" class="btn btn-primary mr-2 mb-2">Modifier mon mot de passe</a>
-                    </div>
-                {% endif %}
-                {{ user.introduction }}
-            </div>
-            <hr width="75%">
-            <div class="col-12">
-                {{ user.description }}
-            </div>
-        </div>
+        <h1>Edition du profile de {{ app.user.fullname }}</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success mb-5">Enregistrer les modifications</button>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

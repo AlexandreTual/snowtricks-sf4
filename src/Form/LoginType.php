@@ -45,8 +45,7 @@ class LoginType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Votre mot de passe...',
                 ]
-            ])
-        ;
+            ]);
     }
 
     /**

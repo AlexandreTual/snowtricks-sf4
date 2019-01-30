@@ -1,12 +1,5 @@
-trick:
-  uniqueEntity:  Une figure porte déjà ce nom, veuillez en choisir un autre !
-  length:
-    introduction:
-      tooShort: L'introduction doit contenir au moins 20 caractères.
-    description:
-      tooShort: La description de la figure doit faire plus de 100 caractères.
-
-url:
-  notValid: Cette Url n'est pas valide
-
-
+media.length.caption.tooShort: La légende doit contenir au moins 10 caractères
+trick.length.description.tooShort: La description de la figure doit faire plus de 100 caractères.
+trick.length.introduction.tooShort: L'introduction doit contenir au moins 20 caractères.
+trick.uniqueEntity:  Une figure porte déjà ce nom, veuillez en choisir un autre !
+url.notValid: Cette Url n'est pas valide
