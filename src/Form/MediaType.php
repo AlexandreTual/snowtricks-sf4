@@ -33,8 +33,7 @@ class MediaType extends AbstractType
                     'form.media.type.choices.image' => 'image',
                     'form.media.type.choices.video' => 'video'
                 ]
-            ] )
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

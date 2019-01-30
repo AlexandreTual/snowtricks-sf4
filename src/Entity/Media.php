@@ -19,13 +19,16 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url(message="url.not.valid")
+     * @Assert\Regex(
+     *      pattern = "#^(https://)((w{3}\.youtube\.com/watch\?v=)|(youtu(.be/)))[a-zA-Z0-9]+$#",
+     *      message = "Cette url n'est pas valide veuillez cliquer sur Info pour plus d'information !"
+     * )
      */
     private $link;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\Length(min=10, minMessage="media.length.caption.tooShort")
      */
     private $caption;
 
@@ -54,7 +57,36 @@ class Media
 
     public function setLink(string $link): self
     {
-        $this->link = $link;
+        $patternYoutube1 = '#https://www\.youtube\.com/watch\?v=#';
+        $replacementYoutube = 'https://www.youtube.com/embed/';
+        $this->link = preg_replace($patternYoutube1, $replacementYoutube, $link) ;
+        if ('image' == $this->type ) {
+            $this->link = $link;
+        }
+        if ('video' == $this->type) {
+            $patternYoutube1 = '#https://www\.youtube\.com/watch\?v=#';
+            $patternYoutube2 = '#https://youtu\.be/#';
+            $patternYoutube3 = '#https://www\.youtube\.com/embed/#';
+            $replacementYoutube = 'https://www.youtube.com/embed/';
+            $patternDayli1 = '#https://dai\.ly/#';
+            $patternDayli2 ='#https://www\.dailymotion\.com/video/#';
+            $patternDayli3 ='#https://www.dailymotion.com/embed/video/#';
+            $replacementDayli = 'https://www.dailymotion.com/embed/video/';
+    
+            if (preg_match($patternYoutube3, $link)) {
+                $this->link = $link;
+            } elseif (preg_match($patternDayli3, $link)){
+                $this->link = $link;
+            } elseif (preg_match($patternYoutube1, $link)) {
+                $this->link = preg_replace($patternYoutube1, $replacementYoutube, $link);
+            } elseif (preg_match($patternYoutube2, $link)) {
+                $this->link = preg_replace($patternYoutube2, $replacementYoutube, $link);
+            } elseif (preg_match($patternDayli1, $link)) {
+                $this->link = preg_replace($patternDayli1, $replacementDayli, $link);
+            } elseif (preg_match($patternDayli2, $link)) {
+                $this->link = preg_replace($patternDayli2, $replacementDayli, $link);
+            }
+        }
 
         return $this;
     }
