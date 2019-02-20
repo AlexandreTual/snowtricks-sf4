@@ -64,7 +64,7 @@ class SecurityController extends AbstractController
                 'success',
                 "Votre nouveau mot de passe à bien été enregistré !");
 
-            return $this->redirectToRoute('app_user_show');
+            return $this->redirectToRoute('app_user_profile');
         }
         return ['form' => $form->createView()];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -13,11 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/profile")
+     * @Route("/user/edit")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
-    public function profile(Request $request, ObjectManager $manager)
+    public function edit(Request $request, ObjectManager $manager)
     {
         $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
@@ -30,20 +31,21 @@ class UserController extends AbstractController
                 'success',
                 'Votre compte a bien été mis à jour !');
 
-            return $this->redirectToRoute('app_user_show');
+            return $this->redirectToRoute('app_user_profile');
         }
 
         return ['form' => $form->createView()];
     }
 
     /**
-     * @Route("/account")
+     * @Route("/user/profile")
+     * @Route("/user/profile/{slug}")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
-    public function show()
+    public function profile(?User $user)
     {
-        return ['user' => $this->getUser()];
+        return ['user' => $user = ($user ? $user : $this->getUser())];
     }
 
 
