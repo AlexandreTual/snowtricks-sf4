@@ -37,13 +37,12 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/user/profile")
      * @Route("/user/profile/{slug}")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
-    public function profile(?User $user)
+    public function profile(User $user)
     {
-        return ['user' => $user = ($user ? $user : $this->getUser())];
+        return ['user' => $user];
     }
 }

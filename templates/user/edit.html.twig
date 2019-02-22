@@ -3,11 +3,13 @@
 {% block title %}Edition du profile{% endblock %}
 
 {% block body %}
-    <h1>Edition du profile de</h1>
+    <div class="container">
+        <h1 class="text-center">Edition de votre profile</h1>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+        {{ form_end(form) }}
+    </div>
 
 {% endblock %}

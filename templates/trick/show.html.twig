@@ -3,28 +3,60 @@
 {% block title %}Trick : {{ trick.name }}{% endblock %}
 
 {% block body %}
-    <div class="trick-title" style="background-image: url({{ trick.coverImage }})">
-        <div class="container">
-            <h1 class="trick-title">{{ trick.name }}</h1>
-            <h4 class="trick-title">{{ trick.introduction }}</h4>
-        </div>
-    </div>
+    {# <div class="trick-title" style="background-image: url({{ trick.coverImage }})"> #}
+    <h1 class="trick-title">{{ trick.name }}</h1>
+    {# <h4 class="trick-title">{{ trick.introduction }}</h4> #}
     <div class="container">
-        <div class="row">
-            {% for media in trick.media %}
-                <div class="col-md-4">
-                    <div class="card">
-                        {% if media.type == 'image' %}
-                            <img src="{{ media.link }}" alt="{{ media.caption }}" width="400" height="200">
-                        {% else %}
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="{{ media.link }}" allowfullscreen></iframe>
-                            </div>
-                           {% endif %}
-                    </div>
+        {% if trick.images %}
+            {% for images in trick.images %}
+                <img src="{{ images }}" alt="{{ images }}" width="400" height="200">
+            {% endfor %}
+        {% endif %}
+        {% if trick.videos %}
+            {% for videos in trick.videos %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    {{videos}}
                 </div>
             {% endfor %}
-        </div>
+        {% endif %}
+
         <p class="text-center">{{ trick.description }}</p>
+        <div>
+            {% if app.user %}
+                {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug})})}}
+                {{form_row(form.content, {'label': 'form.comment.add.content.label'})}}
+                {{form_end(form)}}
+            {% endif %}
+        </div>
+        <div id="comments">
+        </div>
+        <div>
+            <button id="more_com" type="button" class="btn btn-success mb-4">{{ 'word.more.comment'|trans }}</button>
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            function getComments() {
+                const nbComments = $('#comments div.card').length;
+                const url = "{{ path('app_comment_getcomments', {'trick_slug': trick.slug, 'offset': 'nb_comments' }) }}";
+                const urlFormat = url.replace('nb_comments', nbComments);
+                $.ajax({
+                    url: urlFormat,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#comments').append(response);
+                    }
+                });
+            }
+
+            getComments();
+
+            $('#more_com').click(function () {
+                getComments();
+            });
+        });
+    </script>
 {% endblock %}

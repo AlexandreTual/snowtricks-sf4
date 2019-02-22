@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Core\Utils;
-use App\Entity\Media;
 use App\Entity\Trick;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,37 +23,13 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        $types  = ['image', 'video'];
-
         for ($h = 0; $h <= 20; $h++) {
             $trick = new Trick();
-
             $name = $faker->name;
             $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
-            $coverImage = $faker->imageUrl(1000, 400);
-            $introduction = $faker->sentence;
-
             $trick->setName($name)
                 ->setSlug(Utils::slugMaker($name))
-                ->setDescription($description)
-                ->setCoverImage($coverImage)
-                ->setIntroduction($introduction);
-
-            $media = [];
-            for ($j = 0; $j <= mt_rand(2,10); $j++) {
-                $media = new Media();
-                $type = $faker->randomElement($types);
-                $image = $faker->imageUrl(450, 450);
-                $video = 'https://www.youtube.com/embed/Zc8Gu8FwZkQ';
-                $link = ($type == 'image' ? $image : $video);
-                $caption = $faker->sentence;
-                $media->setLink($link)
-                    ->setCaption($caption)
-                    ->setType($type);
-                $trick->addMedium($media);
-
-                $manager->persist($media);
-            }
+                ->setDescription($description);
 
             $manager->persist($trick);
         }
@@ -71,7 +46,6 @@ class AppFixtures extends Fixture
             $introduction = $faker->sentence;
             $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
             $roles = ['ROLE_USER'];
-
             $picture = 'https://randomuser.me/api/portraits/';
             $pictureId = '/' . mt_rand(0, 99) . '.jpg';
             $genre = $faker->randomElements($genres);

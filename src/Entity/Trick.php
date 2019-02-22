@@ -36,14 +36,6 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *     min= 20,
-     *     minMessage="trick.length.introduction.tooShort")
-     */
-    private $introduction;
-
-    /**
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min= 30,
@@ -52,20 +44,29 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Url(message = "url.notValid")
+     * @ORM\Column(type="json", nullable=true)
      */
-    private $coverImage;
+    private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="trick", cascade="all", orphanRemoval=true)
-     * @Assert\Valid()
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
      */
-    private $Media;
+    private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Timestampable", cascade={"persist", "remove"})
+     */
+    private $date;
 
     public function __construct()
     {
-        $this->Media = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -105,18 +106,6 @@ class Trick
         return $this;
     }
 
-    public function getIntroduction(): ?string
-    {
-        return $this->introduction;
-    }
-
-    public function setIntroduction(string $introduction): self
-    {
-        $this->introduction = $introduction;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -129,47 +118,89 @@ class Trick
         return $this;
     }
 
-    public function getCoverImage(): ?string
+    public function getVideos(): ?array
     {
-        return $this->coverImage;
+        return $this->videos;
     }
 
-    public function setCoverImage(string $coverImage): self
+    public function setVideos($videos): self
     {
-        $this->coverImage = $coverImage;
-        
+        $this->videos = $videos;
+
         return $this;
     }
 
     /**
-     * @return Collection|Media[]
+     * @return Collection|Image[]
      */
-    public function getMedia(): Collection
+    public function getImages(): Collection
     {
-        return $this->Media;
+        return $this->images;
     }
 
-    public function addMedium(Media $medium): self
+    public function addImage(Image $image): self
     {
-        if (!$this->Media->contains($medium)) {
-            $this->Media[] = $medium;
-            $medium->setTrick($this);
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeMedium(Media $medium): self
+    public function removeImage(Image $image): self
     {
-        if ($this->Media->contains($medium)) {
-            $this->Media->removeElement($medium);
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
             // set the owning side to null (unless already changed)
-            if ($medium->getTrick() === $this) {
-                $medium->setTrick(null);
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
             }
         }
 
         return $this;
     }
 
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDate(): ?Timestampable
+    {
+        return $this->date;
+    }
+
+    public function setDate(?Timestampable $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
 }

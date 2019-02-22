@@ -1,35 +1,14 @@
-{% block _trick_media_widget %}
-    {{ 'form.trick.media.caption'|trans }}
-    <!-- Button trigger modal -->
-    <a type="button" class="badge badge-info" data-toggle="modal" data-target="#infoUrlModal">{{ 'word.info'|trans }}</a>
-
-    <!-- Modal -->
-    <div class="modal fade" id="infoUrlModal" tabindex="-1" role="dialog" aria-labelledby="infoUrlModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="infoUrlModalLabel">{{ 'form.media.modal.title'|trans }}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h6>{{ 'form.media.modal.subtitle'|trans }}</h6>
-                    {{ 'form.media.modal.message'|trans }}
-                </div>
-            </div>
-        </div>
-    </div>
+{% block _trick_images_widget %}
     {{ form_widget(form) }}
     {{ form_errors(form) }}
-    <button type="button" id="add-media" class="btn btn-primary">{{ 'form.media.button.add'|trans }}<button>
+    <button type="button" id="add-image" class="btn btn-primary">{{ 'form.image.button.add'|trans }}</button>
 {% endblock %}
 
-{% block _trick_media_entry_row %}
+{% block _trick_images_entry_row %}
     {{ form_widget(form) }}
 {% endblock %}
 
-{% block _trick_media_entry_widget %}
+{% block _trick_images_entry_widget %}
     <div class="form-group mt-3">
         <div class="row">
             <div class="col-10">
@@ -39,14 +18,36 @@
                     {{ form_errors(form.link) }}
                     </div>
                     <div class="col">
-                    {{ form_widget(form.type) }}
-                    {{ form_errors(form.type) }}
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col">
                     {{ form_widget(form.caption) }}
                     {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-flex align-self-center">
+                <button type="button" class="btn btn-danger delete-button">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _trick_videos_widget %}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    <button type="button" id="add-video" class="btn btn-primary">{{ 'form.video.button.add'|trans }}</button>
+{% endblock %}
+
+{% block _trick_videos_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+    <div class="form-group mt-3">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                    {{ form_widget(form.video) }}
+                    {{ form_errors(form.video) }}
                     </div>
                 </div>
             </div>
