@@ -26,7 +26,6 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->flush();
-
             $this->addFlash(
                 'success',
                 'Votre compte a bien été mis à jour !');
@@ -47,6 +46,4 @@ class UserController extends AbstractController
     {
         return ['user' => $user = ($user ? $user : $this->getUser())];
     }
-
-
 }

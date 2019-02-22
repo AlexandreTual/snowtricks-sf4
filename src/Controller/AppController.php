@@ -12,7 +12,6 @@ class AppController extends AbstractController
      */
     public function index()
     {
-        return $this->render('app/index.html.twig', [
-        ]);
+        return $this->render('app/index.html.twig');
     }
 }

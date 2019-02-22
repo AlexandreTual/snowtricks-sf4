@@ -37,11 +37,15 @@ class LoginType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Votre adresse email...',
                     'value' => $this->lastUsername,
-                    'autofocus' => true]
-                ])
+                    'autofocus' => true,
+                ]
+            ])
             ->add('_password', PasswordType::class, [
                 'label' => 'Mot de passe',
-                'attr' => ['placeholder' => 'Votre mot de passe...',  ]])
+                'attr' => [
+                    'placeholder' => 'Votre mot de passe...',
+                ]
+            ])
         ;
     }
 

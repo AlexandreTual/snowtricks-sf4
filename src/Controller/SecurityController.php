@@ -35,7 +35,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-
     }
 
     /**
@@ -66,6 +65,7 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('app_user_profile');
         }
+
         return ['form' => $form->createView()];
     }
 
