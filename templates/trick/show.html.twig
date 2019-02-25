@@ -3,24 +3,28 @@
 {% block title %}Trick : {{ trick.name }}{% endblock %}
 
 {% block body %}
-    {# <div class="trick-title" style="background-image: url({{ trick.coverImage }})"> #}
-    <h1 class="trick-title">{{ trick.name }}</h1>
-    {# <h4 class="trick-title">{{ trick.introduction }}</h4> #}
+{% for images in trick.images|slice(1) %}
+    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ images.link) }})">
+    {% else %}
+    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ '0ca24ae0541ec73dee995b922c144fd3.jpeg') }})">
+{% endfor %}
+    <h1 class="trick-title text-center">{{ trick.name }}</h1>
+
     <div class="container">
+        <p class="text-center mb-3" style="padding-top: 300px">{{ trick.description }}</p>
         {% if trick.images %}
             {% for images in trick.images %}
-                <img src="{{ images }}" alt="{{ images }}" width="400" height="200">
+                <img src="{{ asset('uploads/images/' ~ images.link) }}" alt="{{ images.caption }}" width="400" height="200">
             {% endfor %}
         {% endif %}
         {% if trick.videos %}
             {% for videos in trick.videos %}
-                <div class="embed-responsive embed-responsive-16by9">
-                    {{videos}}
-                </div>
+                {% for video in videos %}
+                    {{ video|raw }}
+                    {% endfor %}
             {% endfor %}
         {% endif %}
 
-        <p class="text-center">{{ trick.description }}</p>
         <div>
             {% if app.user %}
                 {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug})})}}

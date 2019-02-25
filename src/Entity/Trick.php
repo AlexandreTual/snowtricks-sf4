@@ -44,12 +44,12 @@ class Trick
     private $description;
 
     /**
-     * @ORM\Column(type="json", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $videos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 

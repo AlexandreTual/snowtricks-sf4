@@ -1,6 +1,7 @@
 div.trick-title {
     padding: 2em;
     background-size: cover;
+    height: 300px;
 }
 
 div.trick-title h1, div.trick-title h4{
