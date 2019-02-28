@@ -3,28 +3,47 @@
 {% block title %}Trick : {{ trick.name }}{% endblock %}
 
 {% block body %}
-{% for images in trick.images|slice(1) %}
-    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ images.link) }})">
-    {% else %}
-    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ '0ca24ae0541ec73dee995b922c144fd3.jpeg') }})">
-{% endfor %}
-    <h1 class="trick-title text-center">{{ trick.name }}</h1>
 
+{% if trick.images %}
+    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ trick.images[0].link) }})">
+    {% else %}
+    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ 'montagnes.jpeg') }})">
+{% endif %}
+    <h1 class="trick-title text-center">{{ trick.name }}</h1>
+{% if app.user == trick.user %}
+    <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+        <i class="far fa-trash-alt" title="{{ 'link.title.trick.delete'|trans }}"></i>
+    </a>
+    <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
+        <i class="far fa-edit" title="{{ 'link.title.trick.edit'|trans }}"></i>
+    </a>
+    <a href="{{ path('app_trick_editmedia', {'slug': trick.slug}) }}" >
+        <i class="far fa-images" title="{{ 'link.title.media.add'|trans }}"></i>
+    </a>
+
+{% endif %}
     <div class="container">
         <p class="text-center mb-3" style="padding-top: 300px">{{ trick.description }}</p>
         {% if trick.images %}
-            {% for images in trick.images %}
-                <img src="{{ asset('uploads/images/' ~ images.link) }}" alt="{{ images.caption }}" width="400" height="200">
+            {% for image in trick.images %}
+                <img src="{{ asset('/uploads/images/' ~ image.link) }}" alt="{{ image.caption }}" width="400" height="200">
+                {% if app.user == trick.user %}
+                    <a href="{{ path('app_trick_removeimage', {'trick_slug': trick.slug, 'image_id': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                    <i class="far fa-trash-alt" title="{{ 'link.title.image.delete'|trans }}"></i>
+                </a>
+                {% endif %}
             {% endfor %}
         {% endif %}
         {% if trick.videos %}
-            {% for videos in trick.videos %}
-                {% for video in videos %}
-                    {{ video|raw }}
-                    {% endfor %}
-            {% endfor %}
+        {% for video in trick.videos %}
+            {{ video.tag|raw }}
+            {% if app.user == trick.user %}
+                    <a href="{{ path('app_trick_removevideo', {'trick_slug': trick.slug, 'video_id': video.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                    <i class="far fa-trash-alt" title="{{ 'link.title.video.delete'|trans }}"></i>
+                </a>
+                {% endif %}
+        {% endfor %}
         {% endif %}
-
         <div>
             {% if app.user %}
                 {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug})})}}

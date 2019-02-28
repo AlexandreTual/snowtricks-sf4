@@ -77,8 +77,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url(
-     *     message = "Cette Url n'est pas valide")
      */
     private $picture;
 
@@ -93,12 +91,18 @@ class User implements UserInterface
     private $comments;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="user", orphanRemoval=true)
+     */
+    private $tricks;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->comments = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
     /**
@@ -203,12 +207,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture()
     {
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
 
@@ -312,6 +316,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            // set the owning side to null (unless already changed)
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
             }
         }
 

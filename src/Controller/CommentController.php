@@ -6,6 +6,8 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Timestampable;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +24,7 @@ class CommentController extends AbstractController
      * @param ObjectManager $manager
      * @throws \Exception
      * @return void
+     * @IsGranted("ROLE_USER")
      * @Template()
      */
     public function add(Request $request, ObjectManager $manager, Trick $trick)
@@ -49,6 +52,7 @@ class CommentController extends AbstractController
      * @param Trick $trick
      * @param Comment $comment
      * @param ObjectManager $manager
+     * @Security("is_granted('ROLE_USER') and user === comment.getUser()")
      * @return void
      */
     public function delete(Trick $trick, Comment $comment, ObjectManager $manager)

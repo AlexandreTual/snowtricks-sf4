@@ -1,14 +1,14 @@
-{% block _trick_images_widget %}
+{% block _trick_edit_media_images_widget %}
     {{ form_widget(form) }}
     {{ form_errors(form) }}
     <button type="button" id="add-image" class="btn btn-primary">{{ 'form.image.button.add'|trans }}</button>
 {% endblock %}
 
-{% block _trick_images_entry_row %}
+{% block _trick_edit_media_images_entry_row %}
     {{ form_widget(form) }}
 {% endblock %}
 
-{% block _trick_images_entry_widget %}
+{% block _trick_edit_media_images_entry_widget %}
     <div class="form-group mt-3">
         <div class="row">
             <div class="col-10">
@@ -30,17 +30,17 @@
     </div>
 {% endblock %}
 
-{% block _trick_videos_widget %}
+{% block _trick_edit_media_videos_widget %}
     {{ form_widget(form) }}
     {{ form_errors(form) }}
     <button type="button" id="add-video" class="btn btn-primary">{{ 'form.video.button.add'|trans }}</button>
 {% endblock %}
 
-{% block _trick_videos_entry_row %}
+{% block _trick_edit_media_videos_entry_row %}
     {{ form_widget(form) }}
 {% endblock %}
 
-{% block _trick_videos_entry_widget %}
+{% block _trick_edit_media_videos_entry_widget %}
     <div class="form-group mt-3">
         <div class="row">
             <div class="col-10">

@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

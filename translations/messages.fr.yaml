@@ -1,8 +1,12 @@
 Bad credentials.: Identifiants incorrect
 flash.trick.add.success: La figure que vous avez posté à bien été enregistré !
+form.video.tag.label: Votre vidéo
+flash.alert.delete: La suppression est définitive, voulez-vous continuer ?
+flash.image.delete.success: Image supprimée avec succès
+flash.video.delete.success: Video supprimée avec succès
 form.image.button.add: Ajouter une image
 form.video.button.add: Ajouter une vidéo
-form.video.link.placeholder: 'Ex: <iframe width="752" height="423" src="https://www.youtube.com/embed/lndaFheZNuw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+form.video.tag.placeholder: 'Ex: <iframe width="752" height="423" src="https://www.youtube.com/embed/lndaFheZNuw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 form.media.modal.message: Faîtes un copier/coller de l'URL situé dans la barre d'adresse de la vidéo, ou faîtes un clic droit sur la vidéo puis copier le lien. Les playlists ne sont pas acceptées.
 form.media.modal.subtitle: YOUTUBE ou DAILYMOTION
 form.media.modal.title: Comment récupérer l'Url d'une vidéo ?
@@ -40,3 +44,9 @@ word.avatar.to: Avatar de
 word.more.comment: Plus de commentaires
 comment.add.success: Commentaire ajouté avec succès !
 comment.edit.success: Commentaire edité avec succès !
+functionality.access.denied: Vous n'avez pas les droits pour accéder à cette fonctionnalité
+link.title.media.add: Ajouter un média
+link.title.image.delete: Supprimer l'image
+link.title.video.delete: Supprimer la video
+link.title.trick.edit: Editer le trick
+link.title.trick.delete: Supprimer le Trick

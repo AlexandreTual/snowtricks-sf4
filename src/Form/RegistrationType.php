@@ -5,10 +5,10 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -50,9 +50,8 @@ class RegistrationType extends AbstractType
                 'label' => 'Description détaillée',
                 'attr' => ['placeholder' => "Lachez vous, c'est le moment de nous parler de vous en détails..."]
             ])
-            ->add('picture', UrlType::class, [
+            ->add('picture', FileType::class, [
                 'label' => 'Photo de profile',
-                'attr' => ['placeholder' => 'Url de votre avater...']
             ]);
     }
 

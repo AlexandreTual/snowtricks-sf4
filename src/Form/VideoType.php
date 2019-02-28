@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Trick;
+use App\Entity\Video;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,12 +13,18 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('video', TextType::class, [
-            'label' => 'form.video.link.label',
-            'attr' => [
-                'placeholder' => 'form.video.link.placeholder',
-                ]
-            ]);
+            ->add('tag', TextType::class, [
+                'label' => 'form.video.tag.label',
+                'attr' =>[
+                    'placeholder' => 'form.video.tag.placeholder',
+            ]])
+        ;
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Video::class,
+        ]);
+    }
 }

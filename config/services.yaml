@@ -26,17 +26,19 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    #use parameter Uploads_directory for service FileUploader
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%uploads_directory%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\EventListener\UserListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist}
 
-    # App\EventListener\ImageUploadListener:
-    #     tags:
-    #         - { name: doctrine.event_listener, event: prePersist }
-    #         - { name: doctrine.event_listener, event: preUpdate }
+    App\EventListener\UploadImageListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
-    # App\Service\FileUploader:
-    #     arguments:
-    #         $targetDirectory: '%kernel.project_dir%/public/uploads/images'

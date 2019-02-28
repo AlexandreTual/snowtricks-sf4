@@ -3,6 +3,7 @@
 namespace App\EventListener;
 
 use App\Entity\Image;
+use App\Entity\User;
 use App\Service\FileUploader;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
@@ -34,17 +35,24 @@ class UploadImageListener
 
     private function uploadFile($entity)
     {
-        if (!$entity instanceof Image) {
+        if ($entity instanceof Image) {
+            $file = $entity->getLink();
+            if ($file instanceof UploadedFile) {
+                $filename = $this->uploader->upload($file);
+                $entity->setLink($filename);
+            } elseif ($file instanceof File) {
+                $entity->setLink($file->getFilename());
+            }
+        } elseif ($entity instanceof User) {
+            $file = $entity->getPicture();
+            if ($file instanceof UploadedFile) {
+                $filename = $this->uploader->upload($file);
+                $entity->setPicture($filename);
+            } elseif ($file instanceof File) {
+                $entity->setPicture($file->getFilename());
+            }
+        } else {
             return;
-        }
-
-        $file = $entity->getLink();
-        
-        if ($file instanceof UploadedFile) {
-            $filename = $this->uploader->upload($file);
-            $entity->setLink($filename);
-        } elseif ($file instanceof File) {
-            $entity->setLink($file->getFilename());
         }
     }  
 }
