@@ -27,8 +27,11 @@ class TrickController extends AbstractController
     public function index()
     {
         $tricks = $this->getDoctrine()->getRepository(Trick::class)->findBy([], ['id' => 'DESC']);
-
-        return ['tricks' => $tricks];
+        $images = $this->getDoctrine()->getRepository(Image::class)->findAll();
+        return [
+            'tricks' => $tricks,
+            'images' => $images,
+            ];
     }
 
     /**
@@ -63,10 +66,10 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("is_granted('ROLE_USER') and user === trick.getUser()", message="functionality.access.denied")
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @Template()
      */
-    public function edit(Trick $trick, Request $request, ObjectManager $manager)
+    public function edit(Request $request,ObjectManager $manager, Trick $trick)
     {
         $form = $this->createForm(TrickEditTextType::class, $trick)
             ->handleRequest($request);
@@ -89,7 +92,7 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("is_granted('ROLE_USER') and user === trick.getUser()", message="functionality.access.denied")
+     * @Security("(is_granted('ROLE_USER') and (user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN'))", message="functionality.access.denied")
      * @Template()
      */
     public function editMedia($slug, Trick $trick, Request $request, ObjectManager $manager )
@@ -108,8 +111,6 @@ class TrickController extends AbstractController
                 $video = new Video();
                 $video->setTag($dataVideo->getTag());
                 $trick->addVideo($video);
-                $videos = $trick->getVideos();
-                dd($videos);
             }
             $manager->flush();
             $this->addFlash('success', 'flash.trick.update.success');
@@ -124,39 +125,28 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete-image/{trick_slug}/{image_id}")
+     * @Route("/trick/delete-media/{mediaType}/{trick_slug}/{mediaId}")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
      * @param Image $image
      * @param ObjectManager $manager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("is_granted('ROLE_USER') and user === trick.getUser()", message="functionality.access.denied")
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      */
-    public function removeImage(Trick $trick, Image $image, ObjectManager $manager)
+    public function removeMedia(Trick $trick, ObjectManager $manager, $mediaType, $mediaId )
     {
-        $trick->removeImage($image);
+        if ('image' == $mediaType) {
+            $image = $manager->getRepository(Image::class)->findOneById($mediaId);
+            $trick->removeImage($image);
+            $this->addFlash('success', 'flash.image.delete.success');
+        }
+        if ('video' == $mediaType) {
+            $video = $manager->getRepository(Video::class)->findOneById($mediaId);
+            $trick->removeVideo($video);
+            $this->addFlash('success', 'flash.video.delete.success');
+        }
         $manager->flush();
-        $this->addFlash('success', 'flash.image.delete.success');
-
-        return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
-    }
-
-    /**
-     * @Route("/trick/delete-video/{trick_slug}/{video_id}")
-     * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
-     * @ParamConverter("video", options={"id": "video_id"})
-     * @param Trick $trick
-     * @param Video $video
-     * @param ObjectManager $manager
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("is_granted('ROLE_USER') and user === trick.getUser()", message="functionality.access.denied")
-     */
-    public function removeVideo(Trick $trick, Video $video, ObjectManager $manager)
-    {
-        $trick->removeVideo($video);
-        $manager->flush();
-        $this->addFlash('success', 'flash.video.delete.success');
 
         return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
     }
@@ -181,15 +171,13 @@ class TrickController extends AbstractController
      * @Route("/trick/delete/{slug}")
      * @param Trick $trick
      * @param ObjectManager $manager
-     * @Security("is_granted('ROLE_USER') and user === trick.getUser()", message="functionality.access.denied")
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Trick $trick, ObjectManager $manager)
     {
-        if ($trick->getUser() == $this->getUser()) {
             $manager->remove($trick);
             $manager->flush();
-        }
 
         return $this->redirectToRoute('app_trick_index');
     }

@@ -52,7 +52,7 @@ class CommentController extends AbstractController
      * @param Trick $trick
      * @param Comment $comment
      * @param ObjectManager $manager
-     * @Security("is_granted('ROLE_USER') and user === comment.getUser()")
+     * @Security("(is_granted('ROLE_USER') and user === comment.getUser()) or is_granted('ROLE_ADMIN')")
      * @return void
      */
     public function delete(Trick $trick, Comment $comment, ObjectManager $manager)
