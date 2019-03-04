@@ -36,7 +36,7 @@
                             <div class="card-text">
                             </div>
                             <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}" class="btn btn-primary">En savoir plus</a>
-                            {% if (app.user == trick.user) or (app.user.roles[1] == 'ROLE_ADMIN') %}
+                            {% if app.user == trick.user%}
                                 <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
                                     <i class="far fa-edit mx-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
                                 </a>

@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Image;
 use App\Entity\Trick;
-use App\Entity\Video;
 use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
 use App\Form\TrickEditTextType;
@@ -71,7 +69,6 @@ class TrickController extends AbstractController
      * @Route("/trick/edit/{slug}")
      * @param Trick $trick
      * @param Request $request
-     * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @Template()
@@ -97,7 +94,6 @@ class TrickController extends AbstractController
      * @Route("/trick/edit/media/{slug}")
      * @param $slug
      * @param Request $request
-     * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and (user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN'))", message="functionality.access.denied")
      * @Template()
@@ -125,8 +121,6 @@ class TrickController extends AbstractController
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
-     * @param Image $image
-     * @param ObjectManager $manager
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      */
@@ -161,7 +155,6 @@ class TrickController extends AbstractController
     /**
      * @Route("/trick/delete/{slug}")
      * @param Trick $trick
-     * @param ObjectManager $manager
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
