@@ -2,7 +2,7 @@
 
 namespace App\EventListener;
 
-use App\Entity\Trick;
+use App\Entity\Behavior\TimestampableTrait;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class DateListener
@@ -14,10 +14,9 @@ class DateListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Trick) {
+        if ($this->issetTrait($entity)) {
             $entity->setCreatedAt(new \DateTime());
         }
-
     }
 
     /**
@@ -27,6 +26,21 @@ class DateListener
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        $entity->setUpdatedAt(new \DateTime());
+
+        if ($this->issetTrait($entity)) {
+            $entity->setUpdatedAt(new \DateTime());
+        }
+    }
+
+    public function issetTrait($entity)
+    {
+        $traits = class_uses($entity);
+        foreach ($traits as $trait) {
+            if (TimestampableTrait::class == $trait) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
