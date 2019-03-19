@@ -3,11 +3,7 @@
 {% block title %}Trick : {{ trick.name }}{% endblock %}
 
 {% block body %}
-{% if trick.images %}
-    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ trick.images[0].link) }})">
-    {% else %}
-    <div class="trick-title" style="background-image: url({{ asset('uploads/images/' ~ 'montagnes.jpeg') }})">
-{% endif %}
+    <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
     <h1 class="trick-title text-center">{{ trick.name }}</h1>
 {% if app.user == trick.user %}
     <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
@@ -24,7 +20,7 @@
         <p class="text-center mb-3" style="padding-top: 300px">{{ trick.description }}</p>
         {% if trick.images %}
             {% for image in trick.images %}
-                <img src="{{ asset('/uploads/images/' ~ image.link) }}" alt="{{ image.caption }}" width="400" height="200">
+                <img src="{{ image.linkPath }}" alt="{{ image.caption }}" width="400" height="200">
                 {% if app.user == trick.user %}
                     <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
                     <i class="far fa-trash-alt" title="{{ 'link.title.image.delete'|trans }}"></i>
@@ -42,6 +38,9 @@
                 {% endif %}
         {% endfor %}
         {% endif %}
+        <div>
+        Crée le : {{ trick.createdAt|date('d/m/Y') }}  Mis à jour le :{{ trick.updatedAt|date('d/m/Y') }} Auteur : {{ trick.user.fullname }}
+</div>
         <div>
             {% if app.user %}
                 {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug})})}}

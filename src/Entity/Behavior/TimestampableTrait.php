@@ -1,21 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Behavior;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\TimestampableRepository")
- */
-class Timestampable
+trait TimestampableTrait
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
     /**
      * @ORM\Column(type="datetime")
      */
@@ -25,11 +15,6 @@ class Timestampable
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

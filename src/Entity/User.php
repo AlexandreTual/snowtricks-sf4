@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Core\Utils;
+use App\Entity\Behavior\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    use TimestampableTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -219,6 +221,11 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPicturePath()
+    {
+        return '/uploads/images/' . $this->picture;
+    }
+
     /**
      * Returns the roles granted to the user.
      *
@@ -349,6 +356,18 @@ class User implements UserInterface
                 $trick->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

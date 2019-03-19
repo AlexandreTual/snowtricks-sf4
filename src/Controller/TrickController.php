@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
@@ -18,26 +19,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Route("/trick")
+ */
 class TrickController extends AbstractController
 {
     private $trickService;
     private $imageService;
+    private $manager;
 
-    public function __construct(TrickService $trickService, ImageService $imageService)
+    public function __construct(TrickService $trickService, ImageService $imageService, ObjectManager $manager)
     {
         $this->trickService = $trickService;
         $this->imageService = $imageService;
+        $this->manager = $manager;
     }
 
     /**
-     * @Route("/trick")
+     * @Route("/index")
      * @Template()
      */
     public function index()
     {
         return [
-            'tricks' => $this->trickService->getTricks(),
-            'images' => $this->imageService->getImages(),
+            'tricks' => $this->manager->getRepository(Trick::class)->findBy([], ['id' => 'DESC']),
+            'images' => $this->manager->getRepository(Image::class)->findAll(),
             ];
     }
 
@@ -45,7 +51,7 @@ class TrickController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/trick/add")
+     * @Route("/add")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
@@ -56,7 +62,9 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->trickService->add($trick, $this->getUser());
+            $trick->setUser($this->getUser());
+            $this->manager->persist($trick);
+            $this->manager->flush();
             $this->addFlash('success', 'flash.trick.add.success');
 
             return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
@@ -66,7 +74,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/edit/{slug}")
+     * @Route("/edit/{slug}")
      * @param Trick $trick
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -78,7 +86,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickEditTextType::class, $trick)
             ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $this->trickService->edit($trick);
+            $this->manager->flush();
             $this->addFlash('success', 'flash.trick.update.success');
 
             return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
@@ -91,7 +99,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/edit/media/{slug}")
+     * @Route("/edit/media/{slug}")
      * @param $slug
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -117,7 +125,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete-media/{mediaType}/{trick_slug}/{mediaId}")
+     * @Route("/delete-media/{mediaType}/{trick_slug}/{mediaId}")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
@@ -126,18 +134,14 @@ class TrickController extends AbstractController
      */
     public function removeMedia(Trick $trick, $mediaType, $mediaId )
     {
-        if ($this->trickService->removeImage($trick, $mediaType, $mediaId)) {
-            $this->addFlash('success', 'flash.image.delete.success');
-        }
-        if ($this->trickService->removeVideo($trick, $mediaType, $mediaId)) {
-            $this->addFlash('success', 'flash.video.delete.success');
-        }
+        $this->trickService->removeMedia($trick, $mediaType, $mediaId);
+        $this->addFlash('success', 'flash.' . $mediaType . '.delete.success');
 
         return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
     }
 
     /**
-     * @Route("/trick/{slug}/")
+     * @Route("/{slug}/")
      * @param Trick $trick
      * @return array
      * @Template()
@@ -145,7 +149,6 @@ class TrickController extends AbstractController
     public function show(Trick $trick)
     {
         $form = $this->createForm(CommentType::class);
-
         return [
             'trick' => $trick,
             'form' => $form->createView(),
@@ -153,14 +156,16 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete/{slug}")
+     * @Route("/delete/{slug}")
      * @param Trick $trick
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function delete(Trick $trick)
     {
-        $this->trickService->delete($trick);
+        $this->manager->remove($trick);
+        $this->manager->flush();
+        $this->addFlash('success', 'flash.trick.delete.success');
 
         return $this->redirectToRoute('app_trick_index');
     }

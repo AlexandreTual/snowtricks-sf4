@@ -42,3 +42,14 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
 
+    App\EventListener\DateListener:
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
+    App\EventListener\DeleteImageListener:
+        arguments: [ '%uploads_directory%']
+        tags:
+            - { name: doctrine.event_listener, event: preRemove }
+
+

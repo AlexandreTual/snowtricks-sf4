@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
+use App\Service\MailService;
+use App\Service\SecurityService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +19,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
+    private $securityService;
+    private $mailService;
+
+    public function __construct(SecurityService $securityService, MailService $mailService)
+    {
+        $this->securityService = $securityService;
+        $this->mailService = $mailService;
+    }
+
     /**
      * @Route("/login")
      * @Template()
@@ -73,22 +84,43 @@ class SecurityController extends AbstractController
      * @Route("/registration")
      * @Template()
      */
-    public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user);
-            $manager->flush();
+            $recipient = $form->get('email')->getData();
+            $name = $form->get('firstName')->getData();
+
+            $this->securityService->registration($user);
+            $this->mailService->sendRegistrationConfirm($recipient, $name, $user->getStatus());
             $this->addFlash(
                 'success',
-                'Votre compte a bien été crée, vous pouvez à présent vous connecter !');
+                'Votre compte a bien été crée, un email vous a été envoyé pour activer votre compte !');
 
             return $this->redirectToRoute('app_security_login');
         }
 
         return ['form' => $form->createView()];
+    }
+
+    /**
+     * @Route("/account/activate/{email}/{token}")
+     * @param $email
+     * @param $token
+     */
+    public function accountActivate($email, $token, ObjectManager $manager)
+    {
+        $user = $manager->getRepository(User::class)->findOneByEmail($email);
+        if ($user->getStatus() == $token) {
+            $user->setStatus('activate');
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre compte est activé, félicitation !! Vous pouvez vous connecter !');
+        }
+
+        return $this->redirectToRoute('app_security_login');
     }
 }

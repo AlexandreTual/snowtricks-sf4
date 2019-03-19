@@ -7,7 +7,7 @@
         <div class="carousel-inner">
             {% for image in images  %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{ asset('/uploads/images/' ~ image.link) }}" class="d-block w-100" alt="{{ image.caption }}">
+                    <img src="{{ image.linkPath }}" class="d-block w-100" alt="{{ image.caption }}">
                 </div>
             {% endfor %}
         </div>
@@ -26,11 +26,7 @@
             {% for trick in tricks %}
                 <div class="col-md-4 mt-4">
                     <div class="card">
-                        {%  if trick.images %}
-                            <img class="card-img-top" src="{{ asset('uploads/images/' ~ trick.images[0].link ) }}" alt="{{ trick.images[0].caption }}">
-                        {% else %}
-                            <img class="card-img-top" src="{{ asset('uploads/images/' ~ '0ca24ae0541ec73dee995b922c144fd3.jpeg' ) }}" alt="">
-                            {% endif %}
+                        <img class="card-img-top" src="{{ trick.coverImage.linkPath }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ trick.name }}</h5>
                             <div class="card-text">
@@ -41,8 +37,8 @@
                                     <i class="far fa-edit mx-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
                                 </a>
                                 <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                                <i class="far fa-trash-alt mx-2" title="{{ 'link.title.trick.delete'|trans }}"></i>
-                            </a>
+                                    <i class="far fa-trash-alt mx-2" title="{{ 'link.title.trick.delete'|trans }}"></i>
+                                </a>
                             {% endif %}
                         </div>
                     </div>

@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/user")
+ */
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user/edit")
-     * @IsGranted("ROLE_USER")
+     * @Route("/edit")
      * @Template()
      */
     public function edit(Request $request, ObjectManager $manager)
@@ -30,15 +32,14 @@ class UserController extends AbstractController
                 'success',
                 'Votre compte a bien été mis à jour !');
 
-            return $this->redirectToRoute('app_user_profile');
+            return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug()]);
         }
 
         return ['form' => $form->createView()];
     }
 
     /**
-     * @Route("/user/profile/{slug}")
-     * @IsGranted("ROLE_USER")
+     * @Route("/profile/{slug}")
      * @Template()
      */
     public function profile(User $user)

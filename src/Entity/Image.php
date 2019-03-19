@@ -25,6 +25,7 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="10", minMessage="media.length.caption.tooShort")
      */
     private $caption;
 
@@ -42,6 +43,11 @@ class Image
     public function getLink()
     {
         return $this->link;
+    }
+
+    public function getLinkPath()
+    {
+        return '/uploads/images/' . $this->link;
     }
 
     public function setLink($link): self

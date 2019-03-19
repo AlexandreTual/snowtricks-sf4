@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Core\Utils;
+use App\Entity\Behavior\TimestampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
+    use TimestampableTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -52,11 +54,6 @@ class Trick
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
      */
     private $comments;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Timestampable", cascade={"persist", "remove"})
-     */
-    private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
@@ -187,18 +184,6 @@ class Trick
         return $this;
     }
 
-    public function getDate(): ?Timestampable
-    {
-        return $this->date;
-    }
-
-    public function setDate(?Timestampable $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -240,5 +225,19 @@ class Trick
         }
 
         return $this;
+    }
+
+    public function getCoverImage()
+    {
+        $images = $this->getImages();
+        if (null == $images[0]) {
+            $coverImage = new Image();
+            $coverImage->setLink('ef49d9f3afde6345307e0bef6293399b.jpg')
+                       ->setCaption('image de snowboarder');
+
+            return $coverImage;
+        }
+
+        return $images[0];
     }
 }

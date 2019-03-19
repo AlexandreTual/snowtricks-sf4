@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Behavior\TimestampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -10,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Comment
 {
+    use TimestampableTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -34,12 +36,6 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Timestampable", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $date;
 
     public function getId(): ?int
     {
@@ -78,18 +74,6 @@ class Comment
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
-
-        return $this;
-    }
-
-    public function getDate(): ?Timestampable
-    {
-        return $this->date;
-    }
-
-    public function setDate(Timestampable $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
