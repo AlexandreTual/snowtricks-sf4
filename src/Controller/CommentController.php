@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\CommentType;
-use App\Entity\Timestampable;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +14,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
+/**
+ * @Route("/comment")
+ */
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/comment/add/{slug}")
+     * @Route("/add/{slug}")
      * @param Trick $trick
      * @param Request $request
      * @param ObjectManager $manager
@@ -30,13 +32,10 @@ class CommentController extends AbstractController
     public function add(Request $request, ObjectManager $manager, Trick $trick)
     {
         $comment = new Comment();
-        $date = new Timestampable();
         $form = $this->createForm(CommentType::class, $comment)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $date->setCreatedAt(new \DateTime());
             $comment->setUser($this->getUser())
-                ->setTrick($trick)
-                ->setDate($date);
+                ->setTrick($trick);
             $manager->persist($comment);
             $manager->flush();
             $this->addFlash('success', 'comment.add.success');
@@ -46,7 +45,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/comment/delete/{trick_slug}/{comment_id}")
+     * @Route("/delete/{trick_slug}/{comment_id}")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("comment", options={"id": "comment_id"})
      * @param Trick $trick
@@ -65,7 +64,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/comment/list/{trick_slug}/{offset}", condition="request.isXmlHttpRequest()")
+     * @Route("/list/{trick_slug}/{offset}", condition="request.isXmlHttpRequest()")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @param Trick $trick
      * @param ObjectManager $manager
