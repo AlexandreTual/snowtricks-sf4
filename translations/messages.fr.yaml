@@ -51,3 +51,63 @@ link.title.video.delete: Supprimer la video
 link.title.trick.edit: Editer le trick
 link.title.trick.delete: Supprimer le Trick
 flash.trick.delete.success: Trick supprimé avec succès
+form.user.avatar.label: Nouvel avatar
+flash.user.profile.edit.success: Votre compte a bien été mis à jour !
+flash.user.password.edit.danger: Vous n'avez pas correctement confirmé votre mot de passe actuel.
+flash.user.password.edit.success: Votre nouveau mot de passe à bien été enregistré !
+flash.user.registration.success: Votre compte a bien été crée, un email vous a été envoyé !
+word.name.site: Snowtricks
+word.home: Accueil
+word.list.trick: Liste des tricks
+word.logout: Déconnection
+word.login: Connexion
+word.profile: Profil
+word.registration: Inscription
+page.registration.title: Formulaire d'inscription
+form.registration.title: Inscrivez vous sur notre site
+form.registration.submit: Confirmer l'inscription
+page.edit.media.title: Edition de media
+trick.button.learn.more: En savoir plus
+word.trick: "Trick : "
+title.page.edit: Edition de profil
+form.edit.profile.title: Edition de votre profil
+word.profile.to: Profil de
+page.profile.button.update.info: Modifier mes informations
+page.profile.button.update.password: Modifier mon mot de passe
+page.update.password.title: Modification de mot de passe
+word.punctation.tiret: "-"
+form.registration.firstname.label: Prénom
+form.registration.firstname.placeholder: Votre prénom...
+form.registration.lastname.label: Nom
+form.registration.lastname.placeholder: Votre nom...
+form.registration.email.label: Email
+form.registration.email.placeholder: Votre email...
+form.registration.hash.option.1.label: Mot de passe
+form.registration.hash.option.2.label: Confirmation de mot de passe
+form.registration.hash.option.1.placeholder: Votre mot de passe...
+form.registration.hash.option.2.placeholder: Confirmer votre nouveau mot de passe..
+form.registration.introduction.label: Introduction
+form.registration.introduction.placeholder: Décrivez vous en quelques mots...
+form.registration.description.label: Description Détaillée
+form.registration.description.placeholder: Lachez vous, c'est le moment de nous parler de vous en détails...
+form.registration.picture.label: Photo de profil
+form.login.username.label: Email
+form.login.username.placeholder: Votre adresse email...
+form.login.password.label: Mot de passe
+form.login.password.placeholder: Votre mot de passe...
+form.passwordUpdate.oldPassword.label: Mot de passe actuel
+form.passwordUpdate.oldPassword.placeholder: Taper le mot de passe que vous utilisez actuellement...
+form.passwordUpdate.password.option.1.label: Nouveau mot de passe
+form.passwordUpdate.password.option.2.label: Confirmation de mot de passe
+form.passwordUpdate.password.option.1.placeholder: Taper votre nouveau mot de passe...
+form.passwordUpdate.password.option.2.placeholder: Confirmer votre nouveau mot de passe...
+form.profile.firstname.label: Prénom
+form.profile.firstname.placeholder: Votre prénom...
+form.profile.lastname.label: Nom
+form.profile.lastname.placeholder: Votre nom de famille...
+form.profile.email.label: Email
+form.profile.email.placeholder: Votre adresse email...
+form.profile.email.introduction.label: Introduction
+form.profile.email.introduction.placeholder: Décrivez vous en quelques mots...
+form.profile.email.description.label: Description détaillée
+form.profile.email.description.placeholder: Vous pouvez modifier votre description

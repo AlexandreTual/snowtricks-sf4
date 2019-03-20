@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity("email", message="Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.")
+ * @UniqueEntity("email", message="user.uniquerEntity")
  */
 class User implements UserInterface
 {
@@ -40,7 +40,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(message="Veuillez entrer une adresse email valide.")
+     * @Assert\Email(message="user.email.invalid")
      */
     private $email;
 
@@ -48,7 +48,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *     min = 6,
-     *     minMessage = "Le mot de passe doit faire au moins 6 caractères.")
+     *     minMessage = "user.lenght.hash")
      */
     private $hash;
 
@@ -57,8 +57,8 @@ class User implements UserInterface
      * @Assert\Length(
      *     min = 30,
      *     max = 255,
-     *     minMessage = "Votre présentation doit faire au moins 30 caractères.",
-     *     maxMessage = "Votre présentation ne doit pas faire plus de 255 caractères."
+     *     minMessage = "user.lenght.introduction.tooShort",
+     *     maxMessage = "user.lenght.introduction.tooLong"
      *     )
      */
     private $introduction;
@@ -67,7 +67,7 @@ class User implements UserInterface
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min = 100,
-     *     minMessage = "Votre description doit faire au moins 100 caractères."
+     *     minMessage = "user.lenght.description.tooShort"
      *     )
      */
     private $description;
@@ -356,18 +356,6 @@ class User implements UserInterface
                 $trick->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

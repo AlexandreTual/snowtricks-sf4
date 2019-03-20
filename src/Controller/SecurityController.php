@@ -4,28 +4,24 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LoginType;
-use App\Form\PasswordUpdateType;
 use App\Form\RegistrationType;
 use App\Service\MailService;
-use App\Service\SecurityService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
-    private $securityService;
     private $mailService;
+    private $manager;
 
-    public function __construct(SecurityService $securityService, MailService $mailService)
+    public function __construct(MailService $mailService, ObjectManager $manager)
     {
-        $this->securityService = $securityService;
         $this->mailService = $mailService;
+        $this->manager = $manager;
     }
 
     /**
@@ -48,37 +44,7 @@ class SecurityController extends AbstractController
     {
     }
 
-    /**
-     * @Route("/user/password-update")
-     * @IsGranted("ROLE_USER")
-     * @Template()
-     */
-    public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $userPasswordEncoder)
-    {
-        $form = $this->createForm(PasswordUpdateType::class);
-        $form->handleRequest($request);
-        $user = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
-                $this->addFlash(
-                    'danger',
-                    "Vous n'avez pas correctement confirmé votre mot de passe actuel.");
-
-                return $this->redirectToRoute('app_security_updatepassword');
-            }
-            $hash = $userPasswordEncoder->encodePassword($user, $form->get('password')->getData());
-            $user->setHash($hash);
-            $manager->flush();
-            $this->addFlash(
-                'success',
-                "Votre nouveau mot de passe à bien été enregistré !");
-
-            return $this->redirectToRoute('app_user_profile');
-        }
-
-        return ['form' => $form->createView()];
-    }
 
     /**
      * @Route("/registration")
@@ -94,33 +60,16 @@ class SecurityController extends AbstractController
             $recipient = $form->get('email')->getData();
             $name = $form->get('firstName')->getData();
 
-            $this->securityService->registration($user);
-            $this->mailService->sendRegistrationConfirm($recipient, $name, $user->getStatus());
+            $this->manager->persist($user);
+            $this->manager->flush();
+            $this->mailService->sendRegistrationConfirm($recipient, $name);
             $this->addFlash(
                 'success',
-                'Votre compte a bien été crée, un email vous a été envoyé pour activer votre compte !');
+                'flash.user.registration.success');
 
             return $this->redirectToRoute('app_security_login');
         }
 
         return ['form' => $form->createView()];
-    }
-
-    /**
-     * @Route("/account/activate/{email}/{token}")
-     * @param $email
-     * @param $token
-     */
-    public function accountActivate($email, $token, ObjectManager $manager)
-    {
-        $user = $manager->getRepository(User::class)->findOneByEmail($email);
-        if ($user->getStatus() == $token) {
-            $user->setStatus('activate');
-            $manager->flush();
-
-            $this->addFlash('success', 'Votre compte est activé, félicitation !! Vous pouvez vous connecter !');
-        }
-
-        return $this->redirectToRoute('app_security_login');
     }
 }

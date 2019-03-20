@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edition de media de la figure {{ trick.name }}{% endblock %}
+{% block title %}{{ 'page.edit.media.title'|trans }}{{ trick.name }}{% endblock %}
 
 {% form_theme form '/partials/_collectionEditMedia.html.twig' %}
 

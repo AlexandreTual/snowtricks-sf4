@@ -18,40 +18,54 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom',
-                'attr' => [ 'placeholder' => 'Votre prénom...']
+                'label' => 'form.registration.firstname.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.firstname.placeholder',
+                ]
             ])
             ->add('lastName', TextType::class, [
-                'label' => 'Nom',
-                'attr' => ['placeholder' => 'Votre nom de famille...']
+                'label' => 'form.registration.lastname.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.lastname.placeholder',
+                ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
-                'attr' => [ 'placeholder' => 'Votre adresse email...']
+                'label' => 'form.registration.email.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.email.placeholder',
+                ]
             ])
             ->add('hash', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => "Vous n'avez pas correctement confirmé votre mot de passe.",
+                'invalid_message' => 'form.registration.hash.invalid.message',
                 'required' => true,
                 'first_options' => [
-                    'label' => 'Mot de passe',
-                    'attr' => ['placeholder' => 'Taper votre nouveau mot de passe...']
+                    'label' => 'form.registration.hash.option.1.label',
+                    'attr' => [
+                        'placeholder' => 'form.registration.hash.option.1.placeholder',
+                    ]
                 ],
                 'second_options' => [
-                    'label' => 'Confirmation mot de passe',
-                    'attr' => ['placeholder' => 'Confirmer votre nouveau mot de passe..']
+                    'label' => 'form.registration.hash.option.2.label',
+                    'attr' => [
+                        'placeholder' => 'form.registration.hash.option.2.placeholder',
+                    ]
                 ]
             ])
             ->add('introduction', TextType::class, [
-                'label' => 'Introduction',
-                'attr' => ['placeholder' => 'Décrivez vous en quelques mots...']
+                'label' => 'form.registration.introduction.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.introduction.placeholder',
+                ]
             ])
             ->add('description', TextType::class, [
-                'label' => 'Description détaillée',
-                'attr' => ['placeholder' => "Lachez vous, c'est le moment de nous parler de vous en détails..."]
+                'label' => 'form.registration.description.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.description.placeholder',
+                ]
             ])
             ->add('picture', FileType::class, [
-                'label' => 'Photo de profile',
+                'label' => 'form.registration.picture.label',
             ]);
     }
 

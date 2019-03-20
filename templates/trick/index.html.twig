@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des figures{% endblock %}
+{% block title %}{{ 'word.list.trick'|trans }}{% endblock %}
 
 {% block body %}
     <div id="carouselTrickIndex" class="carousel slide" data-ride="carousel">
@@ -31,7 +31,7 @@
                             <h5 class="card-title">{{ trick.name }}</h5>
                             <div class="card-text">
                             </div>
-                            <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}" class="btn btn-primary">En savoir plus</a>
+                            <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}" class="btn btn-primary">{{ 'trick.button.learn.more'|trans }}</a>
                             {% if app.user == trick.user%}
                                 <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
                                     <i class="far fa-edit mx-2" title="{{ 'link.title.trick.edit'|trans }}"></i>

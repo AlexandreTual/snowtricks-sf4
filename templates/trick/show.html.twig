@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Trick : {{ trick.name }}{% endblock %}
+{% block title %}{{ 'word.trick'|trans }} {{ trick.name }}{% endblock %}
 
 {% block body %}
     <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">

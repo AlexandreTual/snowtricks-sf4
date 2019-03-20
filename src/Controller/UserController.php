@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\AddAvatarType;
+use App\Form\PasswordUpdateType;
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -10,27 +12,35 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
+    private $manager;
+
+    public function __construct(ObjectManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/edit")
      * @Template()
      */
-    public function edit(Request $request, ObjectManager $manager)
+    public function edit(Request $request)
     {
         $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->flush();
+            $this->manager->flush();
             $this->addFlash(
                 'success',
-                'Votre compte a bien été mis à jour !');
+                'flash.user.profile.edit.success');
 
             return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug()]);
         }
@@ -45,5 +55,43 @@ class UserController extends AbstractController
     public function profile(User $user)
     {
         return ['user' => $user];
+    }
+
+    public function addAvatar()
+    {
+        $form = $this->createForm(AddAvatarType::class, $this->getUser());
+
+    }
+
+    /**
+     * @Route("/password-update")
+     * @IsGranted("ROLE_USER")
+     * @Template()
+     */
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder)
+    {
+        $form = $this->createForm(PasswordUpdateType::class);
+        $form->handleRequest($request);
+        $user = $this->getUser();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
+                $this->addFlash(
+                    'danger',
+                    'flash.user.password.edit.danger');
+
+                return $this->redirectToRoute('app_user_updatepassword');
+            }
+            $hash = $userPasswordEncoder->encodePassword($user, $form->get('password')->getData());
+            $user->setHash($hash);
+            $this->manager->flush();
+            $this->addFlash(
+                'success',
+                "flash.user.password.edit.success");
+
+            return $this->redirectToRoute('app_user_profile');
+        }
+
+        return ['form' => $form->createView()];
     }
 }

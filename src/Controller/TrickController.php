@@ -25,13 +25,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class TrickController extends AbstractController
 {
     private $trickService;
-    private $imageService;
     private $manager;
 
-    public function __construct(TrickService $trickService, ImageService $imageService, ObjectManager $manager)
+    public function __construct(TrickService $trickService, ObjectManager $manager)
     {
         $this->trickService = $trickService;
-        $this->imageService = $imageService;
         $this->manager = $manager;
     }
 
