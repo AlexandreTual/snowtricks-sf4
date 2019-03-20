@@ -25,6 +25,7 @@ class CommentController extends AbstractController
      * @param Request $request
      * @param ObjectManager $manager
      * @throws \Exception
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @return void
      * @IsGranted("ROLE_USER")
      * @Template()
@@ -51,6 +52,7 @@ class CommentController extends AbstractController
      * @param Trick $trick
      * @param Comment $comment
      * @param ObjectManager $manager
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and user === comment.getUser()) or is_granted('ROLE_ADMIN')")
      * @return void
      */

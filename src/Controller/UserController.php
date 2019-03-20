@@ -57,10 +57,25 @@ class UserController extends AbstractController
         return ['user' => $user];
     }
 
-    public function addAvatar()
+    /**
+     * @Route("/add-avatar")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @Template()
+     */
+    public function addAvatar(Request $request)
     {
-        $form = $this->createForm(AddAvatarType::class, $this->getUser());
+        $user = $this->getUser();
+        $form = $this->createForm(AddAvatarType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->manager->flush();
+            $this->addFlash('success', 'flash.add.avatar.success');
 
+            return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug() ]);
+        }
+
+        return ['form' => $form->createView()];
     }
 
     /**

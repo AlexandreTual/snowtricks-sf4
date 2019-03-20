@@ -8,7 +8,6 @@ use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
 use App\Form\TrickEditTextType;
 use App\Form\CommentType;
-use App\Service\ImageService;
 use App\Service\TrickService;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;

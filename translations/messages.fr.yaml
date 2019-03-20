@@ -111,3 +111,8 @@ form.profile.email.introduction.label: Introduction
 form.profile.email.introduction.placeholder: Décrivez vous en quelques mots...
 form.profile.email.description.label: Description détaillée
 form.profile.email.description.placeholder: Vous pouvez modifier votre description
+page.add.avatar.name: Upload d'avatar
+page.add.avatar.title: Ajouter votre avatar !
+flash.add.avatar.success: Votre avatar à bien été ajouté !
+page.profile.button.addAvatar: Modifier mon avatar
+form.login.title: Connectez-vous !

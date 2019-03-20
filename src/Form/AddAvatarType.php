@@ -14,7 +14,8 @@ class AddAvatarType extends AbstractType
     {
         $builder
             ->add('picture', FileType::class, [
-                'label' => 'form.user.avatar.label'
+                'label' => false,
+                'data_class' => null,
             ])
         ;
     }

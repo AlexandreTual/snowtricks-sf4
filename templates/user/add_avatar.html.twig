@@ -1,18 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page de connexion{% endblock %}
+{% block title %}{{ 'page.add.avatar.name'|trans }}{% endblock %}
 
 {% block body %}
     <div class="container">
         <div class="row">
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
-                <div class="bg-light py-3 px-3">
-                    <h1>{{ 'form.login.title'|trans }}</h1>
+                <div class=" py-3 px-3">
+                    <h1 class="mb-4">{{ 'page.add.avatar.title'|trans }}</h1>
                     {{ form_start(form) }}
-                    {% if error %}<div class="text-center alert alert-danger margin-bottom-25">{{ error.message|trans }}</div>{% endif %}
                     {{ form_widget(form) }}
-                    <button type="submit" class="btn btn-primary">{{ 'word.login'|trans }}</button>
+                    <button type="submit" class="btn btn-primary">{{ 'word.save'|trans }}</button>
                     {{ form_end(form) }}
                 </div>
             </div>
