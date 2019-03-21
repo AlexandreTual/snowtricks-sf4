@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Trick;
+use App\Form\CategoryType;
 use App\Form\TrickEditTextType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -28,9 +30,15 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        $tricks = $this->manager->getRepository(Trick::class)->findAll();
+        $tricks = $this->manager->getRepository(Trick::class)->findBy([], [], 15);
+        $categoryForm = $this->createForm(CategoryType::class, new Category(), ['action' => $this->generateUrl('app_admin_addcategory')]);
+        $categories = $this->manager->getRepository(Category::class)->findAll();
 
-        return ['tricks' => $tricks];
+        return [
+            'tricks' => $tricks,
+            'categories' => $categories,
+            'categoryForm' => $categoryForm->createView(),
+        ];
     }
 
     /**
@@ -67,5 +75,24 @@ class AdminController extends AbstractController
             'trick' => $trick,
             'form' => $form->createView(),
         ]);
+    }
+
+
+    /**
+     * @Route("/category/add")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function addCategory(Request $request)
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->manager->persist($category);
+            $this->manager->flush();
+            $this->addFlash('success', 'flash.addCategory.success');
+        }
+
+        return $this->redirectToRoute('app_admin_index');
     }
 }

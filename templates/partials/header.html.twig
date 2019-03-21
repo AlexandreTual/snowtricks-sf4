@@ -8,6 +8,16 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('app_trick_index') }}">{{ 'word.list.trick'|trans }}</a>
             </li>
+            <li class="nav-item dropdown active">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="categoryDropdownLink" >Category</a>
+                <div class="dropdown-menu" aria-labelledby="categoryDropdownLink">
+                    {#<div class="dropdown-divider"></div>#}
+                    {% for category in category_service.all %}
+                        <a href="{{ path('app_trick_trickbycategory', {'name': category.name}) }}" class="dropdown-item">{{ category.name|capitalize }}</a>
+                    {% endfor %}
+
+                </div>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if app.user %}
@@ -15,17 +25,17 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
                         <img src="{{ app.user.picturePath }}" alt="{{ 'word.avatar.to'|trans }} {{ app.user.fullname }}" class="avatar avatar-mini">  {{ app.user.fullname }}
                     </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('app_admin_index') }}" class="dropdown-item">{{ 'word.admin.space'|trans }}</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('app_admin_index') }}" class="dropdown-item">{{ 'word.admin.space'|trans }}</a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                        <a href="{{ path('app_user_profile', {'slug': app.user.slug}) }}" class="dropdown-item">{{ 'word.profile'|trans }}</a>
                         <div class="dropdown-divider"></div>
-                    {% endif %}
-                    <a href="{{ path('app_user_profile', {'slug': app.user.slug}) }}" class="dropdown-item">{{ 'word.profile'|trans }}</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ path('app_trick_add') }}" class="dropdown-item">{{ 'word.add.trick'|trans }}</a>
-                    <div class="dropdown-divider"></div>
-                    <a href="{{ path('app_security_logout') }}" class="dropdown-item">{{ 'word.logout'|trans }}</a>
-                </div>
+                        <a href="{{ path('app_trick_add') }}" class="dropdown-item">{{ 'word.add.trick'|trans }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ path('app_security_logout') }}" class="dropdown-item">{{ 'word.logout'|trans }}</a>
+                    </div>
                 </li>
             {% else %}
                 <li class="nav-item">

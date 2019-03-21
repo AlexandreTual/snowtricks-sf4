@@ -125,3 +125,13 @@ word.registration: Inscription
 word.save: Enregistrer
 word.trick: "Trick : "
 word.updatedAt: Mis à jour le
+form.category.name.label: Nouvelle catégorie
+form.category.name.placeholder: Nom de la catégorie...
+form.category.description.label: Description
+form.category.description.placeholder: Décrivez la catégorie..
+flash.addCategory.success: La nouvelle catégorie a été ajouté avec succès !
+word.category: Catégorie
+word.categories: Catégories
+word.number.trick: Nombre de trick
+form.trick.category.label: Catégories
+form.trick.category.placeholder: Choisissez une catégorie

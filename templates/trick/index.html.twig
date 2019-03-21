@@ -22,28 +22,6 @@
     </div>
 
     <div class="container">
-        <div class="row">
-            {% for trick in tricks %}
-                <div class="col-md-4 mt-4">
-                    <div class="card">
-                        <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}"><img class="card-img-top" src="{{ trick.coverImage.linkPath }}"></a>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ trick.name }}</h5>
-                            <div class="card-text">
-                            </div>
-                            <a href="{{ path('app_trick_show', {'slug': trick.slug}) }}" class="btn btn-primary">{{ 'trick.button.learn.more'|trans }}</a>
-                            {% if app.user == trick.user%}
-                                <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
-                                    <i class="far fa-edit mx-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
-                                </a>
-                                <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                                    <i class="far fa-trash-alt mx-2" title="{{ 'link.title.trick.delete'|trans }}"></i>
-                                </a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {% include '/partials/_trickCard.html.twig' %}
     </div>
 {% endblock %}

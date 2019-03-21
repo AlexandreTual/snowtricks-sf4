@@ -5,6 +5,31 @@
 {% block body %}
     <div class="container">
         <h1 class="text-center">{{ 'page.admin.index.title'|trans }}</h1>
+        <div class="row">
+            <div class="col">
+                {{ form(categoryForm) }}
+            </div>
+            <div class="col">
+                <h4>{{ 'word.categories'|trans|capitalize }}</h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">{{ 'word.category'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.number.trick'|trans|capitalize }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.countTrick }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h4>{{ 'word.list.trick'|trans|capitalize }}</h4>
         <table class="table table-bordered">
             <thead class="thead-dark">
             <tr>
@@ -30,7 +55,6 @@
                     </td>
                 </tr>
             {% endfor %}
-
             </tbody>
         </table>
     </div>

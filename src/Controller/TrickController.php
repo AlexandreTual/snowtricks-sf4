@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickEditMediaType;
@@ -18,9 +19,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-/**
- * @Route("/trick")
- */
 class TrickController extends AbstractController
 {
     private $trickService;
@@ -41,14 +39,29 @@ class TrickController extends AbstractController
         return [
             'tricks' => $this->manager->getRepository(Trick::class)->findBy([], ['id' => 'DESC']),
             'images' => $this->manager->getRepository(Image::class)->findAll(),
-            ];
+        ];
+    }
+
+    /**
+     * @Route("/trick/category/{name}")
+     * @param $category
+     * @Template()
+     */
+    public function trickByCategory(Category $category)
+    {
+       $tricks = $this->manager->getRepository(Trick::class)->findBy(['category' => $category]);
+
+        return [
+            'tricks' => $tricks,
+            'category' => $category,
+        ];
     }
 
     /**
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/add")
+     * @Route("/trick/add")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
@@ -71,7 +84,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{slug}")
+     * @Route("/trick/edit/{slug}")
      * @param Trick $trick
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -96,7 +109,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/edit/media/{slug}")
+     * @Route("/trick/edit/media/{slug}")
      * @param $slug
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -122,7 +135,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete-media/{mediaType}/{trick_slug}/{mediaId}")
+     * @Route("/trick/delete-media/{mediaType}/{trick_slug}/{mediaId}")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
@@ -153,7 +166,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{slug}")
+     * @Route("/trick/delete/{slug}")
      * @param Trick $trick
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

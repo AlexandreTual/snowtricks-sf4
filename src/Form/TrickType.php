@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Trick;
+use App\Service\CategoryService;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,6 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
+    private $categoryService;
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -26,6 +35,11 @@ class TrickType extends AbstractType
                 'attr' => [
                     'placeholder' => 'form.trick.description.placeholder',
                 ]
+            ])
+            ->add('category', EntityType::class, [
+                'label' => 'form.trick.category.label',
+                'class' => Category::class,
+                'choice_label' => 'name',
             ])
             ->add('images', CollectionType::class, [
                 'label' => 'form.trick.image.label',

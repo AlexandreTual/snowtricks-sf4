@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'word.list.trick'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'word.category'|trans }} "{{ category.name|capitalize }}"</h1>
+        <div class="text-center">
+            {{ category.description }}
+        </div>
+        {% include '/partials/_trickCard.html.twig' %}
+    </div>
+{% endblock %}
