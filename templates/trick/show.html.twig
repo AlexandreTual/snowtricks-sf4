@@ -21,7 +21,7 @@
         {% if trick.images %}
             {% for image in trick.images %}
                 <img src="{{ image.linkPath }}" alt="{{ image.caption }}" width="400" height="200">
-                {% if app.user == trick.user %}
+                {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
                     <i class="far fa-trash-alt" title="{{ 'link.title.image.delete'|trans }}"></i>
                 </a>

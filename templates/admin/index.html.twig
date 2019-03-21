@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'page.admin.index.title'|trans }}</h1>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">{{ 'word.id'|trans|capitalize }}</th>
+                <th scope="col">{{ 'word.name'|trans|capitalize }}</th>
+                <th scope="col">{{ 'word.createdAt'|trans|capitalize }}</th>
+                <th scope="col">{{ 'word.updatedAt'|trans|capitalize }}</th>
+                <th scope="col">{{ 'word.author'|trans|capitalize }}</th>
+                <th scope="col">{{ 'word.action'|trans|capitalize }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for trick in tricks %}
+                <tr>
+                    <th scope="row">{{ trick.id }}</th>
+                    <td><a href="{{ path('app_trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a></td>
+                    <td>{{ trick.createdAt|date('d/m/Y') }}</td>
+                    <td>{{ trick.updatedAt|date('d/m/Y') }}</td>
+                    <td><a href="{{ path('app_user_profile', {'slug': trick.user.slug}) }}">{{ trick.user.fullname }}</a></td>
+                    <td>
+                        <a href="{{ path('app_admin_edittrick', {'slug': trick.slug}) }}" class="mx-2"><i class="far fa-edit"></i></a>
+                        <a href="{{ path('app_admin_deletetrick', {'slug': trick.slug}) }}" class="mx-2"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

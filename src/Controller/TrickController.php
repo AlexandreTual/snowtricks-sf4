@@ -33,7 +33,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/index")
+     * @Route("/")
      * @Template()
      */
     public function index()

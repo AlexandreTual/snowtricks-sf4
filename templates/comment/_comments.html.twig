@@ -1,15 +1,10 @@
 {% for comment in comments %}
     <div class="row">
-        <div class="col-md-2 d-flex align-items-center">
-            <a href="{{ path('app_user_profile', {'slug' : comment.user.slug})}}">
-                <img src="{{ comment.user.picture }}" alt="{{ 'word.avatar.to'|trans }} {{ comment.user.fullname }}" class="avatar avatar-medium">
-            </a>
-        </div>
         <div class="col-md-6">
             <div class="card mb-2" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{ path('app_user_profile', {'slug' : comment.user.slug})}}">{{comment.user.fullName}}</a>
+                        <a href="{{ path('app_user_profile', {'slug' : comment.user.slug})}}"><img src="{{ comment.user.picturePath }}" alt="{{ 'word.avatar.to'|trans }} {{ comment.user.fullname }}" class="avatar avatar-mini"> {{comment.user.fullName}}</a>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ 'word.published'|trans }} {{comment.createdAt|date("m/d/Y")}}</h6>
                     <p class="card-text">{{comment.content}}</p>
