@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b93b268-ef50-4531-bbfe-b1bcb96fab24" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/collectionTrick.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/MessageGenerator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partials/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/header.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/add.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/edit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/edit_media.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/edit_media.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/app/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/trick/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/trick/show.html.twig" afterDir="false" />
     </list>
     <ignored path="public/uploads/images/00c95edf8013ba109a9be93b339dab40.jpeg" />
     <ignored path="public/uploads/images/1d8d4eb9d49b84398d3289d204f2cd86.jpeg" />
@@ -72,8 +65,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/TrickController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="41" column="10" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="41" selection-end-column="10" />
+            <state relative-caret-position="-264">
+              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/CategoryController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="495">
+              <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
               <folding>
                 <element signature="e#34#58#0#PHP" expanded="true" />
               </folding>
@@ -81,14 +83,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/category/category_list.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-              <folding>
-                <element signature="e#34#99#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="192">
+              <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/partials/header.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -129,9 +137,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/Form/TrickEditMediaType.php" />
-        <option value="$PROJECT_DIR$/src/Form/TrickEditTextType.php" />
-        <option value="$PROJECT_DIR$/src/Service/FileUploader.php" />
         <option value="$PROJECT_DIR$/templates/user/edit.html.twig" />
         <option value="$PROJECT_DIR$/templates/security/registration.html.twig" />
         <option value="$PROJECT_DIR$/templates/user/update_password.html.twig" />
@@ -169,17 +174,20 @@
         <option value="$PROJECT_DIR$/templates/partials/_trickCard.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/trick_by_category.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/index.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/TrickController.php" />
         <option value="$PROJECT_DIR$/src/Service/CategoryService.php" />
         <option value="$PROJECT_DIR$/src/Form/TrickType.php" />
         <option value="$PROJECT_DIR$/templates/trick/edit_media.html.twig" />
         <option value="$PROJECT_DIR$/public/js/collectionTrick.js" />
         <option value="$PROJECT_DIR$/templates/trick/add.html.twig" />
-        <option value="$PROJECT_DIR$/templates/partials/header.html.twig" />
         <option value="$PROJECT_DIR$/templates/partials/_js.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/edit.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/show.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/AppController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/TrickController.php" />
+        <option value="$PROJECT_DIR$/templates/partials/category_list_menu.html.twig" />
+        <option value="$PROJECT_DIR$/templates/partials/header.html.twig" />
+        <option value="$PROJECT_DIR$/src/Controller/CategoryController.php" />
+        <option value="$PROJECT_DIR$/templates/category/category_list.html.twig" />
       </list>
     </option>
   </component>
@@ -340,6 +348,12 @@
               <item name="snowtricks-sf4" type="b2602c69:ProjectViewProjectNode" />
               <item name="snowtricks-sf4" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="category" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="snowtricks-sf4" type="b2602c69:ProjectViewProjectNode" />
+              <item name="snowtricks-sf4" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="partials" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -366,10 +380,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/category" />
+      <recent name="$PROJECT_DIR$/templates/partials" />
       <recent name="$PROJECT_DIR$/templates/app" />
       <recent name="$PROJECT_DIR$/templates/user" />
       <recent name="$PROJECT_DIR$/public/uploads/images" />
-      <recent name="$PROJECT_DIR$/src/Entity/Behavior" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/public/image" />
@@ -410,12 +425,12 @@
       <workItem from="1552385958112" duration="77120000" />
       <workItem from="1553092421069" duration="3312000" />
       <workItem from="1553161444745" duration="17073000" />
-      <workItem from="1553199928423" duration="13034000" />
+      <workItem from="1553199928423" duration="13893000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="216056000" />
+    <option name="totallyTimeSpent" value="216915000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
@@ -447,23 +462,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/user/add_avatar.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="30" selection-start-column="30" selection-end-column="30" />
-          <folding>
-            <element signature="e#205#211#1#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/security/login.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="10" column="51" selection-start-line="10" selection-start-column="51" selection-end-line="10" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Form/AddAvatarType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -711,13 +709,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/partials/header.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="14" column="59" selection-start-line="14" selection-start-column="39" selection-end-line="14" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/twig.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -784,23 +775,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
+          <folding>
+            <element signature="e#34#55#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/TrickController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="41" column="10" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="41" selection-end-column="10" />
+        <state relative-caret-position="-264">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
             <element signature="e#34#58#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AppController.php">
+    <entry file="file://$PROJECT_DIR$/templates/category/category_list.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding>
-            <element signature="e#34#99#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="192">
+          <caret line="6" column="10" lean-forward="true" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/partials/header.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
         </state>
       </provider>
     </entry>

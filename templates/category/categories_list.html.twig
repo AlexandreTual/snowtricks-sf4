@@ -1,0 +1,8 @@
+<li class="nav-item dropdown active">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="categoryDropdownLink" >Category</a>
+    <div class="dropdown-menu" aria-labelledby="categoryDropdownLink">
+        {% for category in categories %}
+            <a href="{{ path('app_trick_trickbycategory', {'name': category.name}) }}" class="dropdown-item">{{ category.name|capitalize }}</a>
+        {% endfor %}
+    </div>
+</li>

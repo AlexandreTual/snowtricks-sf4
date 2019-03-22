@@ -8,15 +8,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('app_app_index') }}">{{ 'word.list.trick'|trans }}</a>
             </li>
-            <li class="nav-item dropdown active">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="categoryDropdownLink" >Category</a>
-                <div class="dropdown-menu" aria-labelledby="categoryDropdownLink">
-                    {#<div class="dropdown-divider"></div>#}
-                    {% for category in category_service.all %}
-                        <a href="{{ path('app_trick_trickbycategory', {'name': category.name}) }}" class="dropdown-item">{{ category.name|capitalize }}</a>
-                    {% endfor %}
-                </div>
-            </li>
+            {{ render(controller('App\\Controller\\CategoryController::categoriesList')) }}
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if app.user %}

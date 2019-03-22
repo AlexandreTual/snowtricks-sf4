@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Entity\Image;
 use App\Entity\Trick;
 use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
@@ -28,18 +27,6 @@ class TrickController extends AbstractController
     {
         $this->trickService = $trickService;
         $this->manager = $manager;
-    }
-
-    /**
-     * @Route("/")
-     * @Template()
-     */
-    public function index()
-    {
-        return [
-            'tricks' => $this->manager->getRepository(Trick::class)->findBy([], ['id' => 'DESC']),
-            'images' => $this->manager->getRepository(Image::class)->findAll(),
-        ];
     }
 
     /**
