@@ -8,6 +8,7 @@ use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
 use App\Form\TrickEditTextType;
 use App\Form\CommentType;
+use App\Repository\TrickRepository;
 use App\Service\TrickService;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -34,9 +35,9 @@ class TrickController extends AbstractController
      * @param $category
      * @Template()
      */
-    public function trickByCategory(Category $category)
+    public function trickByCategory(Category $category, TrickRepository $trickRepo)
     {
-       $tricks = $this->manager->getRepository(Trick::class)->findBy(['category' => $category]);
+       $tricks = $trickRepo->findBy(['category' => $category]);
 
         return [
             'tricks' => $tricks,
@@ -75,7 +76,7 @@ class TrickController extends AbstractController
      * @param Trick $trick
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
+     * @Security("is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()", message="functionality.access.denied")
      * @Template()
      */
     public function edit(Request $request, Trick $trick)

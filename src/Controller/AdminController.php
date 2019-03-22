@@ -7,6 +7,9 @@ use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CategoryType;
 use App\Form\TrickEditTextType;
+use App\Repository\CategoryRepository;
+use App\Repository\TrickRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -30,12 +33,12 @@ class AdminController extends AbstractController
      * @Route("/")
      * @Template()
      */
-    public function index()
+    public function index(TrickRepository $trickRepo, CategoryRepository $categoryRepo, UserRepository $userRepo)
     {
-        $tricks = $this->manager->getRepository(Trick::class)->findAll();
+        $tricks = $trickRepo->findAll();
         $categoryForm = $this->createForm(CategoryType::class, new Category(), ['action' => $this->generateUrl('app_admin_addcategory')]);
-        $categories = $this->manager->getRepository(Category::class)->findAll();
-        $users = $this->manager->getRepository(User::class)->findAll();
+        $categories = $categoryRepo->findAll();
+        $users = $userRepo->findAll();
 
         return [
             'tricks' => $tricks,

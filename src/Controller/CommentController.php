@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\CommentType;
+use App\Repository\CommentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,9 +72,9 @@ class CommentController extends AbstractController
      * @param Trick $trick
      * @param ObjectManager $manager
      */
-    public function getComments(Trick $trick, $offset, ObjectManager $manager)
+    public function getComments(Trick $trick, $offset, ObjectManager $manager, CommentRepository $commentRepo)
     {
-        $comments = $manager->getRepository(Comment::class)->findBy(['trick' => $trick->getId()],['id' => 'DESC'], 10, $offset);
+        $comments = $commentRepo->findBy(['trick' => $trick->getId()],['id' => 'DESC'], 10, $offset);
 
         return $this->render('/comment/_comments.html.twig', ['trick' => $trick, 'comments' => $comments]);
     }

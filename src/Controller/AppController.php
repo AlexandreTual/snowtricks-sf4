@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Trick;
+use App\Repository\ImageRepository;
+use App\Repository\TrickRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,11 +17,11 @@ class AppController extends AbstractController
      * @Route("/")
      * @Template()
      */
-    public function index(ObjectManager $manager)
+    public function index(ObjectManager $manager, TrickRepository $trickRepo, ImageRepository $imageRepo)
     {
         return [
-            'tricks' => $manager->getRepository(Trick::class)->findBy([], ['id' => 'DESC']),
-            'images' => $manager->getRepository(Image::class)->findAll(),
+            'tricks' => $trickRepo->findBy([], ['id' => 'DESC']),
+            'images' => $imageRepo->findAll(),
         ];
     }
 }

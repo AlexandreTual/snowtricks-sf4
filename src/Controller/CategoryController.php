@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,9 +15,9 @@ class CategoryController extends AbstractController
      * @Route("/category/list")
      * @Template()
      */
-    public function categoriesList(ObjectManager $manager)
+    public function categoriesList(ObjectManager $manager, CategoryRepository $categoryRepo)
     {
-        $categories = $manager->getRepository(Category::class)->findAll();
+        $categories = $categoryRepo->findAll();
 
         return [
             'categories' => $categories
