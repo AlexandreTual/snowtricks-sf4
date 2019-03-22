@@ -123,7 +123,7 @@ word.published: "Publié le :"
 word.punctation.tiret: "-"
 word.registration: Inscription
 word.save: Enregistrer
-word.trick: "Trick : "
+word.trick: "Trick"
 word.updatedAt: Mis à jour le
 form.category.name.label: Nouvelle catégorie
 form.category.name.placeholder: Nom de la catégorie...
@@ -135,3 +135,10 @@ word.categories: Catégories
 word.number.trick: Nombre de trick
 form.trick.category.label: Catégories
 form.trick.category.placeholder: Choisissez une catégorie
+word.user: Utilisateur
+word.trick.number.published: Nombre de trick publié
+word.createdAt.account: Compte créé le
+flash.user.delete.success: Le comte utilisateur à bien été supprimé
+word.role.management: Gestion des roles
+word.admin: Administrateur
+word.role: role

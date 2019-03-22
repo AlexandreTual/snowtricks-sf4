@@ -359,4 +359,9 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function countTrick()
+    {
+        return count($this->tricks);
+    }
 }

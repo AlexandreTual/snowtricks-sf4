@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Trick;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,6 +27,11 @@ class TrickEditTextType extends AbstractType
                 'attr' => [
                     'placeholder' => 'form.trick.description.placeholder',
                 ]
+            ])
+            ->add('category', EntityType::class, [
+                'label' => 'form.trick.category.label',
+                'class' => Category::class,
+                'choice_label' => 'name',
             ])
         ;
     }

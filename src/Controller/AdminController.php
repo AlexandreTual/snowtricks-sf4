@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Form\CategoryType;
 use App\Form\TrickEditTextType;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,13 +32,15 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        $tricks = $this->manager->getRepository(Trick::class)->findBy([], [], 15);
+        $tricks = $this->manager->getRepository(Trick::class)->findAll();
         $categoryForm = $this->createForm(CategoryType::class, new Category(), ['action' => $this->generateUrl('app_admin_addcategory')]);
         $categories = $this->manager->getRepository(Category::class)->findAll();
+        $users = $this->manager->getRepository(User::class)->findAll();
 
         return [
             'tricks' => $tricks,
             'categories' => $categories,
+            'users' => $users,
             'categoryForm' => $categoryForm->createView(),
         ];
     }
@@ -77,7 +81,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/category/add")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -92,6 +95,34 @@ class AdminController extends AbstractController
             $this->manager->flush();
             $this->addFlash('success', 'flash.addCategory.success');
         }
+
+        return $this->redirectToRoute('app_admin_index');
+    }
+
+    /**
+     * @Route("/user/delete/{slug}")
+     * @param Trick $trick
+     */
+    public function deleteUser(User $user)
+    {
+        $this->manager->remove($user);
+        $this->manager->flush();
+        $this->addFlash('success', 'flash.user.delete.success');
+
+        return $this->redirectToRoute('app_admin_index');
+    }
+
+    /**
+     * @Route("/user/{slug}/role/{role}")
+     * @ParamConverter("user", options={"mapping": {"slug": "slug"}})
+     * @param $role
+     * @param User $user
+     */
+    public function manageRoleUser($role, User $user)
+    {
+        $roles[] = $role;
+        $user->setRoles($roles);
+        $this->manager->flush();
 
         return $this->redirectToRoute('app_admin_index');
     }
