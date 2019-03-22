@@ -1,0 +1,66 @@
+<script>
+    $(document).ready(function () {
+        /*
+        Récupération des commentaire et ajout a au fil
+         */
+        {% if trick %}
+        function getComments() {
+            const nbComments = $('#comments div.card').length;
+            const url = "{{ path('app_comment_getcomments', {'trick_slug': trick.slug, 'offset': 'nb_comments' }) }}";
+            const urlFormat = url.replace('nb_comments', nbComments);
+            $.ajax({
+                url: urlFormat,
+                type: 'GET',
+                success: function (response) {
+                    $('#comments').append(response);
+                }
+            });
+        }
+        getComments();
+        {% endif %}
+
+        $('#more_com').click(function () {
+            getComments();
+        });
+
+        /*Ajout du prototype d'upload de fichier et de champ text pour les balise vidéos ' +
+        'pour la vue edit-Media*/
+        $('#add-video').on('click', function () {
+            var count = $('#trick_edit_media_videos div.form-group').length;
+            var tmpl = $('#trick_edit_media_videos').data('prototype').replace(/__name__/g, count);
+            $('#trick_edit_media_videos').append(tmpl);
+        });
+
+        $('#add-image').on('click', function () {
+            var count = $('#trick_edit_media_images div.form-group').length;
+            var tmpl = $('#trick_edit_media_images').data('prototype').replace(/__name__/g, count);
+            $('#trick_edit_media_images').append(tmpl);
+        });
+
+        $('div').on('click', '.delete-button', function() {
+            $(this).parent().parent().remove();
+        });
+
+        /*
+        Ajout du prototype d'upload de fichier et de champ text pour les balise vidéos
+        pour la vue Add
+        */
+        $('#add-video').on('click', function () {
+            var count = $('#trick_videos div.form-group').length;
+            var tmpl = $('#trick_videos').data('prototype').replace(/__name__/g, count);
+            $('#trick_videos').append(tmpl);
+        });
+
+        $('#add-image').on('click', function () {
+            var count = $('#trick_images div.form-group').length;
+            var tmpl = $('#trick_images').data('prototype').replace(/__name__/g, count);
+            $('#trick_images').append(tmpl);
+        });
+
+        $('div').on('click', '.delete-button', function() {
+            $(this).parent().parent().remove();
+        });
+
+
+    });
+</script>

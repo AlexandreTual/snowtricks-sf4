@@ -16,23 +16,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script >
-        $(document).ready(function () {
-            $('#add-video').on('click', function () {
-                var count = $('#trick_edit_media_videos div.form-group').length;
-                var tmpl = $('#trick_edit_media_videos').data('prototype').replace(/__name__/g, count);
-                $('#trick_edit_media_videos').append(tmpl);
-            });
-
-            $('#add-image').on('click', function () {
-                var count = $('#trick_edit_media_images div.form-group').length;
-                var tmpl = $('#trick_edit_media_images').data('prototype').replace(/__name__/g, count);
-                $('#trick_edit_media_images').append(tmpl);
-            });
-
-            $('div').on('click', '.delete-button', function() {
-                $(this).parent().parent().remove();
-            });
-        });
-    </script>
+    {% include '/partials/_js.html.twig' %}
 {% endblock %}
