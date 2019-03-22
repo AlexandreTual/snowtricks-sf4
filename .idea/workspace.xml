@@ -7,6 +7,8 @@
       <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AppController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AppController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TrickController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TrickController.php" afterDir="false" />
     </list>
     <ignored path="public/uploads/images/00c95edf8013ba109a9be93b339dab40.jpeg" />
     <ignored path="public/uploads/images/1d8d4eb9d49b84398d3289d204f2cd86.jpeg" />
@@ -64,20 +66,7 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/CategoryController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
-              <folding>
-                <element signature="e#34#58#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -109,6 +98,7 @@
       <find>word.use</find>
       <find>word.trick</find>
       <find>flash.user.delete.success</find>
+      <find>getRepo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -123,7 +113,6 @@
         <option value="$PROJECT_DIR$/src/Form/PasswordUpdateType.php" />
         <option value="$PROJECT_DIR$/src/Form/RegistrationType.php" />
         <option value="$PROJECT_DIR$/src/Form/VideoType.php" />
-        <option value="$PROJECT_DIR$/src/Controller/CommentController.php" />
         <option value="$PROJECT_DIR$/templates/user/add_avatar.html.twig" />
         <option value="$PROJECT_DIR$/templates/security/login.html.twig" />
         <option value="$PROJECT_DIR$/src/Form/AddAvatarType.php" />
@@ -151,7 +140,6 @@
         <option value="$PROJECT_DIR$/templates/partials/_js.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/edit.html.twig" />
         <option value="$PROJECT_DIR$/templates/trick/show.html.twig" />
-        <option value="$PROJECT_DIR$/src/Controller/TrickController.php" />
         <option value="$PROJECT_DIR$/templates/partials/category_list_menu.html.twig" />
         <option value="$PROJECT_DIR$/templates/category/category_list.html.twig" />
         <option value="$PROJECT_DIR$/templates/partials/header.html.twig" />
@@ -168,6 +156,8 @@
         <option value="$PROJECT_DIR$/src/Repository/ImageRepository.php" />
         <option value="$PROJECT_DIR$/src/Controller/AppController.php" />
         <option value="$PROJECT_DIR$/src/Controller/CategoryController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/CommentController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/TrickController.php" />
       </list>
     </option>
   </component>
@@ -399,18 +389,17 @@
       <workItem from="1552385958112" duration="77120000" />
       <workItem from="1553092421069" duration="3312000" />
       <workItem from="1553161444745" duration="17073000" />
-      <workItem from="1553199928423" duration="20206000" />
+      <workItem from="1553199928423" duration="20525000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="223228000" />
+    <option name="totallyTimeSpent" value="223547000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2905028" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2905028" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24980047" />
       <window_info id="Favorites" order="2" side_tool="true" weight="0.32960895" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -424,7 +413,7 @@
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32882884" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.9339339" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.9339339" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -436,16 +425,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/EventListener/DeleteImageListener.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="e#37#58#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="471">
@@ -588,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Service/TrickService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="38" column="37" lean-forward="true" selection-start-line="38" selection-start-column="37" selection-end-line="38" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Service/CategoryService.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="471">
@@ -661,27 +633,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/TrickController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/twig.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="4" column="49" selection-start-line="4" selection-start-column="49" selection-end-line="4" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="70" column="55" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
-          <folding>
-            <element signature="e#34#54#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -694,13 +649,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Form/CommentType.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/CommentController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="76" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -819,6 +767,45 @@
           <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding>
             <element signature="e#34#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/CommentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/SecurityController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-729" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Service/TrickService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="27" column="44" lean-forward="true" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/TrickController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-393">
+          <caret line="134" column="36" lean-forward="true" selection-start-line="134" selection-start-column="36" selection-end-line="134" selection-end-column="36" />
+          <folding>
+            <element signature="e#34#58#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="927">
+          <caret line="70" column="55" selection-start-line="70" selection-start-column="55" selection-end-line="70" selection-end-column="55" />
+          <folding>
+            <element signature="e#34#54#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

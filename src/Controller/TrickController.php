@@ -76,7 +76,7 @@ class TrickController extends AbstractController
      * @param Trick $trick
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Security("is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()", message="functionality.access.denied")
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @Template()
      */
     public function edit(Request $request, Trick $trick)
