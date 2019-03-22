@@ -40,4 +40,13 @@ class TrickService
         }
         $this->manager->flush();
     }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function generateToken()
+    {
+        return md5(random_bytes(10));
+    }
 }

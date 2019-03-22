@@ -98,11 +98,16 @@ class User implements UserInterface
     private $tricks;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = ['ROLE_NO_ACTIVATE'];
         $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
@@ -363,5 +368,28 @@ class User implements UserInterface
     public function countTrick()
     {
         return count($this->tricks);
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function isActivate()
+    {
+        foreach ($this->roles as $role) {
+            if ('ROLE_NO_ACTIVATE' !== $role) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

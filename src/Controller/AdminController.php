@@ -126,6 +126,7 @@ class AdminController extends AbstractController
         $roles[] = $role;
         $user->setRoles($roles);
         $this->manager->flush();
+        $this->addFlash('success', 'flash.user.role.management.success');
 
         return $this->redirectToRoute('app_admin_index');
     }

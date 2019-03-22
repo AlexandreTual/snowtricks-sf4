@@ -15,15 +15,14 @@ class MailService
         $this->env = $environment;
     }
 
-    public function sendRegistrationConfirm($recipient, $name)
+    public function sendRegistrationConfirm($user)
     {
-        $message = (new \Swift_Message('Hello Email'))
+        $message = (new \Swift_Message('Snowtricks'))
             ->setFrom('tual.alexandre@gmail.com')
-            ->setTo($recipient)
+            ->setTo($user->getEmail())
             ->setBody(
                 $this->env->render('/emails/registration.html.twig', [
-                    'email' => $recipient,
-                    'name' => $name,
+                    'user' => $user,
                 ]),
                 'text/html'
             );

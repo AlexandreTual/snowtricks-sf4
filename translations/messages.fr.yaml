@@ -142,3 +142,6 @@ flash.user.delete.success: Le comte utilisateur à bien été supprimé
 word.role.management: Gestion des roles
 word.admin: Administrateur
 word.role: role
+flash.user.role.management.success: Les droits de l'utilisateur ont été modifié.
+flash.user.activate.danger: Vueillez utiliser le mail qui vous a été envoyé pour activer votre compte ou cliquez sur mot de passe oublié
+flash.user.activate.success: Votre compte est actif félicitation !! vous pouvez à présent vous connecter.
