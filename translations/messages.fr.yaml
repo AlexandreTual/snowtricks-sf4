@@ -135,13 +135,24 @@ word.categories: Catégories
 word.number.trick: Nombre de trick
 form.trick.category.label: Catégories
 form.trick.category.placeholder: Choisissez une catégorie
-word.user: Utilisateur
-word.trick.number.published: Nombre de trick publié
-word.createdAt.account: Compte créé le
-flash.user.delete.success: Le comte utilisateur à bien été supprimé
+word.user: utilisateur
+word.trick.number.published: nombre de trick publié
+word.createdAt.account: compte créé le
+flash.user.delete.success: le comte utilisateur à bien été supprimé
 word.role.management: Gestion des roles
 word.admin: Administrateur
-word.role: role
+word.role: rôle
 flash.user.role.management.success: Les droits de l'utilisateur ont été modifié.
-flash.user.activate.danger: Vueillez utiliser le mail qui vous a été envoyé pour activer votre compte ou cliquez sur mot de passe oublié
+flash.user.activate.danger: Veuillez utiliser le mail qui vous a été envoyé pour activer votre compte ou cliquez sur mot de passe oublié
 flash.user.activate.success: Votre compte est actif félicitation !! vous pouvez à présent vous connecter.
+flash.send.updatePassword.success: Un email vous a été envoyer pour mettre à jour votre mot de passe
+flash.send.updatePassword.danger: Aucun compte rattaché à cet email
+word.password.forgot: mot de passe oublié
+page.login.title: Page de connexion
+page.updatePassword.title: mise à jour de mot de passe
+form.updatePassword.title: confirmer votre email !
+flash.user.updatePassword.danger: Veuillez utiliser le mail qui vous a été envoyé pour mettre à jour votre mot de passe ou cliquer sur mot de passe oublié
+form.updatePassword.hash.option.1.label: Nouveau mot de passe
+form.updatePassword.hash.option.1.placeholder: Votre nouveau mot de passe...
+form.updatePassword.hash.option.2.label: Confirmation de mot de passe
+form.updatePassword.hash.option.2.placeholder: Confirmer votre nouveau mot de passe..

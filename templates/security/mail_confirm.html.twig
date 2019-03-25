@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'page.login.title'|trans }}{% endblock %}
+{% block title %}{{ 'page.updatePassword.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -8,12 +8,10 @@
             <div class="col-md-3">&nbsp;</div>
             <div class="col-md-6">
                 <div class="bg-light py-3 px-3">
-                    <h1>{{ 'form.login.title'|trans }}</h1>
+                    <h1>{{ 'form.updatePassword.title'|trans|capitalize }}</h1>
                     {{ form_start(form) }}
-                    {% if error %}<div class="text-center alert alert-danger margin-bottom-25">{{ error.message|trans }}</div>{% endif %}
                     {{ form_widget(form) }}
                     <button type="submit" class="btn btn-primary">{{ 'word.login'|trans }}</button>
-                    <a href="{{ path('app_security_sendupdatepassword') }}" class="mx-2">{{ 'word.password.forgot'|trans }}</a>
                     {{ form_end(form) }}
                 </div>
             </div>

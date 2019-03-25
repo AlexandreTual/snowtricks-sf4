@@ -97,14 +97,12 @@ class UserController extends AbstractController
 
                 return $this->redirectToRoute('app_user_updatepassword');
             }
-            $hash = $userPasswordEncoder->encodePassword($user, $form->get('password')->getData());
-            $user->setHash($hash);
             $this->manager->flush();
             $this->addFlash(
                 'success',
                 "flash.user.password.edit.success");
 
-            return $this->redirectToRoute('app_user_profile');
+            return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug()]);
         }
 
         return ['form' => $form->createView()];

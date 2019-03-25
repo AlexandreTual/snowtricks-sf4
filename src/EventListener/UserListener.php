@@ -18,6 +18,15 @@ class UserListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
+        $this->updatePassword($entity);
+    }
+
+    public  function preUpdate(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        $this->updatePassword($entity);
+    }
+
+    public function updatePassword($entity){
         if ($entity instanceof User) {
             $entity->setHash($this->encoder->encodePassword($entity ,$entity->getHash()));
         }

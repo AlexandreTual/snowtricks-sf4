@@ -3,6 +3,7 @@ category.lenght.name.notBlank: Le nom de la catégorie ne peut pas être vide !
 form.passwordUpdate.password.constraints: Le mot de passe doit contenir six caractères minimum.
 form.passwordUpdate.password.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe.
 form.registration.hash.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe
+form.updatePassword.hash.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe
 media.length.caption.tooShort: La légende doit contenir au moins 10 caractères
 trick.length.description.tooShort: La description de la figure doit faire plus de 100 caractères.
 trick.length.introduction.tooShort: L'introduction doit contenir au moins 20 caractères.

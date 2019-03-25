@@ -26,7 +26,20 @@ class MailService
                 ]),
                 'text/html'
             );
+        $this->mailer->send($message);
+    }
 
+    public function sendUpdatePassword($user)
+    {
+        $message = (new \Swift_Message('Snowtricks'))
+            ->setFrom('tual.alexandre@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->env->render('/emails/update_password.html.twig', [
+                    'user' => $user,
+                ]),
+                'text/html'
+            );
         $this->mailer->send($message);
     }
 }
