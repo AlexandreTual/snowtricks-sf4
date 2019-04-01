@@ -4,18 +4,18 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LoginType;
-use App\Form\MailType;
+use App\Form\EmailValidationType;
 use App\Form\RegistrationType;
-use App\Form\SecurityPasswordUpdateType;
+use App\Form\ForgotPasswordValidationType;
 use App\Repository\UserRepository;
 use App\Service\MailService;
-use App\Service\TrickService;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -51,18 +51,17 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/registration")
-     * @throws \Exception
      * @Template()
      */
-    public function registration(Request $request, TrickService $trickService)
+    public function registration(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $token = $trickService->generateToken();
-            $user->setToken($token);
+            dd($user);
+            $user->setHash($encoder->encodePassword($user, $user->getHash()));
             $this->manager->persist($user);
             $this->manager->flush();
             $this->mailService->sendRegistrationConfirm($user);
@@ -84,9 +83,8 @@ class SecurityController extends AbstractController
      */
     public function accountActivate(User $user, $token)
     {
-        if ($token == $user->getToken()) {
-            $role[] = 'ROLE_USER';
-            $user->setRoles($role);
+        if ($token === $user->getToken()) {
+            $user->setRoles(['ROLE_USER']);
             $this->manager->flush();
             $this->addFlash('success', 'flash.user.activate.success');
 
@@ -104,13 +102,13 @@ class SecurityController extends AbstractController
      * @param $token
      * @Template()
      */
-    public function updatePassword(User $user,Request $request, $token)
+    public function updatePassword(User $user,Request $request, $token, UserPasswordEncoderInterface $encoder)
     {
         if ($token == $user->getToken()) {
-            $form = $this->createForm(SecurityPasswordUpdateType::class, $user);
+            $form = $this->createForm(ForgotPasswordValidationType::class, $user);
             $form->handleRequest($request);
-
             if ($form->isSubmitted() && $form->isValid()) {
+                $user->setHash($encoder->encodePassword($user, $user->getHash()));
                 $this->manager->flush();
                 $this->addFlash('success','flash.user.password.edit.success');
 
@@ -128,12 +126,12 @@ class SecurityController extends AbstractController
      * @Route("/mail/confirm")
      * @param Request $request
      * @param UserRepository $userRepo
+     * @throws \Exception
      */
     public function sendUpdatePassword(Request $request, UserRepository $userRepo)
     {
-
         $user = new User();
-        $form = $this->createForm(MailType::class, $user);
+        $form = $this->createForm(EmailValidationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $userToSend = $userRepo->findOneBy(['email' => $user->getEmail()]);

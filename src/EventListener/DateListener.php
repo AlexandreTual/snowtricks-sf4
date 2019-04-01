@@ -32,7 +32,7 @@ class DateListener
         }
     }
 
-    public function issetTrait($entity)
+    private function issetTrait($entity): Bool
     {
         $traits = class_uses($entity);
         foreach ($traits as $trait) {

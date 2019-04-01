@@ -4,18 +4,20 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AddAvatarType extends AbstractType
+class EmailValidationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('picture', FileType::class, [
-                'label' => false,
-                'data_class' => null,
+            ->add('email', EmailType::class, [
+                'label' => 'form.registration.email.label',
+                'attr' => [
+                    'placeholder' => 'form.registration.email.placeholder',
+                ]
             ])
         ;
     }

@@ -4,8 +4,10 @@ namespace App\Service;
 
 use App\Entity\Image;
 use App\Entity\Trick;
+use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class TrickService
 {
@@ -39,14 +41,5 @@ class TrickService
             $trick->addVideo($video);
         }
         $this->manager->flush();
-    }
-
-    /**
-     * @return string
-     * @throws \Exception
-     */
-    public function generateToken()
-    {
-        return md5(random_bytes(10));
     }
 }

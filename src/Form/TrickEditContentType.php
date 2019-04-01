@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TrickEditTextType extends AbstractType
+class TrickEditContentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -6,7 +6,7 @@ use App\Entity\Category;
 use App\Entity\Trick;
 use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
-use App\Form\TrickEditTextType;
+use App\Form\TrickEditContentType;
 use App\Form\CommentType;
 use App\Repository\TrickRepository;
 use App\Service\TrickService;
@@ -81,7 +81,7 @@ class TrickController extends AbstractController
      */
     public function edit(Request $request, Trick $trick)
     {
-        $form = $this->createForm(TrickEditTextType::class, $trick)
+        $form = $this->createForm(TrickEditContentType::class, $trick)
             ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();

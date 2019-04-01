@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -48,7 +49,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *     min = 6,
-     *     minMessage = "user.lenght.hash")
+     *     minMessage = "")
      */
     private $hash;
 
@@ -104,10 +105,12 @@ class User implements UserInterface
 
     /**
      * User constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
         $this->roles = ['ROLE_NO_ACTIVATE'];
+        $this->generateToken();
         $this->comments = new ArrayCollection();
         $this->tricks = new ArrayCollection();
     }
@@ -391,5 +394,13 @@ class User implements UserInterface
         }
 
         return false;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function generateToken()
+    {
+        $this->token = md5(random_bytes(10));
     }
 }

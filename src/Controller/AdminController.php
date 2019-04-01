@@ -6,7 +6,7 @@ use App\Entity\Category;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\CategoryType;
-use App\Form\TrickEditTextType;
+use App\Form\TrickEditContentType;
 use App\Repository\CategoryRepository;
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
@@ -69,7 +69,7 @@ class AdminController extends AbstractController
      */
     public function editTrick(Trick $trick, Request $request)
     {
-        $form = $this->createForm(TrickEditTextType::class, $trick)
+        $form = $this->createForm(TrickEditContentType::class, $trick)
             ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();

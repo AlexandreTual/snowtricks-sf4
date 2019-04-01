@@ -14,7 +14,7 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('tag', TextType::class, [
-                'label' => 'form.video.tag.label',
+                'label' => false,
                 'attr' =>[
                     'placeholder' => 'form.video.tag.placeholder',
                 ]

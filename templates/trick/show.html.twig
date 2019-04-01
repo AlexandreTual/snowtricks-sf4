@@ -57,5 +57,25 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% include '/partials/_js.html.twig' with {'trick': trick} %}
+    <script >
+    $(document).ready(function() {
+      function getComments() {
+            const nbComments = $('#comments div.card').length;
+            const url = "{{ path('app_comment_getcomments', {'trick_slug': trick.slug, 'offset': 'nb_comments' }) }}";
+            const urlFormat = url.replace('nb_comments', nbComments);
+            $.ajax({
+                url: urlFormat,
+                type: 'GET',
+                success: function (response) {
+                    $('#comments').append(response);
+                }
+            });
+        }
+        getComments();
+
+        $('#more_com').click(function () {
+            getComments();
+        });
+    })
+</script>
 {% endblock %}

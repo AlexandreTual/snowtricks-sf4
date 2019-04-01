@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\AddAvatarType;
+use App\Form\AvatarType;
 use App\Form\PasswordUpdateType;
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -66,7 +66,7 @@ class UserController extends AbstractController
     public function addAvatar(Request $request)
     {
         $user = $this->getUser();
-        $form = $this->createForm(AddAvatarType::class, $user);
+        $form = $this->createForm(AvatarType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
@@ -83,20 +83,21 @@ class UserController extends AbstractController
      * @IsGranted("ROLE_USER")
      * @Template()
      */
-    public function updatePassword(Request $request, UserPasswordEncoderInterface $userPasswordEncoder)
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $form = $this->createForm(PasswordUpdateType::class);
         $form->handleRequest($request);
         $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
+            if (!$encoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
                 $this->addFlash(
                     'danger',
                     'flash.user.password.edit.danger');
 
                 return $this->redirectToRoute('app_user_updatepassword');
             }
+            $user->setHash($encoder->encodePassword($user, $user->getHash()));
             $this->manager->flush();
             $this->addFlash(
                 'success',
