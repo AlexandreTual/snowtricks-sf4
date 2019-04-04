@@ -51,7 +51,7 @@ class Trick
     private $images;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", cascade={"persist", "remove"}, mappedBy="trick", orphanRemoval=true)
      */
     private $comments;
 

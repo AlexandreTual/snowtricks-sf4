@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Image;
 use App\Entity\Trick;
+use App\Entity\Video;
+use App\Form\EditImageType;
+use App\Form\EditVideoType;
 use App\Form\TrickEditMediaType;
 use App\Form\TrickType;
 use App\Form\TrickEditContentType;
@@ -46,10 +50,10 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/trick/add")
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/trick/add")
      * @IsGranted("ROLE_USER")
      * @Template()
      */
@@ -119,6 +123,70 @@ class TrickController extends AbstractController
         return [
             'form' => $form->createView(),
             'trick' => $trick
+        ];
+    }
+
+    /**
+     * @Route("/trick/{slug}/edit/image/{id}/")
+     * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("image", options={"id": "id"})
+     * @param Image $image
+     * @param Trick $trick
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @Template()
+     */
+    public function editImage(Image $image, Trick $trick, Request $request)
+    {
+        $newImage = new Image();
+        $form = $this->createForm(EditImageType::class, $newImage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->removeImage($image);
+            $trick->addImage($newImage);
+            $this->manager->flush();
+
+            $this->addFlash('success', 'flash.edit.image.success');
+
+            return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return [
+            'form' => $form->createView(),
+            'image' => $image,
+        ];
+    }
+
+    /**
+     * @Route("/trick/{slug}/edit/video/{id}/")
+     * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("video", options={"id": "id"})
+     * @param Video $video
+     * @param Trick $trick
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @Template()
+     */
+    public function editVideo(Video $video, Trick $trick, Request $request)
+    {
+        $newVideo = new Video();
+        $form = $this->createForm(EditVideoType::class, $newVideo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $trick->removeVideo($video);
+            $trick->addVideo($newVideo);
+            $this->manager->flush();
+
+            $this->addFlash('success', 'flash.edit.video.success');
+
+            return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return [
+            'form' => $form->createView(),
+            'video' => $video,
         ];
     }
 

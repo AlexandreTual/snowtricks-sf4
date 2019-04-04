@@ -38,16 +38,14 @@ class UploadImageListener
         if ($entity instanceof Image) {
             $file = $entity->getLink();
             if ($file instanceof UploadedFile) {
-                $filename = $this->uploader->upload($file);
-                $entity->setLink($filename);
+                $entity->setLink($this->uploader->upload($file));
             } elseif ($file instanceof File) {
                 $entity->setLink($file->getFilename());
             }
         } elseif ($entity instanceof User) {
             $file = $entity->getPicture();
             if ($file instanceof UploadedFile) {
-                $filename = $this->uploader->upload($file);
-                $entity->setPicture($filename);
+                $entity->setPicture($this->uploader->upload($file));
             } elseif ($file instanceof File) {
                 $entity->setPicture($file->getFilename());
             }

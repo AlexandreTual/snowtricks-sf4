@@ -1,7 +1,7 @@
 div.trick-title {
     padding: 2em;
     background-size: cover;
-    height: 300px;
+    height: 350px;
 }
 
 div.trick-title h1, div.trick-title h4{
@@ -10,7 +10,7 @@ div.trick-title h1, div.trick-title h4{
 }
 
 div.container {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .avatar {
@@ -27,4 +27,22 @@ div.container {
 .avatar-mini {
     max-width: 24px;
     max-height: 24px;
+}
+
+#actionTrick {
+    background-color: white;
+}
+
+#trickContent {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.mediaTrick {
+    width: 300px;
+    height: 150px;
+}
+
+.info {
+    background-color: #eff0f2;
 }

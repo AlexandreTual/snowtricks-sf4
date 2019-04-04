@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.admin.editCategory'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'page.admin.editCategory'|trans|capitalize }}</h1>
+        {{ form(form) }}
+    </div>
+{% endblock %}

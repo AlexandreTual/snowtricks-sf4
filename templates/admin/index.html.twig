@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{ 'page.admin.index.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -19,7 +19,7 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="trick" role="tabpanel" aria-labelledby="trick-tab">
-                <h4 class="my-4">{{ 'word.list.trick'|trans|capitalize }}</h4>
+                <h4 class="my-4">{{ 'word.list.trick'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ tricks|length }}</span></h4>
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
@@ -52,12 +52,13 @@
                 <div class="my-4">
                     {{ form(categoryForm) }}
                 </div>
-                <h4>{{ 'word.categories'|trans|capitalize }}</h4>
+                <h4>{{ 'word.categories'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ categories|length }}</span></h4>
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">{{ 'word.category'|trans|capitalize }}</th>
                         <th scope="col">{{ 'word.number.trick'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.action'|trans|capitalize }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -65,13 +66,14 @@
                         <tr>
                             <td>{{ category.name|capitalize }}</td>
                             <td>{{ category.countTrick }}</td>
+                            <td><a href="{{ path('app_admin_editcategory', {'id': category.id}) }}" class="mx-2"><i class="far fa-edit"></i></a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="tab-pane" id="user" role="tabpanel" aria-labelledby="user-tab">
-                <h4 class="my-4">{{ 'word.categories'|trans|capitalize }}</h4>
+                <h4 class="my-4">{{ 'word.users'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ users|length }}</span></h4>
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>

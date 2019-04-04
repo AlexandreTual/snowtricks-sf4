@@ -8,7 +8,7 @@
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">{{ 'word.published'|trans }} {{comment.createdAt|date("m/d/Y")}}</h6>
                     <p class="card-text">{{comment.content}}</p>
-                    {% if (app.user == comment.user)%}
+                    {% if (app.user == comment.user) or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('app_comment_delete', {'trick_slug':trick.slug, 'comment_id':comment.id}) }}" class="card-link">
                             <i class="far fa-trash-alt"></i>
                         </a>

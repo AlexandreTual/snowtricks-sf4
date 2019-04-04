@@ -55,4 +55,11 @@ class Video
 
         return $this;
     }
+
+    public function getResponsiveTag()
+    {
+        preg_match('#src="[a-zA-Z0-9\\:/.]+"#', $this->getTag(), $src);
+
+        return '<iframe class="embed-responsive-item" ' . $src[0] . '></iframe>';
+    }
 }

@@ -10,9 +10,9 @@ trick.length.introduction.tooShort: L'introduction doit contenir au moins 20 car
 trick.uniqueEntity:  Une figure porte déjà ce nom, veuillez en choisir un autre !
 url.notValid: Cette Url n'est pas valide
 user.email.invalid: Veuillez entrer une adresse email valide.
+user.file.mimiType: Le fichier doit être dans un des format suivant ( gif / jpeg / svg / png )
 user.lenght.description.tooShort: Votre description doit faire au moins 100 caractères.
 user.lenght.hash: Le mot de passe doit faire au moins 6 caractères.
 user.lenght.introduction.tooLong: Votre présentation ne doit pas faire plus de 255 caractères.
 user.lenght.introduction.tooShort: Votre introduction doit faire au moins 30 caractères.
 user.uniquerEntity: Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.
-user.file.mimiType: Le fichier doit être dans un des format suivant ( gif / jpeg / svg / png )

@@ -26,6 +26,7 @@ class TrickEditContentType extends AbstractType
                 'label' => 'form.trick.description.label',
                 'attr' => [
                     'placeholder' => 'form.trick.description.placeholder',
+                    'rows' => 8,
                 ]
             ])
             ->add('category', EntityType::class, [

@@ -4,53 +4,96 @@
 
 {% block body %}
     <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
-    <h1 class="trick-title text-center">{{ trick.name }}</h1>
-{% if app.user == trick.user %}
-    <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-        <i class="far fa-trash-alt" title="{{ 'link.title.trick.delete'|trans }}"></i>
-    </a>
-    <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
-        <i class="far fa-edit" title="{{ 'link.title.trick.edit'|trans }}"></i>
-    </a>
-    <a href="{{ path('app_trick_editmedia', {'slug': trick.slug}) }}" >
-        <i class="far fa-images" title="{{ 'link.title.media.add'|trans }}"></i>
-    </a>
-{% endif %}
+        <h1 class="trick-title text-center">{{ trick.name }}</h1>
+        {% if app.user == trick.user %}
+            <div class="border border-primary col-1 rounded" id="actionTrick">
+                <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
+                    <i class="far fa-edit" title="{{ 'link.title.trick.edit'|trans }}"></i>
+                </a>
+                <a href="{{ path('app_trick_editmedia', {'slug': trick.slug}) }}" >
+                    <i class="far fa-images mx-2" title="{{ 'link.title.media.add'|trans }}"></i>
+                </a>
+                <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                    <i class="far fa-trash-alt" title="{{ 'link.title.trick.delete'|trans }}"></i>
+                </a>
+            </div>
+        {% endif %}
+    </div>
     <div class="container">
-        <p class="text-center mb-3" style="padding-top: 300px">{{ trick.description }}</p>
-        {% if trick.images %}
-            {% for image in trick.images %}
-                <img src="{{ image.linkPath }}" alt="{{ image.caption }}" width="400" height="200">
-                {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                    <i class="far fa-trash-alt" title="{{ 'link.title.image.delete'|trans }}"></i>
-                </a>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        {% if trick.videos %}
-        {% for video in trick.videos %}
-            {{ video.tag|raw }}
-            {% if app.user == trick.user %}
-                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'video', 'trick_slug': trick.slug, 'mediaId': video.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                    <i class="far fa-trash-alt" title="{{ 'link.title.video.delete'|trans }}"></i>
-                </a>
-                {% endif %}
-        {% endfor %}
-        {% endif %}
-        <div>
-        Crée le : {{ trick.createdAt|date('d/m/Y') }}  Mis à jour le :{{ trick.updatedAt|date('d/m/Y') }} Auteur : {{ trick.user.fullname }}
-</div>
-        <div>
-            {% if app.user %}
-                {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug})})}}
-                {{form_row(form.content, {'label': 'form.comment.add.content.label'})}}
-                {{form_end(form)}}
+        <p class="mb-3 text-justify" id="trickContent">{{ trick.description }}</p>
+        <div class="row">
+            {% if trick.images %}
+                {% for image in trick.images %}
+                    <div class="col-4 mt-3">
+                        <a href="{{ image.linkPath }}"><img src="{{ image.linkPath }}" class="img-fluid" alt="{{ image.caption }}">
+                        </a>
+                        {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
+                            <div class="d-flex justify-content-center">
+                                <div class="border border-secondary rounded col-3 text-center my-2 info">
+                                    <a href="{{ path('app_trick_editimage', {'slug': image.trick.slug, 'id': image.id}) }}">
+                                        <i class="far fa-edit mx-1" title="{{ 'link.title.image.edit' }}"></i>
+                                    </a>
+                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                                        <i class="far fa-trash-alt mx-1" title="{{ 'link.title.image.delete'|trans }}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if trick.videos %}
+                {% for video in trick.videos %}
+                    <div class="col-4 mt-3">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            {{ video.tag|raw }}
+                        </div>
+                        {% if (app.user == trick.user or is_granted('ROLE_ADMIN')) %}
+                            <div class="d-flex justify-content-center">
+                                <div class="border border-secondary rounded col-3 text-center my-2 info">
+                                    <a href="{{ path('app_trick_editvideo', {'slug': video.trick.slug, 'id': video.id}) }}">
+                                        <i class="far fa-edit mx-1" title="{{ 'link.title.video.edit' }}"></i>
+                                    </a>
+                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'video', 'trick_slug': trick.slug, 'mediaId': video.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                                        <i class="far fa-trash-alt" title="{{ 'link.title.video.delete'|trans }}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             {% endif %}
         </div>
-        <div id="comments">
+
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="border border-secondary rounded col-3 text-center mr-2 info">
+                {{ 'word.createdAt'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} {{ trick.createdAt|date('d/m/Y') }}
+            </div>
+            {% if trick.updatedAt %}
+                <div class="border border-secondary rounded col-3 text-center mx-2 info">
+                    {{ 'word.updatedAt'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} {{ trick.updatedAt|date('d/m/Y') }}
+                </div>
+            {% endif %}
+            <div class="border border-secondary rounded col-3 text-center ml-2 info">
+                {{ 'word.author'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} <strong>{{ trick.user.fullname }}</strong>
+            </div>
         </div>
+
         <div>
+            {% if app.user %}
+                <div class="row d-flex justify-content-center mt-4">
+                    <div class="">
+                        {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug}), 'attr': {'class': 'form-inline'}})}}
+                        {{form_widget(form.content, {'label': false})}}
+                        {{form_end(form)}}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row d-flex justify-content-center mt-4">
+            <div id="comments" ></div>
+        </div>
+        <div class="row d-flex justify-content-center mt-4">
             <button id="more_com" type="button" class="btn btn-success mb-4">{{ 'word.more.comment'|trans }}</button>
         </div>
     </div>
@@ -58,24 +101,24 @@
 
 {% block javascripts %}
     <script >
-    $(document).ready(function() {
-      function getComments() {
-            const nbComments = $('#comments div.card').length;
-            const url = "{{ path('app_comment_getcomments', {'trick_slug': trick.slug, 'offset': 'nb_comments' }) }}";
-            const urlFormat = url.replace('nb_comments', nbComments);
-            $.ajax({
-                url: urlFormat,
-                type: 'GET',
-                success: function (response) {
-                    $('#comments').append(response);
-                }
-            });
-        }
-        getComments();
-
-        $('#more_com').click(function () {
+        $(document).ready(function() {
+            function getComments() {
+                const nbComments = $('#comments div.card').length;
+                const url = "{{ path('app_comment_getcomments', {'trick_slug': trick.slug, 'offset': 'nb_comments' }) }}";
+                const urlFormat = url.replace('nb_comments', nbComments);
+                $.ajax({
+                    url: urlFormat,
+                    type: 'GET',
+                    success: function (response) {
+                        $('#comments').append(response);
+                    }
+                });
+            }
             getComments();
-        });
-    })
-</script>
+
+            $('#more_com').click(function () {
+                getComments();
+            });
+        })
+    </script>
 {% endblock %}

@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>{{ 'form.trick.edit.title'|trans }}  "{{ trick.name }}"</h1>
+        <h1>{{ 'form.trick.edit.title'|trans }} {{ 'word.punctuation.cot'|trans }}{{ trick.name }}{{ 'word.punctuation.cot'|trans }}</h1>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">{{ 'form.trick.button.edit'|trans }}</button>
@@ -14,7 +14,4 @@
     </div>
 {% endblock %}
 
-{% block javascripts %}
-    {% include '/partials/_js.html.twig' %}
-{% endblock %}
 

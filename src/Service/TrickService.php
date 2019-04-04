@@ -37,7 +37,7 @@ class TrickService
         }
         foreach ($form->get('videos')->getData() as $dataVideo) {
             $video = new Video();
-            $video->setTag($dataVideo->getTag());
+            $video->setTag($dataVideo->getResponsiveTag());
             $trick->addVideo($video);
         }
         $this->manager->flush();

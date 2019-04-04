@@ -103,6 +103,27 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/category/edit/{id}")
+     * @Template()
+     */
+    public function editCategory(Category $category, Request $request)
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->manager->persist($category);
+            $this->manager->flush();
+            $this->addFlash('success', 'flash.editCategory.success');
+
+            return $this->redirectToRoute('app_admin_index');
+        }
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
      * @Route("/user/delete/{slug}")
      * @param Trick $trick
      */
