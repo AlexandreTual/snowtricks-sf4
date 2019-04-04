@@ -5,16 +5,13 @@
 {% block body %}
     <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
         <h1 class="trick-title text-center">{{ trick.name }}</h1>
-        {% if app.user == trick.user %}
-            <div class="border border-primary col-1 rounded" id="actionTrick">
+        {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
+            <div class="border border-primary text-center col-1 rounded info">
                 <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
-                    <i class="far fa-edit" title="{{ 'link.title.trick.edit'|trans }}"></i>
-                </a>
-                <a href="{{ path('app_trick_editmedia', {'slug': trick.slug}) }}" >
-                    <i class="far fa-images mx-2" title="{{ 'link.title.media.add'|trans }}"></i>
+                    <i class="far fa-edit mr-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
                 </a>
                 <a href="{{ path('app_trick_delete', {'slug': trick.slug}) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                    <i class="far fa-trash-alt" title="{{ 'link.title.trick.delete'|trans }}"></i>
+                    <i class="far fa-trash-alt ml-2" title="{{ 'link.title.trick.delete'|trans }}"></i>
                 </a>
             </div>
         {% endif %}
@@ -27,18 +24,6 @@
                     <div class="col-4 mt-3">
                         <a href="{{ image.linkPath }}"><img src="{{ image.linkPath }}" class="img-fluid" alt="{{ image.caption }}">
                         </a>
-                        {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
-                            <div class="d-flex justify-content-center">
-                                <div class="border border-secondary rounded col-3 text-center my-2 info">
-                                    <a href="{{ path('app_trick_editimage', {'slug': image.trick.slug, 'id': image.id}) }}">
-                                        <i class="far fa-edit mx-1" title="{{ 'link.title.image.edit' }}"></i>
-                                    </a>
-                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                                        <i class="far fa-trash-alt mx-1" title="{{ 'link.title.image.delete'|trans }}"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
                 {% endfor %}
             {% endif %}
@@ -48,18 +33,6 @@
                         <div class="embed-responsive embed-responsive-16by9">
                             {{ video.tag|raw }}
                         </div>
-                        {% if (app.user == trick.user or is_granted('ROLE_ADMIN')) %}
-                            <div class="d-flex justify-content-center">
-                                <div class="border border-secondary rounded col-3 text-center my-2 info">
-                                    <a href="{{ path('app_trick_editvideo', {'slug': video.trick.slug, 'id': video.id}) }}">
-                                        <i class="far fa-edit mx-1" title="{{ 'link.title.video.edit' }}"></i>
-                                    </a>
-                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'video', 'trick_slug': trick.slug, 'mediaId': video.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
-                                        <i class="far fa-trash-alt" title="{{ 'link.title.video.delete'|trans }}"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
                 {% endfor %}
             {% endif %}
@@ -75,7 +48,7 @@
                 </div>
             {% endif %}
             <div class="border border-secondary rounded col-3 text-center ml-2 info">
-                {{ 'word.author'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} <strong>{{ trick.user.fullname }}</strong>
+                {{ 'word.author'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} <strong><a href="{{ path('app_user_profile', {'slug': trick.user.slug}) }}">{{ trick.user.fullname }}</a></strong>
             </div>
         </div>
 
@@ -94,7 +67,7 @@
             <div id="comments" ></div>
         </div>
         <div class="row d-flex justify-content-center mt-4">
-            <button id="more_com" type="button" class="btn btn-success mb-4">{{ 'word.more.comment'|trans }}</button>
+            <button id="more_com" type="button" class="btn btn-success mb-4">{{ 'word.more.comment'|trans|capitalize }}</button>
         </div>
     </div>
 {% endblock %}

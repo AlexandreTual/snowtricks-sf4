@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'page.edit.Coverimage.title'|trans|capitalize }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'page.edit.image.title'|trans|capitalize }}</h1>
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-5 ">
+                <a href="{{ trick.coverImage.linkPath }}"><img src="{{ trick.coverImage.linkPath }}" class="img-fluid thumbnail rounded" alt="{{ trick.coverImage.caption }}"></a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-6">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary">{{ 'word.save'|trans|capitalize }}</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             $email = $faker->email;
             $hash = 'password';
             $introduction = $faker->sentence;
-            $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
+            $description = $faker->text(1000);
             $roles = ['ROLE_USER'];
             $picture = 'c6a39f8d1a1f8e44b2c362efde817a06.jpeg';
 
@@ -60,7 +60,7 @@ class AppFixtures extends Fixture
         $email = 'admin@snowtricks.com';
         $hash = 'password';
         $introduction = $faker->sentence;
-        $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
+        $description = $faker->text(2000);
         $roles = ['ROLE_ADMIN'];
         $picture = 'c6a39f8d1a1f8e44b2c362efde817a06.jpeg';
 

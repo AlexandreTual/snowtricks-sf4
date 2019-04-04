@@ -87,7 +87,7 @@ form.trick.coverImage.label: L'Url de l'image de présentation
 form.trick.coverImage.placeholder: Proposez une image qui en jette..
 form.trick.description.label: Description
 form.trick.description.placeholder: Parlez de votre figure de façon plus approfondi...
-form.trick.edit.title: Edition de la figure
+form.trick.edit.title: Edition du trick
 form.trick.image.label: Image
 form.trick.introduction.label: Introduction
 form.trick.introduction.placeholder: Une phrase d'accroche pour donner envie d'en lire plus..
@@ -168,3 +168,9 @@ form.edit.image.label: Légende
 form.edit.image.placeholder: une super légende...
 flash.edit.image.success: l'image a été édité avec succès
 flash.edit.video.success: la video a été édité avec succès
+form.coverImage.link.label: Image à la Une
+form.coverImage.caption.label: Légende de l'image
+form.coverImage.caption.placeholder: Décrivez l'image brièvement
+link.trick.edit.coverImage: editer l'image à la Une
+link.trick.delete.coverImage: supprimer l'image à la Une
+page.edit.Coverimage.title: edition image à la Une

@@ -46,9 +46,14 @@ class Trick
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $images;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $videos;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", cascade={"persist", "remove"}, mappedBy="trick", orphanRemoval=true)
@@ -58,18 +63,19 @@ class Trick
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
+     *
      */
     private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Video", mappedBy="trick", orphanRemoval=true, cascade={"persist"})
-     */
-    private $videos;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $coverImage;
 
     public function __construct()
     {
@@ -244,17 +250,22 @@ class Trick
         return $this;
     }
 
-    public function getCoverImage()
+    public function getCoverImage(): ?Image
     {
-        $images = $this->getImages();
-        if (null == $images[0]) {
-            $coverImage = new Image();
-            $coverImage->setLink('ef49d9f3afde6345307e0bef6293399b.jpg')
-                       ->setCaption('image de snowboarder');
+        if (null == $this->coverImage) {
+            $defaultCoverImage = new Image();
+            $defaultCoverImage->setLink('ef49d9f3afde6345307e0bef6293399b.jpg')
+                ->setCaption('image de snowboarder');
 
-            return $coverImage;
+            return $defaultCoverImage;
         }
+        return $this->coverImage;
+    }
 
-        return $images[0];
+    public function setCoverImage(?Image $coverImage): self
+    {
+        $this->coverImage = $coverImage;
+
+        return $this;
     }
 }

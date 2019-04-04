@@ -8,6 +8,7 @@ use App\Form\PasswordUpdateType;
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/edit")
+     * @IsGranted("ROLE_USER")
      * @Template()
      */
     public function edit(Request $request)
@@ -59,6 +61,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/add-avatar")
+     * @IsGranted("ROLE_USER")
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Template()
