@@ -4,19 +4,31 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\LoginType;
-use App\Form\PasswordUpdateType;
+use App\Form\EmailValidationType;
 use App\Form\RegistrationType;
+use App\Form\ForgotPasswordValidationType;
+use App\Repository\UserRepository;
+use App\Service\MailService;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class SecurityController extends AbstractController
 {
+    private $mailService;
+    private $manager;
+
+    public function __construct(MailService $mailService, ObjectManager $manager)
+    {
+        $this->mailService = $mailService;
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/login")
      * @Template()
@@ -38,59 +50,109 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/user/password-update")
-     * @IsGranted("ROLE_USER")
+     * @Route("/registration")
      * @Template()
      */
-    public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $userPasswordEncoder)
+    public function registration(Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $form = $this->createForm(PasswordUpdateType::class);
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
-        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$userPasswordEncoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
-                $this->addFlash(
-                    'danger',
-                    "Vous n'avez pas correctement confirmé votre mot de passe actuel.");
-
-                return $this->redirectToRoute('app_security_updatepassword');
-            }
-            $hash = $userPasswordEncoder->encodePassword($user, $form->get('password')->getData());
-            $user->setHash($hash);
-            $manager->flush();
+            $user->setHash($encoder->encodePassword($user, $user->getHash()));
+            $this->manager->persist($user);
+            $this->manager->flush();
+            $this->mailService->sendRegistrationConfirm($user);
             $this->addFlash(
                 'success',
-                "Votre nouveau mot de passe à bien été enregistré !");
+                'flash.user.registration.success');
 
-            return $this->redirectToRoute('app_user_profile');
+            return $this->redirectToRoute('app_security_login');
         }
 
         return ['form' => $form->createView()];
     }
 
     /**
-     * @Route("/registration")
+     * @Route("/activate/account/{user}/{token}")
+     * @ParamConverter("user", options={"mapping": {"user": "email"}})
+     * @param User $user
+     * @param $token
+     */
+    public function accountActivate(User $user, $token)
+    {
+        if ($token === $user->getToken()) {
+            $user->setRoles(['ROLE_USER']);
+            $this->manager->flush();
+            $this->addFlash('success', 'flash.user.activate.success');
+
+            return $this->redirectToRoute('app_security_login');
+        }
+        $this->addFlash('success', 'flash.user.activate.danger');
+
+        return $this->redirectToRoute('app_security_login');
+    }
+
+    /**
+     * @Route("/update/password/{email}/{token}")
+     * @ParamConverter("user", options={"mapping": {"email": "email"}})
+     * @param User $user
+     * @param $token
      * @Template()
      */
-    public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function updatePassword(User $user,Request $request, $token, UserPasswordEncoderInterface $encoder)
+    {
+        if ($token == $user->getToken()) {
+            $form = $this->createForm(ForgotPasswordValidationType::class, $user);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setHash($encoder->encodePassword($user, $user->getHash()));
+                $user->generateToken();
+                $this->manager->flush();
+                $this->addFlash('success','flash.user.password.edit.success');
+
+                return $this->redirectToRoute('app_security_login');
+            }
+
+            return ['form' => $form->createView()];
+        }
+        $this->addFlash('danger', 'flash.user.updatePassword.danger');
+
+        return $this->redirectToRoute('app_security_login');
+    }
+
+    /**
+     * @Route("/mail/confirm")
+     * @param Request $request
+     * @param UserRepository $userRepo
+     * @throws \Exception
+     */
+    public function sendUpdatePassword(Request $request, UserRepository $userRepo)
     {
         $user = new User();
-
-        $form = $this->createForm(RegistrationType::class, $user);
+        $form = $this->createForm(EmailValidationType::class, $user);
         $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $userToSend = $userRepo->findOneBy(['email' => $user->getEmail()]);
+            if ($userToSend) {
+                if (['ROLE_NO_ACTIVATE'] == $userToSend->getRoles()) {
+                    $this->addFlash('danger', 'flash.user.updatePassword.before.activate');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user);
-            $manager->flush();
+                    return $this->redirectToRoute('app_security_login');
+                }
+                $this->mailService->sendUpdatePassword($userToSend);
+                $this->addFlash('success', 'flash.send.updatePassword.success');
 
-            $this->addFlash(
-                'success',
-                'Votre compte a bien été crée, vous pouvez à présent vous connecter !');
+                return $this->redirectToRoute('app_security_login');
+            }
+            $this->addFlash('danger', 'flash.send.updatePassword.danger');
 
             return $this->redirectToRoute('app_security_login');
         }
 
-        return ['form' => $form->createView()];
+        return $this->render('/security/mail_confirm.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

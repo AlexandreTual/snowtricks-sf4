@@ -1,7 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}{{ 'word.list.trick'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Accueil</h1>
+    <div id="carouselTrickIndex" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in images  %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img src="{{ image.linkPath }}" class="d-block embed-responsive" alt="{{ image.caption }}">
+                </div>
+            {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#carouselTrickIndex" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselTrickIndex" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+    <a href="#trickList"><i class="fas fa-angle-double-down fa-3x float-right" id="arrowDownTrickList"></i></a>
+
+    <div class="container">
+        {% include '/partials/_trickCard.html.twig' %}
+    </div>
+    <div class="float-right">
+        <a href="#trickList"><i class="fas fa-angle-double-up fa-3x" id="arrowUpTrickList"></i></a>
+    </div>
 {% endblock %}

@@ -1,0 +1,3 @@
+{% for category in categories %}
+    <a href="{{ path('app_trick_trickbycategory', {'name': category.name}) }}" class="dropdown-item">{{ category.name|capitalize }}</a>
+{% endfor %}

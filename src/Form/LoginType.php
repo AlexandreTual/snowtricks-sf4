@@ -2,12 +2,11 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LoginType extends AbstractType
 {
@@ -33,20 +32,19 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('_username', TextType::class, [
-                'label' => 'Email',
+                'label' => 'form.login.username.label',
                 'attr' => [
-                    'placeholder' => 'Votre adresse email...',
+                    'placeholder' => 'form.login.username.placeholder',
                     'value' => $this->lastUsername,
                     'autofocus' => true,
                 ]
             ])
             ->add('_password', PasswordType::class, [
-                'label' => 'Mot de passe',
+                'label' => 'form.login.password.label',
                 'attr' => [
-                    'placeholder' => 'Votre mot de passe...',
+                    'placeholder' => 'form.login.password.placeholder',
                 ]
-            ])
-        ;
+            ]);
     }
 
     /**

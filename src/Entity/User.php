@@ -3,19 +3,22 @@
 namespace App\Entity;
 
 use App\Core\Utils;
+use App\Entity\Behavior\TimestampableTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity()
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity("email", message="Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.")
+ * @UniqueEntity("email", message="user.uniquerEntity")
  */
 class User implements UserInterface
 {
+    use TimestampableTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -35,10 +38,9 @@ class User implements UserInterface
      */
     private $lastName;
 
-
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Email(message="Veuillez entrer une adresse email valide.")
+     * @Assert\Email(message="user.email.invalid")
      */
     private $email;
 
@@ -46,7 +48,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *     min = 6,
-     *     minMessage = "Le mot de passe doit faire au moins 6 caractères.")
+     *     minMessage = "")
      */
     private $hash;
 
@@ -55,8 +57,8 @@ class User implements UserInterface
      * @Assert\Length(
      *     min = 30,
      *     max = 255,
-     *     minMessage = "Votre présentation doit faire au moins 30 caractères.",
-     *     maxMessage = "Votre présentation ne doit pas faire plus de 255 caractères."
+     *     minMessage = "user.lenght.introduction.tooShort",
+     *     maxMessage = "user.lenght.introduction.tooLong"
      *     )
      */
     private $introduction;
@@ -65,7 +67,7 @@ class User implements UserInterface
      * @ORM\Column(type="text")
      * @Assert\Length(
      *     min = 100,
-     *     minMessage = "Votre description doit faire au moins 100 caractères."
+     *     minMessage = "user.lenght.description.tooShort"
      *     )
      */
     private $description;
@@ -77,8 +79,6 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url(
-     *     message = "Cette Url n'est pas valide")
      */
     private $picture;
 
@@ -88,15 +88,33 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="user", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="user", orphanRemoval=true)
+     */
+    private $tricks;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
      * User constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = ['ROLE_NO_ACTIVATE'];
+        $this->generateToken();
+        $this->comments = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
     /**
-     * Permet d'initialiser le slug
      * @ORM\PrePersist
      */
     public function initialiseSlug()
@@ -198,16 +216,21 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture()
     {
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function getPicturePath()
+    {
+        return '/uploads/images/' . $this->picture;
     }
 
     /**
@@ -280,5 +303,103 @@ class User implements UserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Trick[]
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->contains($trick)) {
+            $this->tricks->removeElement($trick);
+            // set the owning side to null (unless already changed)
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function countTrick()
+    {
+        return count($this->tricks);
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    public function isActivate()
+    {
+        foreach ($this->roles as $role) {
+            if ('ROLE_NO_ACTIVATE' !== $role) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function generateToken()
+    {
+        $this->token = md5(random_bytes(10));
     }
 }

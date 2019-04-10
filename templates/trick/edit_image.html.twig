@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'page.edit.image.title'|trans }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'page.edit.image.title'|trans|capitalize }}</h1>
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-5 ">
+                <a href="{{ image.linkPath }}"><img src="{{ image.linkPath }}" class="img-fluid thumbnail rounded" alt="{{ image.caption }}"></a>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-4">
+            <div class="col-6">
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

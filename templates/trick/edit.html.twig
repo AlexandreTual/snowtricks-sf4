@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'form.trick.edit.title'|trans }}{% endblock %}
+
+{% form_theme form '/partials/_collectionMedia.html.twig' %}
+
+{% block body %}
+    <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
+        <h1 class="trick-title text-center">{{ 'form.trick.edit.title'|trans }} {{ 'word.punctuation.cot'|trans }}{{ trick.name }}{{ 'word.punctuation.cot'|trans }}</h1>
+        <div class="border border-secondary col-sm-1 rounded info text-center">
+            <a href="{{ path('app_trick_editcoverimage', {'slug': trick.slug}) }}">
+                <i class="far fa-edit mr-2-1" title="{{ 'link.trick.edit.coverImage'|trans|capitalize }}"></i>
+            </a>
+            {% if trick.coverImage.id %}
+                <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': trick.coverImage.id }) }}" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                    <i class="far fa-trash-alt ml-2" title="{{ 'link.trick.delete.coverImage'|trans|capitalize }}"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row trickMedia">
+            {% if trick.images %}
+                {% for image in trick.images %}
+                    <div class="col-lg-4 col-md-6 col-sm-1 mt-3">
+                        <a href="{{ image.linkPath }}"><img src="{{ image.linkPath }}" class="img-fluid" alt="{{ image.caption }}">
+                        </a>
+                        {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
+                            <div class="d-flex justify-content-center">
+                                <div class="border border-secondary rounded col-4 text-center my-2 info">
+                                    <a href="{{ path('app_trick_editimage', {'slug': image.trick.slug, 'id': image.id}) }}">
+                                        <i class="far fa-edit mx-1" title="{{ 'link.title.image.edit'|trans|capitalize }}"></i>
+                                    </a>
+                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'image', 'trick_slug': trick.slug, 'mediaId': image.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                                        <i class="far fa-trash-alt mx-1" title="{{ 'link.title.image.delete'|trans|capitalize }}"></i>
+                                    </a>
+                                    <a href="{{ path('app_trick_coverimageselect', {'slug': trick.slug, 'id': image.id}) }}">
+                                        <i class="fas fa-expand mx-1" title="{{ 'link.title.coverImage.select'|trans|capitalize }}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if trick.videos %}
+                {% for video in trick.videos %}
+                    <div class="col-lg-4 col-md-6 col-sm-1 mt-3">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            {{ video.tag|raw }}
+                        </div>
+                        {% if (app.user == trick.user or is_granted('ROLE_ADMIN')) %}
+                            <div class="d-flex justify-content-center">
+                                <div class="border border-secondary rounded col-4 text-center my-2 info">
+                                    <a href="{{ path('app_trick_editvideo', {'slug': video.trick.slug, 'id': video.id}) }}">
+                                        <i class="far fa-edit mx-1" title="{{ 'link.title.video.edit'|trans|capitalize }}"></i>
+                                    </a>
+                                    <a href="{{ path('app_trick_removemedia', {'mediaType': 'video', 'trick_slug': trick.slug, 'mediaId': video.id }) }}" class="delete" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')">
+                                        <i class="far fa-trash-alt mx-1" title="{{ 'link.title.video.delete'|trans|capitalize }}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="d-flex justify-content-center trickMedia">
+            <a class="btn btn-success" href="{{ path('app_trick_addmedia', {'slug': trick.slug}) }}">
+                {{ 'link.title.media.add'|trans }}
+            </a>
+        </div>
+        <div class="d-flex justify-content-center seeMedia mt-4">
+            <button class="btn btn-outline-success" id="seeMedia">{{ 'word.see.media'|trans|capitalize }}</button>
+        </div>
+        <div class="">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">{{ 'form.trick.button.edit'|trans }}</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script >
+        $(document).ready(function() {
+            $('#seeMedia').click(function () {
+                $('.trickMedia').toggle('fast', function () {
+                    if (this.style.display === 'block') {
+                        $('#seeMedia').html('{{ 'word.hidden.media'|trans|capitalize }}');
+                    } else {
+                        $('#seeMedia').html('{{ 'word.see.media'|trans|capitalize }}');
+                    }
+                });
+            });
+        })
+    </script>
+{% endblock %}
+
+

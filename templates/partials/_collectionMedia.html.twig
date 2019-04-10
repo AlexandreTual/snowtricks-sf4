@@ -1,0 +1,60 @@
+{% block _trick_images_widget %}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    <button type="button" id="add-image" class="btn btn-primary">{{ 'form.image.button.add'|trans }}</button>
+{% endblock %}
+
+{% block _trick_images_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _trick_images_entry_widget %}
+    <div class="form-group mt-3">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                    {{ form_widget(form.link) }}
+                    {{ form_errors(form.link) }}
+                    </div>
+                    <div class="col">
+                    {{ form_widget(form.caption) }}
+                    {{ form_errors(form.caption) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-flex align-self-center">
+                <button type="button" class="btn btn-danger delete-button">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _trick_videos_widget %}
+    {{ form_widget(form) }}
+    {{ form_errors(form) }}
+    <button type="button" id="add-video" class="btn btn-primary">{{ 'form.video.button.add'|trans }}</button>
+{% endblock %}
+
+{% block _trick_videos_entry_row %}
+    {{ form_widget(form) }}
+{% endblock %}
+
+{% block _trick_videos_entry_widget %}
+    <div class="form-group mt-3">
+        <div class="row">
+            <div class="col-10">
+                <div class="row">
+                    <div class="col">
+                        {{ form_widget(form) }}
+                        {{ form_errors(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-flex align-self-center">
+                <button type="button" class="btn btn-danger delete-button">X</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

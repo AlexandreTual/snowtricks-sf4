@@ -1,3 +1,18 @@
+div.trick-title {
+    padding: 2em;
+    background-size: cover;
+    height: 350px;
+}
+
+div.trick-title h1, div.trick-title h4{
+    color : white;
+    text-shadow: 3px 3px 3px rgba(0, 0 , 0, 0.5);
+}
+
+div.container {
+    margin-top: 10px;
+}
+
 .avatar {
     max-width: 128px;
     max-height: 128px;
@@ -13,3 +28,57 @@
     max-width: 24px;
     max-height: 24px;
 }
+
+#trickContent {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.mediaTrick {
+    width: 300px;
+    height: 150px;
+}
+
+.info {
+    background-color: #eff0f2;
+}
+
+#arrowDownTrickList {
+    color: black;
+    position: relative;
+    top: -50px;
+}
+
+#arrowUpTrickList {
+    color: black;
+}
+
+#nameSite {
+    color: #eff0f2;
+}
+@media (min-width: 576px) {
+    #navBarMobile {
+        display: none;
+    }
+    #seeMedia {
+        display: none;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .trickMedia {
+        display: none;
+    }
+
+    #navBarWeb {
+        display: none;
+    }
+
+    #navBarMobile {
+        display: inline-flex;
+    }
+}
+
+
+

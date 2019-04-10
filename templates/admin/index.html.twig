@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.admin.index.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center">{{ 'page.admin.index.title'|trans }}</h1>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="trick-tab" data-toggle="tab" href="#trick" role="tab" aria-controls="trick" aria-selected="true">{{ 'word.trick'|trans|capitalize }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false">{{ 'word.category'|trans|capitalize }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false">{{ 'word.user'|trans|capitalize }}</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="trick" role="tabpanel" aria-labelledby="trick-tab">
+                <h4 class="my-4">{{ 'word.list.trick'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ tricks|length }}</span></h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">{{ 'word.id'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.name'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.createdAt'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.updatedAt'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.author'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.action'|trans|capitalize }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for trick in tricks %}
+                        <tr>
+                            <th scope="row">{{ trick.id }}</th>
+                            <td><a href="{{ path('app_trick_show', {'slug': trick.slug}) }}">{{ trick.name }}</a></td>
+                            <td>{{ trick.createdAt|date('d/m/Y') }}</td>
+                            <td>{{ trick.updatedAt|date('d/m/Y') }}</td>
+                            <td><a href="{{ path('app_user_profile', {'slug': trick.user.slug}) }}">{{ trick.user.fullname }}</a></td>
+                            <td>
+                                <a href="{{ path('app_admin_edittrick', {'slug': trick.slug}) }}" class="mx-2"><i class="far fa-edit"></i></a>
+                                <a href="{{ path('app_admin_deletetrick', {'slug': trick.slug}) }}" class="mx-2" onclick="return confirm('{{ 'flash.alert.delete'|trans }}')"><i class="far fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="category" role="tabpanel" aria-labelledby="category-tab">
+                <div class="my-4">
+                    {{ form(categoryForm) }}
+                </div>
+                <h4>{{ 'word.categories'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ categories|length }}</span></h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">{{ 'word.category'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.number.trick'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.action'|trans|capitalize }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for category in categories %}
+                        <tr>
+                            <td>{{ category.name|capitalize }}</td>
+                            <td>{{ category.countTrick }}</td>
+                            <td><a href="{{ path('app_admin_editcategory', {'id': category.id}) }}" class="mx-2"><i class="far fa-edit"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="user" role="tabpanel" aria-labelledby="user-tab">
+                <h4 class="my-4">{{ 'word.users'|trans|capitalize }} <span class="badge badge-pill badge-success">{{ users|length }}</span></h4>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">{{ 'word.id'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.name'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.role'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.trick.number.published'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.createdAt.account'|trans|capitalize }}</th>
+                        <th scope="col">{{ 'word.action'|trans|capitalize }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td><a href="{{ path('app_user_profile', {'slug': user.slug}) }}">{{ user.fullname }}</a></td>
+                            <td>
+                                {% for role in user.roles %}
+                                    {{ role }}
+                                {% endfor %}
+                            </td>
+                            <td>{{ user.countTrick }}</td>
+                            <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                            <td>
+                                <a href="{{ path('app_admin_deleteuser', {'slug': user.slug}) }}" class="mx-2"
+                                   onclick="return confirm('{{ 'flash.alert.delete'|trans }}')"><i class="far fa-trash-alt"></i>
+                                </a>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">{{ 'word.role.management'|trans|capitalize }}</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ path('app_admin_manageroleuser', {'role': 'ROLE_ADMIN', 'slug': user.slug}) }}">{{ 'word.admin'|trans|capitalize }}</a>
+                                        <a class="dropdown-item" href="{{ path('app_admin_manageroleuser', {'role': 'ROLE_USER', 'slug': user.slug}) }}">{{ 'word.user'|trans|capitalize }}</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#myTab li:last-child a').tab('show')
+        })
+    </script>
+{% endblock %}
