@@ -7,23 +7,23 @@
         <div class="carousel-inner">
             {% for image in images  %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
-                    <img src="{{ image.linkPath }}" class="d-block w-100" alt="{{ image.caption }}">
+                    <img src="{{ image.linkPath }}" class="d-block embed-responsive" alt="{{ image.caption }}">
                 </div>
             {% endfor %}
         </div>
         <a class="carousel-control-prev" href="#carouselTrickIndex" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#carouselTrickIndex" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-            <div class="float-right"><a href="#trickList"><i class="fas fa-angle-double-down"></i></a></div>
         </a>
     </div>
-
+    <a href="#trickList"><i class="fas fa-angle-double-down fa-3x float-right" id="arrowDownTrickList"></i></a>
 
     <div class="container">
         {% include '/partials/_trickCard.html.twig' %}
+    </div>
+    <div class="float-right">
+        <a href="#trickList"><i class="fas fa-angle-double-up fa-3x" id="arrowUpTrickList"></i></a>
     </div>
 {% endblock %}

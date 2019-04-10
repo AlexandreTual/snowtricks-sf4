@@ -60,7 +60,6 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($user);
             $user->setHash($encoder->encodePassword($user, $user->getHash()));
             $this->manager->persist($user);
             $this->manager->flush();
@@ -109,6 +108,7 @@ class SecurityController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $user->setHash($encoder->encodePassword($user, $user->getHash()));
+                $user->generateToken();
                 $this->manager->flush();
                 $this->addFlash('success','flash.user.password.edit.success');
 
@@ -136,6 +136,11 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted()) {
             $userToSend = $userRepo->findOneBy(['email' => $user->getEmail()]);
             if ($userToSend) {
+                if (['ROLE_NO_ACTIVATE'] == $userToSend->getRoles()) {
+                    $this->addFlash('danger', 'flash.user.updatePassword.before.activate');
+
+                    return $this->redirectToRoute('app_security_login');
+                }
                 $this->mailService->sendUpdatePassword($userToSend);
                 $this->addFlash('success', 'flash.send.updatePassword.success');
 

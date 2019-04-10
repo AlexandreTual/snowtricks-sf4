@@ -90,8 +90,11 @@ class AppFixtures extends Fixture
             $description = '<p>' . join("</p><p>", $faker->paragraphs(3)) . '</p>';
             for ($k = 0; $k <= rand(1, 5); $k++) {
                 $image = new Image();
-                $image->setLink('ef49d9f3afde6345307e0bef6293399b.jpg')
+                $image->setLink(Trick::DEFAULT_IMG)
                     ->setCaption($faker->sentence());
+                if ($k == 0) {
+                    $image->setCoverImage(true);
+                }
                 $trick->addImage($image);
             }
 

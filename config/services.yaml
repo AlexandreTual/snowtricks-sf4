@@ -31,6 +31,10 @@ services:
         arguments:
             $targetDirectory: '%uploads_directory%'
 
+    App\Service\ImageService:
+        arguments:
+            $uploadDirectory: '%uploads_directory%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
     App\EventListener\UploadImageListener:
@@ -43,9 +47,9 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
 
-    App\EventListener\DeleteImageListener:
-        arguments: [ '%uploads_directory%']
-        tags:
-            - { name: doctrine.event_listener, event: preRemove }
+    #App\EventListener\DeleteImageListener:
+     #   arguments: [ '%uploads_directory%']
+      #  tags:
+       #     - { name: doctrine.event_listener, event: preRemove }
 
 

@@ -29,10 +29,6 @@ class TrickType extends AbstractType
                     'placeholder' => 'form.trick.description.placeholder',
                 ]
             ])
-            ->add('coverImage', CoverImageType::class, [
-                'label' => false,
-                ]
-            )
             ->add('category', EntityType::class, [
                 'label' => 'form.trick.category.label',
                 'class' => Category::class,

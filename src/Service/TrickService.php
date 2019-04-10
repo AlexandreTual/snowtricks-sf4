@@ -12,10 +12,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class TrickService
 {
     private $manager;
+    private $imageService;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(ObjectManager $manager, ImageService $imageService)
     {
         $this->manager = $manager;
+        $this->imageService = $imageService;
     }
 
     public function removeMedia(Trick $trick, $mediaType, $mediaId)
@@ -25,9 +27,12 @@ class TrickService
         $media = $this->manager->getRepository('App\\Entity\\' . $className)->findOneById($mediaId);
         $trick->$methodName($media);
         $this->manager->flush();
+        if ('image' == $mediaType) {
+            $this->imageService->deleteImageInFolder($media);
+        }
     }
 
-    public function editMedia($form, $trick)
+    public function addMedia($form, $trick)
     {
         foreach ($form->get('images')->getData() as $dataImage) {
             $image = new Image();

@@ -42,3 +42,43 @@ div.container {
 .info {
     background-color: #eff0f2;
 }
+
+#arrowDownTrickList {
+    color: black;
+    position: relative;
+    top: -50px;
+}
+
+#arrowUpTrickList {
+    color: black;
+}
+
+#nameSite {
+    color: #eff0f2;
+}
+@media (min-width: 576px) {
+    #navBarMobile {
+        display: none;
+    }
+    #seeMedia {
+        display: none;
+    }
+
+}
+
+@media (max-width: 576px) {
+    .trickMedia {
+        display: none;
+    }
+
+    #navBarWeb {
+        display: none;
+    }
+
+    #navBarMobile {
+        display: inline-flex;
+    }
+}
+
+
+

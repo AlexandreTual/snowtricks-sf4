@@ -1,14 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{{ path('app_app_index') }}">{{ 'word.name.site'|trans }}</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navBarWeb">
+    <a class="navbar-brand" href="{{ path('app_app_index') }}">{{ 'word.name.site'|trans|capitalize }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ path('app_app_index') }}">{{ 'word.list.trick'|trans }}</a>
+                <a class="nav-link" href="{{ path('app_app_index') }}">{{ 'word.list.trick'|trans|capitalize }}</a>
             </li>
-            {{ render(controller('App\\Controller\\CategoryController::categoriesList')) }}
+            <li class="nav-item dropdown active">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="categoryDropdownLink" >{{ 'word.categories'|trans|capitalize }}</a>
+                <div class="dropdown-menu" aria-labelledby="categoryDropdownLink">
+                    {{ render(controller('App\\Controller\\CategoryController::categoriesList')) }}
+                </div>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             {% if app.user %}
@@ -21,19 +26,19 @@
                             <a href="{{ path('app_admin_index') }}" class="dropdown-item">{{ 'word.admin.space'|trans }}</a>
                             <div class="dropdown-divider"></div>
                         {% endif %}
-                        <a href="{{ path('app_user_profile', {'slug': app.user.slug}) }}" class="dropdown-item">{{ 'word.profile'|trans }}</a>
+                        <a href="{{ path('app_user_profile', {'slug': app.user.slug}) }}" class="dropdown-item">{{ 'word.profile'|trans|capitalize }}</a>
                         <div class="dropdown-divider"></div>
-                        <a href="{{ path('app_trick_add') }}" class="dropdown-item">{{ 'word.add.trick'|trans }}</a>
+                        <a href="{{ path('app_trick_add') }}" class="dropdown-item">{{ 'word.add.trick'|trans|capitalize }}</a>
                         <div class="dropdown-divider"></div>
-                        <a href="{{ path('app_security_logout') }}" class="dropdown-item">{{ 'word.logout'|trans }}</a>
+                        <a href="{{ path('app_security_logout') }}" class="dropdown-item">{{ 'word.logout'|trans|capitalize }}</a>
                     </div>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a href="{{ path('app_security_registration') }}" class="nav-link">{{ 'word.registration'|trans }}</a>
+                    <a href="{{ path('app_security_registration') }}" class="nav-link">{{ 'word.registration'|trans|capitalize }}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('app_security_login') }}" class="nav-link">{{ 'word.login'|trans }}</a>
+                    <a href="{{ path('app_security_login') }}" class="nav-link">{{ 'word.login'|trans|capitalize }}</a>
                 </li>
             {% endif %}
         </ul>

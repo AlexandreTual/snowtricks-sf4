@@ -6,7 +6,7 @@
     <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
         <h1 class="trick-title text-center">{{ trick.name }}</h1>
         {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
-            <div class="border border-primary text-center col-1 rounded info">
+            <div class="border border-primary text-center col-1 rounded info float-right">
                 <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
                     <i class="far fa-edit mr-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
                 </a>
@@ -18,10 +18,10 @@
     </div>
     <div class="container">
         <p class="mb-3 text-justify" id="trickContent">{{ trick.description }}</p>
-        <div class="row">
+        <div class="row trickMedia">
             {% if trick.images %}
                 {% for image in trick.images %}
-                    <div class="col-4 mt-3">
+                    <div class="col-lg-4 col-md-6 col-sm-1 mt-3">
                         <a href="{{ image.linkPath }}"><img src="{{ image.linkPath }}" class="img-fluid" alt="{{ image.caption }}">
                         </a>
                     </div>
@@ -29,7 +29,7 @@
             {% endif %}
             {% if trick.videos %}
                 {% for video in trick.videos %}
-                    <div class="col-4 mt-3">
+                    <div class="col-lg-4 col-md-6 col-sm-1 mt-3">
                         <div class="embed-responsive embed-responsive-16by9">
                             {{ video.tag|raw }}
                         </div>
@@ -37,17 +37,20 @@
                 {% endfor %}
             {% endif %}
         </div>
+        <div class="d-flex justify-content-center seeMedia mt-4">
+            <button class="btn btn-outline-success" id="seeMedia">{{ 'word.see.media'|trans|capitalize }}</button>
+        </div>
 
         <div class="row d-flex justify-content-center mt-4">
-            <div class="border border-secondary rounded col-3 text-center mr-2 info">
+            <div class="border border-secondary rounded col-md-3  text-center my-sm-1 mr-md-2  my-2 info">
                 {{ 'word.createdAt'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} {{ trick.createdAt|date('d/m/Y') }}
             </div>
             {% if trick.updatedAt %}
-                <div class="border border-secondary rounded col-3 text-center mx-2 info">
+                <div class="border border-secondary rounded col-md-3 text-center my-sm-1 mx-md-2 my-2 info">
                     {{ 'word.updatedAt'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} {{ trick.updatedAt|date('d/m/Y') }}
                 </div>
             {% endif %}
-            <div class="border border-secondary rounded col-3 text-center ml-2 info">
+            <div class="border border-secondary rounded col-md-3 text-center my-sm-1 ml-md-2 info">
                 {{ 'word.author'|trans|capitalize }} {{ 'word.punctuation.colon'|trans }} <strong><a href="{{ path('app_user_profile', {'slug': trick.user.slug}) }}">{{ trick.user.fullname }}</a></strong>
             </div>
         </div>
@@ -55,11 +58,9 @@
         <div>
             {% if app.user %}
                 <div class="row d-flex justify-content-center mt-4">
-                    <div class="">
                         {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug}), 'attr': {'class': 'form-inline'}})}}
                         {{form_widget(form.content, {'label': false})}}
                         {{form_end(form)}}
-                    </div>
                 </div>
             {% endif %}
         </div>
@@ -67,7 +68,7 @@
             <div id="comments" ></div>
         </div>
         <div class="row d-flex justify-content-center mt-4">
-            <button id="more_com" type="button" class="btn btn-success mb-4">{{ 'word.more.comment'|trans|capitalize }}</button>
+            <button id="more_com" type="button" class="btn btn-success mb-4" >{{ 'word.more.comment'|trans|capitalize }}</button>
         </div>
     </div>
 {% endblock %}
@@ -91,6 +92,16 @@
 
             $('#more_com').click(function () {
                 getComments();
+            });
+
+            $('#seeMedia').click(function () {
+                $('.trickMedia').toggle('fast', function () {
+                    if (this.style.display === 'block') {
+                        $('#seeMedia').html('{{ 'word.hidden.media'|trans|capitalize }}');
+                    } else {
+                        $('#seeMedia').html('{{ 'word.see.media'|trans|capitalize }}');
+                    }
+                });
             });
         })
     </script>

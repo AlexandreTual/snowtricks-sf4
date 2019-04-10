@@ -1,7 +1,7 @@
 <h3>Salut {{ user.fullName }}!</h3>
 
 Ton inscription à bien été enregistré.<br/>
-Pour poster de nouveaux Tricks et commenter afin de faire vivre notre communauté, nous t'invitons a activer ton compte à l'aide du lien suivant<br/>
+Pour poster de nouveaux Tricks et commenter afin de faire vivre notre communauté, nous t'invitons à activer ton compte à l'aide du lien suivant<br/>
 <a href="{{ url('app_security_accountactivate', {'user': user.email, 'token': user.token}) }}">Activer mon Compte</a>
 <br/>
 Au plaisir de te voir sur <a href="{{ url('app_app_index') }}">SNOWTRICKS</a>.<br/>

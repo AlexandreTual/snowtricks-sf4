@@ -18,6 +18,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Trick
 {
     use TimestampableTrait;
+
+    const DEFAULT_IMG = 'default_image.jpg';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -71,11 +74,6 @@ class Trick
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist", "remove"})
-     */
-    private $coverImage;
 
     public function __construct()
     {
@@ -250,22 +248,30 @@ class Trick
         return $this;
     }
 
-    public function getCoverImage(): ?Image
+    public function getCoverImage()
     {
-        if (null == $this->coverImage) {
-            $defaultCoverImage = new Image();
-            $defaultCoverImage->setLink('ef49d9f3afde6345307e0bef6293399b.jpg')
-                ->setCaption('image de snowboarder');
+        $coverImage = new Image();
+        $coverImage->setLink(self::DEFAULT_IMG);
+       if ($this->images->isEmpty()) {
+           return $coverImage;
+       }
+       foreach ($this->images as $image) {
+            if ($image->getCoverImage() == 1) {
+                return $image;
+            }
+       }
 
-            return $defaultCoverImage;
-        }
-        return $this->coverImage;
+       return $coverImage;
     }
 
-    public function setCoverImage(?Image $coverImage): self
+    public function setCoverImage(Image $coverImage)
     {
-        $this->coverImage = $coverImage;
-
-        return $this;
+        $images = $this->getImages();
+        foreach ($images as $image) {
+            if ($image->getCoverImage()) {
+                $image->setCoverImage(false);
+            }
+        }
+        $coverImage->setCoverImage(true);
     }
 }

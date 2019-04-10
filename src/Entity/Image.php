@@ -31,9 +31,19 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Trick", inversedBy="images")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $trick;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $coverImage;
+
+    public function __construct()
+    {
+        $this->coverImage = false;
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +87,18 @@ class Image
     public function setTrick(?Trick $trick): self
     {
         $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?bool
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(bool $coverImage): self
+    {
+        $this->coverImage = $coverImage;
 
         return $this;
     }

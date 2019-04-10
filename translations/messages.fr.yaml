@@ -9,16 +9,17 @@ flash.comment.delete.success: Le commentaire à été correctement supprimé !
 flash.editCategory.success: La catégorie a été mis à jour avec succès !
 flash.image.delete.success: Image supprimée avec succès
 flash.send.updatePassword.danger: Aucun compte rattaché à cet email
-flash.send.updatePassword.success: Un email vous a été envoyer pour mettre à jour votre mot de passe
+flash.send.updatePassword.success: Un email vous a été envoyé pour mettre à jour votre mot de passe
 flash.trick.add.success: La figure que vous avez posté à bien été enregistré !
 flash.trick.delete.success: Trick supprimé avec succès
 flash.trick.link.danger: Seuls les vidéos hébergés sur Youtube ou Daylimotion sont accepté. Pour plus d'information veuillez cliquer sur Info !
 flash.trick.update.success: La figure à bien été modifié
 flash.user.activate.danger: Veuillez utiliser le mail qui vous a été envoyé pour activer votre compte ou cliquez sur mot de passe oublié
+flash.user.updatePassword.before.activate: Veuillez activer votre compte avant de modifié votre mot de passe
 flash.user.activate.success: Votre compte est actif félicitation !! vous pouvez à présent vous connecter.
 flash.user.delete.success: le comte utilisateur à bien été supprimé
 flash.user.password.edit.danger: Vous n'avez pas correctement confirmé votre mot de passe actuel.
-flash.user.password.edit.success: Votre nouveau mot de passe à bien été enregistré !
+flash.user.password.edit.success: Votre nouveau mot de passe a bien été enregistré !
 flash.user.profile.edit.success: Votre compte a bien été mis à jour !
 flash.user.registration.success: Votre compte a bien été crée, un email vous a été envoyé !
 flash.user.role.management.success: Les droits de l'utilisateur ont été modifié.
@@ -105,11 +106,13 @@ form.video.button.add: Ajouter une vidéo
 form.video.tag.label: Votre vidéo
 form.video.tag.placeholder: 'Ex: <iframe width="752" height="423" src="https://www.youtube.com/embed/lndaFheZNuw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 functionality.access.denied: Vous n'avez pas les droits pour accéder à cette fonctionnalité
-link.title.image.delete: Supprimer l'image
+link.title.image.delete: supprimer l'image
+link.title.image.edit: editer l'image
+link.title.video.edit: editer la video
 link.title.media.add: Ajouter un média
 link.title.trick.delete: Supprimer le Trick
 link.title.trick.edit: Editer le trick
-link.title.video.delete: Supprimer la video
+link.title.video.delete: supprimer la video
 page.add.avatar.name: Upload d'avatar
 page.add.avatar.title: Ajouter votre avatar !
 page.admin.editCategory: edition d'une categorie
@@ -174,3 +177,10 @@ form.coverImage.caption.placeholder: Décrivez l'image brièvement
 link.trick.edit.coverImage: editer l'image à la Une
 link.trick.delete.coverImage: supprimer l'image à la Une
 page.edit.Coverimage.title: edition image à la Une
+word.see.media: voir les médias
+word.hidden.media: cacher les médias
+link.title.coverImage.select: selectionner comme image de couverture
+flash.select.coverImage.success: image de couverture modifié avec succès
+word.copyright: © 2018 Copyright
+word.dot.com: .com
+word.im.registering: je m'inscris !

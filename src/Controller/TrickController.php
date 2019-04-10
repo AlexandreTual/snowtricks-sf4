@@ -14,6 +14,7 @@ use App\Form\TrickType;
 use App\Form\TrickEditContentType;
 use App\Form\CommentType;
 use App\Repository\TrickRepository;
+use App\Service\ImageService;
 use App\Service\TrickService;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Route("/trick")
+ */
 class TrickController extends AbstractController
 {
     private $trickService;
@@ -36,7 +40,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/category/{name}")
+     * @Route("/category/{name}")
      * @param $category
      * @Template()
      */
@@ -51,7 +55,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/add")
+     * @Route("/add")
      * @param Request $request
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -66,8 +70,9 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setUser($this->getUser());
-            $coverImage = $trick->getCoverImage();
-            $coverImage->setTrick($trick);
+            if (!$trick->getImages()->isEmpty()) {
+                $trick->setCoverImage($trick->getImages()->first());
+            }
             $this->manager->persist($trick);
             $this->manager->flush();
             $this->addFlash('success', 'flash.trick.add.success');
@@ -79,7 +84,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/edit")
+     * @Route("/{slug}/edit")
      * @param Trick $trick
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -104,7 +109,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/edit/coverImage")
+     * @Route("/{slug}/edit/coverImage")
      * @param Request $request
      * @param Trick $trick
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -120,12 +125,12 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $newCoverImage->setTrick($trick);
             $trick->setCoverImage($newCoverImage);
-
+            $trick->addImage($newCoverImage);
             $this->manager->flush();
 
             $this->addFlash('success', 'flash.edit.image.success');
 
-            return $this->redirectToRoute('app_trick_show', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);
         }
 
         return [
@@ -135,7 +140,25 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/add/media")
+     * @Route("/{slug}/coverImage/{id}/select")
+     * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
+     * @ParamConverter("image", options={"id": "id"})
+     * @param Trick $trick
+     * @param Image $image
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function coverImageSelect(Trick $trick, Image $image)
+    {
+        $trick->setCoverImage($image);
+        $this->manager->flush();
+        $this->addFlash('success', 'flash.select.coverImage.success');
+
+        return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);
+    }
+
+    /**
+     * @Route("/{slug}/add/media")
      * @param $slug
      * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -148,7 +171,7 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickEditMediaType::class, $newTrick)
             ->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            $this->trickService->editMedia($form, $trick);
+            $this->trickService->addMedia($form, $trick);
             $this->addFlash('success', 'flash.trick.update.success');
 
             return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);
@@ -161,7 +184,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/edit/image/{id}/")
+     * @Route("/{slug}/edit/image/{id}/")
      * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("image", options={"id": "id"})
      * @param Image $image
@@ -171,7 +194,7 @@ class TrickController extends AbstractController
      * @Security("(is_granted('ROLE_USER') and (user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN'))", message="functionality.access.denied")
      * @Template()
      */
-    public function editImage(Image $image, Trick $trick, Request $request)
+    public function editImage(Image $image, Trick $trick, Request $request, ImageService $imageService)
     {
         $newImage = new Image();
         $form = $this->createForm(EditImageType::class, $newImage);
@@ -179,6 +202,7 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->removeImage($image);
+            $imageService->deleteImageInFolder($image);
             $trick->addImage($newImage);
             $this->manager->flush();
 
@@ -194,7 +218,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}/edit/video/{id}/")
+     * @Route("/{slug}/edit/video/{id}/")
      * @ParamConverter("trick", options={"mapping": {"slug": "slug"}})
      * @ParamConverter("video", options={"id": "id"})
      * @param Video $video
@@ -227,7 +251,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete-media/{mediaType}/{trick_slug}/{mediaId}")
+     * @Route("/delete-media/{mediaType}/{trick_slug}/{mediaId}")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
@@ -258,7 +282,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick/delete/{slug}")
+     * @Route("/delete/{slug}")
      * @param Trick $trick
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
