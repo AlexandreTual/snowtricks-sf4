@@ -4,12 +4,14 @@ Création d'un site web sur le snowboard dans le cadre de la formation PHP/ Symf
 Je tiens à remercier **Gauthier Burgeat** (mon mentor chez OpenclassRoom) qui m'a accompagné tout au long du projet en distillant ses conseils et en faisant preuve de patience.
 
 ###Auteur:
-
+[Alexandre TUAL](https://github.com/AlexandreTual)
 
 ###Technologies:
 Snowtricks requière PHP => 7.01 
 
-Codacy [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0519557ec74747b3887395a062943540)](https://app.codacy.com/app/AlexandreTual/snowtricks-sf4?utm_source=github.com&utm_medium=referral&utm_content=AlexandreTual/snowtricks-sf4&utm_campaign=Badge_Grade_Dashboard)
+PHPStorm 2019.1
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0519557ec74747b3887395a062943540)](https://app.codacy.com/app/AlexandreTual/snowtricks-sf4?utm_source=github.com&utm_medium=referral&utm_content=AlexandreTual/snowtricks-sf4&utm_campaign=Badge_Grade_Dashboard)
 
 ###Librairies
 [fzaninotto/Faker
