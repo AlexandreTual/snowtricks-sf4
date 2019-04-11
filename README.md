@@ -14,8 +14,6 @@ Snowtricks requière PHP => 7.01
 
 PHPStorm 2019.1
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0519557ec74747b3887395a062943540)](https://app.codacy.com/app/AlexandreTual/snowtricks-sf4?utm_source=github.com&utm_medium=referral&utm_content=AlexandreTual/snowtricks-sf4&utm_campaign=Badge_Grade_Dashboard)
-
 ###Librairies
 [fzaninotto/Faker
 ](https://github.com/fzaninotto/Faker/blob/master/readme.md#fakerproviderdatetime) utilisé pour créer des données fictives afin de travailler plus rapidement.
