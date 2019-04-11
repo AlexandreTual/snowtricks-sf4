@@ -28,6 +28,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/edit")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @IsGranted("ROLE_USER")
      * @Template()
      */
@@ -49,6 +51,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/profile/{slug}")
+     * @param User $user
+     * @return array
      * @Template()
      */
     public function profile(User $user)
@@ -81,6 +85,9 @@ class UserController extends AbstractController
     /**
      * @Route("/password-update")
      * @IsGranted("ROLE_USER")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Template()
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder)

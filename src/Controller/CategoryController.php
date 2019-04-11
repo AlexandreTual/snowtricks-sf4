@@ -11,6 +11,8 @@ class CategoryController extends AbstractController
 {
     /**
      * @Route("/category/list")
+     * @param CategoryRepository $categoryRepo
+     * @return array
      * @Template()
      */
     public function categoriesList(CategoryRepository $categoryRepo)

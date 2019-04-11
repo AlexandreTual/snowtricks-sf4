@@ -54,8 +54,8 @@ class CommentController extends AbstractController
      * @param Comment $comment
      * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and user === comment.getUser()) or is_granted('ROLE_ADMIN')")
-     * @return void
      */
     public function delete(Trick $trick, Comment $comment, ObjectManager $manager)
     {
@@ -70,7 +70,9 @@ class CommentController extends AbstractController
      * @Route("/list/{trick_slug}/{offset}", condition="request.isXmlHttpRequest()")
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @param Trick $trick
-     * @param ObjectManager $manager
+     * @param $offset
+     * @param CommentRepository $commentRepo
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getComments(Trick $trick, $offset, CommentRepository $commentRepo)
     {
