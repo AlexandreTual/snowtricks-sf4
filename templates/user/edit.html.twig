@@ -4,11 +4,11 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="text-center">{{ 'form.edit.profile.title' }}</h1>
+        <h1 class="text-center">{{ 'form.edit.profile.title'|trans|capitalize }}</h1>
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-success">{{ 'word.save'|trans }}</button>
+        <button type="submit" class="btn btn-success">{{ 'word.save'|trans|capitalize }}</button>
         {{ form_end(form) }}
     </div>
 {% endblock %}

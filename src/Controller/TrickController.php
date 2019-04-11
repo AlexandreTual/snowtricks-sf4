@@ -104,7 +104,7 @@ class TrickController extends AbstractController
 
         return [
             'form' => $form->createView(),
-            'trick' => $trick
+            'trick' => $trick,
         ];
     }
 
@@ -127,7 +127,6 @@ class TrickController extends AbstractController
             $trick->setCoverImage($newCoverImage);
             $trick->addImage($newCoverImage);
             $this->manager->flush();
-
             $this->addFlash('success', 'flash.edit.image.success');
 
             return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);
@@ -179,7 +178,7 @@ class TrickController extends AbstractController
 
         return [
             'form' => $form->createView(),
-            'trick' => $trick
+            'trick' => $trick,
         ];
     }
 
@@ -205,7 +204,6 @@ class TrickController extends AbstractController
             $imageService->deleteImageInFolder($image);
             $trick->addImage($newImage);
             $this->manager->flush();
-
             $this->addFlash('success', 'flash.edit.image.success');
 
             return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);
@@ -238,7 +236,6 @@ class TrickController extends AbstractController
             $trick->removeVideo($video);
             $trick->addVideo($newVideo);
             $this->manager->flush();
-
             $this->addFlash('success', 'flash.edit.video.success');
 
             return $this->redirectToRoute('app_trick_edit', ['slug' => $trick->getSlug()]);

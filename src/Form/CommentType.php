@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CommentType extends AbstractType
 {
@@ -18,12 +17,6 @@ class CommentType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'form.comment.content.placeholder',
-                ]
-            ])
-            ->add('save', SubmitType::class, [
-                'label' => 'word.save',
-                'attr' => [
-                    'class' => 'btn btn-primary mx-4',
                 ]
             ])
         ;

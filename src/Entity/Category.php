@@ -100,7 +100,6 @@ class Category
 
     public function countTrick()
     {
-        $tricks = $this->tricks;
-        return count($tricks);
+        return count($this->tricks);
     }
 }

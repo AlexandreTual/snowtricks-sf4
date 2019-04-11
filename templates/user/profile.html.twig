@@ -7,10 +7,10 @@
 {% block body %}
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-3 text-center">
-                <img src="{{ user.picturePath }}" class="avatar mb-3" alt="{{ 'word.avatar.to'|trans }} {{ user.fullName }}">
+            <div class="col-sm-2 col-md-3 text-center">
+                <img src="{{ user.picturePath }}" class="mb-3" id="avatarProfile" alt="{{ 'word.avatar.to'|trans }} {{ user.fullName }}">
             </div>
-            <div class="col-9">
+            <div class="col-sm-8 col-md-9">
                 <h1>{{ user.fullname|capitalize }}</h1>
                 {% if user is same as (app.user) %}
                     <div class="mt-3">
