@@ -67,7 +67,8 @@ class RegistrationType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'label' => 'form.registration.picture.label',
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

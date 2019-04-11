@@ -72,7 +72,7 @@ class CommentController extends AbstractController
      * @param Trick $trick
      * @param ObjectManager $manager
      */
-    public function getComments(Trick $trick, $offset, ObjectManager $manager, CommentRepository $commentRepo)
+    public function getComments(Trick $trick, $offset, CommentRepository $commentRepo)
     {
         $comments = $commentRepo->findBy(['trick' => $trick->getId()],['id' => 'DESC'], 10, $offset);
 

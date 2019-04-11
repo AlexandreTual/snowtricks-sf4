@@ -4,10 +4,8 @@ namespace App\Service;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Entity\Video;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class TrickService
 {

@@ -19,11 +19,6 @@ div.container {
     border-radius: 50%;
 }
 
-.avatar-medium {
-    max-width: 64px;
-    max-height: 64px;
-}
-
 .avatar-mini {
     max-width: 24px;
     max-height: 24px;
@@ -44,13 +39,8 @@ div.container {
 }
 
 #arrowDownTrickList {
-    color: black;
     position: relative;
     top: -50px;
-}
-
-#arrowUpTrickList {
-    color: black;
 }
 
 #nameSite {
@@ -64,6 +54,16 @@ div.container {
         display: none;
     }
 
+    #avatarProfile {
+        max-width: 128px;
+        max-height: 128px;
+        border-radius: 50%;
+    }
+
+    #arrowUpTrickList {
+        position: relative;
+        bottom: -20px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -77,6 +77,21 @@ div.container {
 
     #navBarMobile {
         display: inline-flex;
+    }
+
+    #avatarProfile {
+        max-width: 64px;
+        max-height: 64px;
+    }
+
+    #indexImage {
+        height: 630px;
+        width: 375px;
+    }
+
+    #arrowUpTrickList {
+        position: relative;
+        bottom: 20px;
     }
 }
 

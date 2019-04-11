@@ -3,7 +3,10 @@
 {% block title %}{{ 'word.list.trick'|trans }}{% endblock %}
 
 {% block body %}
-    <div id="carouselTrickIndex" class="carousel slide" data-ride="carousel">
+    <div>
+        <img src="{{ images[0].linkPath }}" alt="{{ images[0].caption }}" class="embed-responsive" id="indexImage">
+    </div>
+    {#<div id="carouselTrickIndex" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             {% for image in images  %}
                 <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -17,7 +20,7 @@
         <a class="carousel-control-next" href="#carouselTrickIndex" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </a>
-    </div>
+    </div>#}
     <a href="#trickList"><i class="fas fa-angle-double-down fa-3x float-right" id="arrowDownTrickList"></i></a>
 
     <div class="container">

@@ -8,7 +8,6 @@ use App\Form\PasswordUpdateType;
 use App\Form\ProfileType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,9 +39,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->flush();
-            $this->addFlash(
-                'success',
-                'flash.user.profile.edit.success');
+            $this->addFlash('success', 'flash.user.profile.edit.success');
 
             return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug()]);
         }
@@ -94,17 +91,13 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (!$encoder->isPasswordValid($user,$form->get('oldPassword')->getData())) {
-                $this->addFlash(
-                    'danger',
-                    'flash.user.password.edit.danger');
+                $this->addFlash('danger', 'flash.user.password.edit.danger');
 
                 return $this->redirectToRoute('app_user_updatepassword');
             }
             $user->setHash($encoder->encodePassword($user, $user->getHash()));
             $this->manager->flush();
-            $this->addFlash(
-                'success',
-                "flash.user.password.edit.success");
+            $this->addFlash('success', "flash.user.password.edit.success");
 
             return $this->redirectToRoute('app_user_profile', ['slug' => $user->getSlug()]);
         }

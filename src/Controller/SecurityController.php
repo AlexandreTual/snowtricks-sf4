@@ -39,7 +39,10 @@ class SecurityController extends AbstractController
         $form = $this->createForm(LoginType::class, [$lastUsername]);
         $error = $authenticationUtils->getLastAuthenticationError();
 
-        return ['form' => $form->createView(), 'error' => $error];
+        return [
+            'form' => $form->createView(),
+            'error' => $error,
+        ];
     }
 
     /**

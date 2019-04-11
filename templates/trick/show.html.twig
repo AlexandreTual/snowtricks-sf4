@@ -6,7 +6,7 @@
     <div class="trick-title" style="background-image: url({{ trick.coverImage.linkPath }})">
         <h1 class="trick-title text-center">{{ trick.name }}</h1>
         {% if (app.user == trick.user) or is_granted('ROLE_ADMIN') %}
-            <div class="border border-primary text-center col-1 rounded info float-right">
+            <div class="border border-primary text-center col-md-1 rounded info float-right">
                 <a href="{{ path('app_trick_edit', {'slug': trick.slug}) }}">
                     <i class="far fa-edit mr-2" title="{{ 'link.title.trick.edit'|trans }}"></i>
                 </a>
@@ -60,6 +60,7 @@
                 <div class="row d-flex justify-content-center mt-4">
                         {{form_start(form, {'action': path('app_comment_add', {'slug': trick.slug}), 'attr': {'class': 'form-inline'}})}}
                         {{form_widget(form.content, {'label': false})}}
+                        <button type="submit" class="btn btn-success col my-2 mx-md-2">{{ 'word.save'|trans|capitalize }}</button>
                         {{form_end(form)}}
                 </div>
             {% endif %}

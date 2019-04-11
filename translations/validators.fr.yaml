@@ -1,6 +1,6 @@
 category.lenght.description.tooShort: La description doit comporter minimum 15 caractères.
 category.lenght.name.notBlank: Le nom de la catégorie ne peut pas être vide !
-form.passwordUpdate.password.constraints: Le mot de passe doit contenir six caractères minimum.
+form.passwordUpdate.password.constraints: Le mot de passe doit contenir 6 caractères minimum.
 form.passwordUpdate.password.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe.
 form.registration.hash.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe
 form.updatePassword.hash.invalid.message: Vous n'avez pas correctement confirmé votre mot de passe
@@ -16,3 +16,4 @@ user.lenght.hash: Le mot de passe doit faire au moins 6 caractères.
 user.lenght.introduction.tooLong: Votre présentation ne doit pas faire plus de 255 caractères.
 user.lenght.introduction.tooShort: Votre introduction doit faire au moins 30 caractères.
 user.uniquerEntity: Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.
+

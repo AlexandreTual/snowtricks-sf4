@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
             $introduction = $faker->sentence;
             $description = $faker->text(1000);
             $roles = ['ROLE_USER'];
-            $picture = 'c6a39f8d1a1f8e44b2c362efde817a06.jpeg';
+            $picture = 'default_avatar.jpeg';
 
             $user->setFirstName($firstName)
                 ->setLastName($lastName)
@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
         $introduction = $faker->sentence;
         $description = $faker->text(2000);
         $roles = ['ROLE_ADMIN'];
-        $picture = 'c6a39f8d1a1f8e44b2c362efde817a06.jpeg';
+        $picture = 'default_avatar.jpeg';
 
         $admin->setFirstName($firstName)
             ->setLastName($lastName)
