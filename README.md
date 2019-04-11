@@ -6,19 +6,19 @@ Création d'un site web sur le snowboard dans le cadre de la formation PHP/ Symf
 
 Je tiens à remercier **Gauthier Burgeat** (mon mentor chez OpenclassRoom) qui m'a accompagné tout au long du projet en distillant ses conseils et en faisant preuve de patience.
 
-###Auteur:
+### Auteur:
 [Alexandre TUAL](https://github.com/AlexandreTual)
 
-###Technologies:
+### Technologies:
 Snowtricks requière PHP => 7.01 
 
 PHPStorm 2019.1
 
-###Librairies
+### Librairies
 [fzaninotto/Faker
 ](https://github.com/fzaninotto/Faker/blob/master/readme.md#fakerproviderdatetime) utilisé pour créer des données fictives afin de travailler plus rapidement.
 
-###Installation
+### Installation
 Pour installer ce projet veuillez suivre les indications en tapant dans votre terminal les commandes suivantes:
 -  Cloner le projet:
 ```sh
