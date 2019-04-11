@@ -400,6 +400,6 @@ class User implements UserInterface
      */
     public function generateToken()
     {
-        $this->token = md5(random_bytes(10));
+        $this->token = hash('sha512', random_bytes(10));
     }
 }
