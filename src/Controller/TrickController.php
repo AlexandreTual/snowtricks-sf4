@@ -41,8 +41,9 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/category/{name}")
-     * @param $category
-     * @Template()
+     * @param Category $category
+     * @param TrickRepository $trickRepo
+     * @return array
      */
     public function trickByCategory(Category $category, TrickRepository $trickRepo)
     {
@@ -57,7 +58,6 @@ class TrickController extends AbstractController
     /**
      * @Route("/add")
      * @param Request $request
-     * @param ObjectManager $manager
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @IsGranted("ROLE_USER")
      * @Template()
@@ -144,8 +144,8 @@ class TrickController extends AbstractController
      * @ParamConverter("image", options={"id": "id"})
      * @param Trick $trick
      * @param Image $image
-     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      */
     public function coverImageSelect(Trick $trick, Image $image)
     {
@@ -189,6 +189,7 @@ class TrickController extends AbstractController
      * @param Image $image
      * @param Trick $trick
      * @param Request $request
+     * @param ImageService $imageService
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and (user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN'))", message="functionality.access.denied")
      * @Template()
@@ -252,6 +253,8 @@ class TrickController extends AbstractController
      * @ParamConverter("trick", options={"mapping": {"trick_slug": "slug"}})
      * @ParamConverter("image", options={"id": "image_id"})
      * @param Trick $trick
+     * @param $mediaType
+     * @param $mediaId
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      */
@@ -281,8 +284,8 @@ class TrickController extends AbstractController
     /**
      * @Route("/delete/{slug}")
      * @param Trick $trick
-     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Security("(is_granted('ROLE_USER') and user.getId() === trick.getUser().getId()) or is_granted('ROLE_ADMIN')", message="functionality.access.denied")
      */
     public function delete(Trick $trick)
     {

@@ -12,6 +12,9 @@ class AppController extends AbstractController
 {
     /**
      * @Route("/")
+     * @param TrickRepository $trickRepo
+     * @param ImageRepository $imageRepo
+     * @return array
      * @Template()
      */
     public function index(TrickRepository $trickRepo, ImageRepository $imageRepo)

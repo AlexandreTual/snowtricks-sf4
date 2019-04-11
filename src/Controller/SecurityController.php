@@ -31,6 +31,8 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/login")
+     * @param AuthenticationUtils $authenticationUtils
+     * @return array
      * @Template()
      */
     public function login(AuthenticationUtils $authenticationUtils)
@@ -54,6 +56,10 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/registration")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      * @Template()
      */
     public function registration(Request $request, UserPasswordEncoderInterface $encoder)
@@ -82,6 +88,7 @@ class SecurityController extends AbstractController
      * @ParamConverter("user", options={"mapping": {"user": "email"}})
      * @param User $user
      * @param $token
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function accountActivate(User $user, $token)
     {
@@ -101,10 +108,13 @@ class SecurityController extends AbstractController
      * @Route("/update/password/{email}/{token}")
      * @ParamConverter("user", options={"mapping": {"email": "email"}})
      * @param User $user
+     * @param Request $request
      * @param $token
-     * @Template()
+     * @param UserPasswordEncoderInterface $encoder
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
-    public function updatePassword(User $user,Request $request, $token, UserPasswordEncoderInterface $encoder)
+    public function updatePassword(User $user, Request $request, $token, UserPasswordEncoderInterface $encoder)
     {
         if ($token == $user->getToken()) {
             $form = $this->createForm(ForgotPasswordValidationType::class, $user);
@@ -129,6 +139,7 @@ class SecurityController extends AbstractController
      * @Route("/mail/confirm")
      * @param Request $request
      * @param UserRepository $userRepo
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function sendUpdatePassword(Request $request, UserRepository $userRepo)

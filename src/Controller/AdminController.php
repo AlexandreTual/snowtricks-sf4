@@ -24,13 +24,22 @@ class AdminController extends AbstractController
 {
     private $manager;
 
+    /**
+     * AdminController constructor.
+     * @param ObjectManager $manager
+     */
     public function __construct(ObjectManager $manager)
     {
         $this->manager = $manager;
     }
 
+
     /**
      * @Route("/")
+     * @param TrickRepository $trickRepo
+     * @param CategoryRepository $categoryRepo
+     * @param UserRepository $userRepo
+     * @return array
      * @Template()
      */
     public function index(TrickRepository $trickRepo, CategoryRepository $categoryRepo, UserRepository $userRepo)
@@ -48,9 +57,11 @@ class AdminController extends AbstractController
         ];
     }
 
+
     /**
      * @Route("/trick/delete/{slug}")
      * @param Trick $trick
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteTrick(Trick $trick)
     {
@@ -65,6 +76,7 @@ class AdminController extends AbstractController
      * @Route("/trick/edit/{slug}")
      * @param Trick $trick
      * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editTrick(Trick $trick, Request $request)
     {
@@ -85,6 +97,7 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/category/add")
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function addCategory(Request $request)
@@ -103,6 +116,9 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/category/edit/{id}")
+     * @param Category $category
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @Template()
      */
     public function editCategory(Category $category, Request $request)
@@ -124,7 +140,8 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/user/delete/{slug}")
-     * @param Trick $trick
+     * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteUser(User $user)
     {
@@ -140,6 +157,7 @@ class AdminController extends AbstractController
      * @ParamConverter("user", options={"mapping": {"slug": "slug"}})
      * @param $role
      * @param User $user
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function manageRoleUser($role, User $user)
     {
