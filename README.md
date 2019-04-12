@@ -13,7 +13,7 @@ Je tiens à remercier **Gauthier Burgeat** (mon mentor chez [OPENCLASSROOMS](htt
 PHP => 7.1 
 
 ### Librairies
-[bootstrap v4.0](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+[bootstrap v4.0](https://getbootstrap.com/docs/4.0/getting-started/introduction/)  
 [fzaninotto/Faker
 ](https://github.com/fzaninotto/Faker/blob/master/readme.md#fakerproviderdatetime) utilisé pour créer des données fictives afin de travailler plus rapidement.
 
