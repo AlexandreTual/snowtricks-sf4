@@ -6,10 +6,10 @@ Création d'un site web sur le snowboard dans le cadre de la formation PHP/ Symf
 
 Je tiens à remercier **Gauthier Burgeat** (mon mentor chez [OPENCLASSROOMS](https://openclassrooms.com/fr/)) qui m'a accompagné tout au long du projet en distillant ses conseils et en faisant preuve de patience.
 
-### Auteur:
+### Auteur
 [Alexandre TUAL](https://github.com/AlexandreTual)
 
-### Technologies:
+### Technologies
 PHP => 7.1 
 
 ### Librairies
@@ -18,13 +18,13 @@ PHP => 7.1
 ](https://github.com/fzaninotto/Faker/blob/master/readme.md#fakerproviderdatetime) utilisé pour créer des données fictives afin de travailler plus rapidement.
 
 ### Installation
-Pour installer ce projet veuillez suivre les indications en tapant dans votre terminal les commandes suivantes:
--  Cloner le projet:
+Pour installer ce projet veuillez suivre les indications en tapant dans votre terminal les commandes suivantes :
+-  Cloner le projet
 ```sh
 git clone https://github.com/AlexandreTual/snowtricks-sf4.git
 ```
 
-- Mettre a jour les dépendances du projet :
+- Mettre a jour les dépendances du projet
 ```sh
 composer install
 ```
@@ -37,7 +37,7 @@ modifiez également la ligne 34 pour que l'application puisse envoyer les emails
 ```yaml
 MAILER_URL=gmail: //username:password@localhost
 ```
-- Création de la base de donnée:
+- Création de la base de données
 ```sh
 php bin/console doctrine:database:create
 ```
@@ -47,7 +47,7 @@ php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force
 ```
 
-- Insertion de données fictives:
+- Insertion de données fictives
 ```sh 
 php bin/console doctrine:fixtures:load
 ```
