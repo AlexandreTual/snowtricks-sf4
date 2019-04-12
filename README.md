@@ -10,11 +10,10 @@ Je tiens à remercier **Gauthier Burgeat** (mon mentor chez [OPENCLASSROOMS](htt
 [Alexandre TUAL](https://github.com/AlexandreTual)
 
 ### Technologies:
-Snowtricks requière PHP => 7.01 
-
-PHPStorm 2019.1
+PHP => 7.1 
 
 ### Librairies
+[bootstrap v4.0](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
 [fzaninotto/Faker
 ](https://github.com/fzaninotto/Faker/blob/master/readme.md#fakerproviderdatetime) utilisé pour créer des données fictives afin de travailler plus rapidement.
 
@@ -27,7 +26,7 @@ git clone https://github.com/AlexandreTual/snowtricks-sf4.git
 
 - Mettre a jour les dépendances du projet :
 ```sh
-composer update
+composer install
 ```
 
 Ouvrez le fichier .env, du projet et modifiez la ligne 27 pour mettre vos identifiants et le nom que vous souhaitez pour la base de données. Si vous utilisez un autre SGBDR veuillez vous référer à la documentation de [symfony](https://symfony.com/doc/current/doctrine.html)
