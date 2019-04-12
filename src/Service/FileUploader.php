@@ -16,7 +16,7 @@ class FileUploader
 
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $fileName = hash('sha512',(uniqid())).'.'.$file->guessExtension();
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
