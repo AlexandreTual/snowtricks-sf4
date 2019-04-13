@@ -113,6 +113,7 @@ class SecurityController extends AbstractController
      * @param UserPasswordEncoderInterface $encoder
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
+     * @Template()
      */
     public function updatePassword(User $user, Request $request, $token, UserPasswordEncoderInterface $encoder)
     {
