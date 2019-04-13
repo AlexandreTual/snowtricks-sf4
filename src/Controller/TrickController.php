@@ -44,6 +44,7 @@ class TrickController extends AbstractController
      * @param Category $category
      * @param TrickRepository $trickRepo
      * @return array
+     * @Template()
      */
     public function trickByCategory(Category $category, TrickRepository $trickRepo)
     {
