@@ -16,4 +16,5 @@ user.lenght.hash: Le mot de passe doit faire au moins 6 caractères.
 user.lenght.introduction.tooLong: Votre présentation ne doit pas faire plus de 255 caractères.
 user.lenght.introduction.tooShort: Votre introduction doit faire au moins 30 caractères.
 user.uniquerEntity: Cette adresse mail est déjà prise, veuillez en utiliser une autre pour créer votre compte.
+functionality.access.denied: Vous n'avez pas les droits pour accéder à cette fonctionnalité
 

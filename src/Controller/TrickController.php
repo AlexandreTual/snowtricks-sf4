@@ -44,6 +44,7 @@ class TrickController extends AbstractController
      * @param Category $category
      * @param TrickRepository $trickRepo
      * @return array
+     * @Template()
      */
     public function trickByCategory(Category $category, TrickRepository $trickRepo)
     {
@@ -267,7 +268,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/")
+     * @Route("/{slug}")
      * @param Trick $trick
      * @return array
      * @Template()

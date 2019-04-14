@@ -109,7 +109,6 @@ form.user.avatar.label: Nouvel avatar
 form.video.button.add: Ajouter une vidéo
 form.video.tag.label: Votre vidéo
 form.video.tag.placeholder: 'Ex: <iframe width="752" height="423" src="https://www.youtube.com/embed/lndaFheZNuw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-functionality.access.denied: Vous n'avez pas les droits pour accéder à cette fonctionnalité
 link.title.coverImage.select: selectionner comme image de couverture
 link.title.image.delete: supprimer l'image
 link.title.image.edit: editer l'image
@@ -181,3 +180,9 @@ word.trick: trick
 word.updatedAt: mis à jour le
 word.users: utilisateurs
 word.user: utilisateur
+page.error.404.title: page non trouvées
+page.error.404.h1: Oups ! La page que vous cherchez n'existe pas !
+page.error.403.h1: Alors on essaye transgresser ?
+page.error.404.info: On vous a surement mal renseigné ! Aucun soucis, vous pouvez retourner à l'accueil et voir nos derniers articles !
+page.error.403.info: vous n'avez pas le droit d'accéder a cette ressource ! Vous pouvez toujours retourner à l'accueil et voir nos derniers articles !
+button.return.home: Retour à l'accueil
