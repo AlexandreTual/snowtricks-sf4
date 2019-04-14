@@ -268,7 +268,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/")
+     * @Route("/{slug}")
      * @param Trick $trick
      * @return array
      * @Template()

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'page.error.404.title'|trans|capitalize }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{ 'page.error.404.h1'|trans|capitalize }}</h1>
+        <p>{{ 'page.error.404.info'|trans|capitalize }}</p>
+        <a href="{{ path('app_app_index') }}" class="btn btn-outline-success">{{ 'button.return.home'|trans|capitalize }}</a>
+    </div>
+{% endblock %}
