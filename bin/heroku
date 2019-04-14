@@ -1,0 +1,17 @@
+#!/bin/bash
+ 
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 NAME" >&2
+  exit 1
+fi
+ 
+heroku create $1 --region eu --addons=jawsdb:kitefin -n
+ 
+heroku buildpacks:set heroku/php -a $1
+ 
+heroku config:set APP_ENV=prod SYMFONY_ENV=prod APP_SECRET=kJqsdmlkqsjHGQUQOLksdjhqsbvqvV -a $1
+ 
+heroku git:remote --remote=heroku-$1 -a $1
+git push heroku-$1 master
+ 
+heroku run php bin/console doctrine:schema:update --force -a $1
