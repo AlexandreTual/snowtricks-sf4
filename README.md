@@ -4,8 +4,6 @@
 
 Création d'un site web sur le snowboard dans le cadre de la formation PHP/ Symfony OC
 
-Je tiens à remercier **Gauthier Burgeat** (mon mentor chez [OPENCLASSROOMS](https://openclassrooms.com/fr/)) qui m'a accompagné tout au long du projet en distillant ses conseils et en faisant preuve de patience.
-
 ### Auteur
 [Alexandre TUAL](https://github.com/AlexandreTual)
 
